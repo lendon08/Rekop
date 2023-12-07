@@ -7,7 +7,7 @@ use App\Models\Company;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\URL;
+
 
 
 class CallHistory extends Component
@@ -45,13 +45,11 @@ class CallHistory extends Component
         'playRecordingEnded' => 'playRecordingEnded'
     ];
 
-
+    //Make use of the Signalwire Natural Pagination
     public function mount($company)
     {
-        $this->selectedCompany = Company::where('id', $company)->first();
+        $calls = SignalWire::http('/api/laml/2010-04-01/Accounts/' . env('SIGNALWIRE_PROJECTID') . '/Calls??Status=completed');
 
-        // For all calls
-        $calls = SignalWire::http($this->selectedCompany, '/api/laml/2010-04-01/Accounts/' . env('SIGNALWIRE_PROJECTID') . '/Calls??Status=completed');
         $this->numOfCall = count($calls['calls'] ?? []);
 
 
@@ -65,35 +63,11 @@ class CallHistory extends Component
         $this->numOfUniqueCall = count(array_unique($uniqueCalls) ?? []);
 
         $this->phoneNumbers = collect($calls['calls'] ?? []);
-
-
-
-        // Only have recording
-        // $calls = SignalWire::http($this->selectedCompany, '/api/laml/2010-04-01/Accounts/'.env('SIGNALWIRE_PROJECTID').'/Recordings');
-        // dd($calls);
-        // $this->numOfCall = count($calls['calls'] ?? []);
-
-
-        // $uniqueCalls = [];
-        // foreach ($calls['recordings'] as $call) {
-        //     if (isset($call['to'])) {
-        //         $uniqueCalls[] = $call['to'];
-        //     }
-        // }
-
-        // $this->numOfUniqueCall = count(array_unique($uniqueCalls) ?? []);
-
-
-        // $this->phoneNumbers = collect($calls['recordings'] ?? []);
-        // dd($this->phoneNumbers);
-
-
     }
 
     public function render()
     {
         $sortedUsers = $this->phoneNumbers ?? [];
-
 
         if ($this->sortDirection === 'desc') {
             $sortedUsers =  $sortedUsers->sortByDesc($this->sortField);
@@ -107,6 +81,14 @@ class CallHistory extends Component
         $currentPage = $this->page ?: 1;
         $offset = ($currentPage - 1) * $perPage;
 
+        foreach ($sortedUsers as $key => $value) {
+            $sortedUsers[$key]['duration'] = $this->beautifyCallDuration($value['duration']);
+            $sortedUsers[$key]['date_created'] = $this->beautifyCallDate($value['date_created']);
+            $sortedUsers[$key]['direction'] = $this->beautifyCallDirection($value['direction']);
+        }
+
+
+        //Laravel Pagination -> Signalwire
         $paginatedUsers = new LengthAwarePaginator(
             array_slice($sortedUsers, $offset, $perPage, true),
             count($sortedUsers),
@@ -118,6 +100,21 @@ class CallHistory extends Component
         return view('livewire.pages.phone-numbers.call-history', [
             'calls' => $paginatedUsers,
         ]);
+    }
+
+    function beautifyCallDate($date)
+    {
+        $date = substr($date, 5, 20);
+        $newdate = substr($date, 3, 3) . ' ' . substr($date, 0, 2) . ' ' . date("g:i A", strtotime(substr($date, 12, 8)));
+        return $newdate;
+    }
+    function beautifyCallDuration($duration)
+    {
+        return gmdate("H:i:s", $duration);
+    }
+    function beautifyCallDirection($direction)
+    {
+        return ucfirst(str_replace("-dial", "", $direction));
     }
 
     public function sortBy($field)
@@ -195,5 +192,11 @@ class CallHistory extends Component
 
             ],
         );
+    }
+
+    public function toTimeFormat($seconds)
+    {
+
+        return Carbon\CarbonInterval::seconds($seconds)->cascade()->forHumans();
     }
 }
