@@ -4,8 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,12 +20,22 @@ class DatabaseSeeder extends Seeder
         //     'space_url' => 'riztheseowiz.signalwire.com'
         // ]);
 
-        //neh
-        DB::table('Companies')->insert([
-            'owner_id' => 1,
-            'name' => 'Walmart stores',
-            'location' => 'Short St Bishop, California(CA), 93514',
-            'lead_value' => 50
-        ]);
+        // DB::table('Bins')->insert([
+        //     'name' => 'Greeting: Tulsa Sex Store',
+        //     'link' => 'https://drive.google.com/file/d/14c2iGNHWJhNe-FDZBWYWA6q8nhhpvI8U/view?usp=sharing'
+        // ]);
+
+        // DB::table('Bins')->insert([
+        //     'name' => 'Fwd: Tulsa Sex Store',
+        //     'link' => 'https://drive.google.com/file/d/1XJT07Hco2OBLmkoDaeJscBVmjmKSuHBw/view?usp=sharing'
+        // ]);
+        // DB::table('Bins')->insert([
+        //     'name' => 'Fwd: Houston Sex Store',
+        //     'link' => 'https://drive.google.com/file/d/1QxxgsCvRRhe7BDc5nhpQdAxO01aq_5lK/view?usp=sharing'
+        // ]);
+        // DB::table('Bins')->insert([
+        //     'name' => 'Greeting: Houston Sex Store',
+        //     'link' => 'https://drive.google.com/file/d/1lJJXmwhvGLZPaFqt74pI6eR_xSm5tryz/view?usp=sharing'
+        // ]);
     }
 }
