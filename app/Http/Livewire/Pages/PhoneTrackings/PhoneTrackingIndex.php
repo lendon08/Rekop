@@ -4,16 +4,12 @@ namespace App\Http\Livewire\Pages\PhoneTrackings;
 
 use App\Http\Livewire\Traits\WithForm;
 use App\Integrations\SignalWire;
-use App\Models\Company;
-use Illuminate\Http\Request;
 use Livewire\Component;
-use Illuminate\Support\Carbon;
 
 class PhoneTrackingIndex extends Component
 {
     use WithForm;
 
-    public $selectedCompanyID;
 
     protected $listeners = [
         'phoneTrackingIndexRefresh' => '$refresh',
@@ -21,19 +17,9 @@ class PhoneTrackingIndex extends Component
 
     public function render()
     {
-        $companies = Company::paginate();
-
-        $selectedCompany = Company::query();
-
-        if ($this->selectedCompanyID > 0 ) {
-            $selectedCompany = $selectedCompany->where('id', $this->selectedCompanyID);
-        }
-
-        $selectedCompany = $selectedCompany->first();
-
-        $phoneNumbers = SignalWire::http($selectedCompany, '/api/relay/rest/phone_numbers');
-
-        return view('livewire.pages.phone-trackings.phone-tracking-index', compact('companies', 'phoneNumbers', 'selectedCompany'));
+        $phoneNumbers = SignalWire::http('/api/relay/rest/phone_numbers');
+        // dd($phoneNumbers);
+        return view('livewire.pages.phone-trackings.phone-tracking-index', compact('phoneNumbers'));
     }
 
     public function createPhoneNum()

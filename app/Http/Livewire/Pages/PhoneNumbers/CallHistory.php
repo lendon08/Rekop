@@ -45,8 +45,10 @@ class CallHistory extends Component
         'playRecordingEnded' => 'playRecordingEnded'
     ];
 
-    //Make use of the Signalwire Natural Pagination
-    public function mount($company)
+    //1. Make use of the Signalwire Natural Pagination or
+    // store it in database
+    //2. 
+    public function mount()
     {
         $calls = SignalWire::http('/api/laml/2010-04-01/Accounts/' . env('SIGNALWIRE_PROJECTID') . '/Calls??Status=completed');
 
@@ -67,8 +69,14 @@ class CallHistory extends Component
 
     public function render()
     {
-        $sortedUsers = $this->phoneNumbers ?? [];
 
+        // Update Forwarding
+        // SignalWire::updateForwarding('/api/relay/rest/phone_numbers/a76a4ebc-4f6e-47aa-bd66-21b36ccd6ec7', 
+        // "https://riztheseowiz.signalwire.com/api/laml/2010-04-01/Accounts/341c89fe-24f0-4265-8c1f-ba993b277d0c/LamlBins/b39786ed-ab4e-4db1-8ef1-81e19b3a153c");
+        
+        $sortedUsers = $this->phoneNumbers ?? [];
+        $companyNumbers = SignalWire::http('/api/relay/rest/phone_numbers/')['data'];
+// dd($companyNumbers);
         if ($this->sortDirection === 'desc') {
             $sortedUsers =  $sortedUsers->sortByDesc($this->sortField);
         } else {
@@ -85,9 +93,14 @@ class CallHistory extends Component
             $sortedUsers[$key]['duration'] = $this->beautifyCallDuration($value['duration']);
             $sortedUsers[$key]['date_created'] = $this->beautifyCallDate($value['date_created']);
             $sortedUsers[$key]['direction'] = $this->beautifyCallDirection($value['direction']);
+
+            foreach($companyNumbers as $key2 => $value2){
+                if($value2['id'] == $sortedUsers[$key2]['phone_number_sid']){
+                    $sortedUsers[$key]['pname']=$value2['name'];
+                }
+            }
         }
-
-
+        
         //Laravel Pagination -> Signalwire
         $paginatedUsers = new LengthAwarePaginator(
             array_slice($sortedUsers, $offset, $perPage, true),
@@ -97,8 +110,9 @@ class CallHistory extends Component
             ['path' => request()->url()]
         );
 
+        
         return view('livewire.pages.phone-numbers.call-history', [
-            'calls' => $paginatedUsers,
+            'calls' => $paginatedUsers
         ]);
     }
 
@@ -152,7 +166,7 @@ class CallHistory extends Component
 
         $this->currentPlayButton = $currentPlayButton;
 
-        $recordings = SignalWire::http($this->selectedCompany, $recordingUri);
+        $recordings = SignalWire::http($recordingUri);
 
         if (isset($recordings['recordings']) && count($recordings['recordings']) > 0) {
             $currentRecording = array_pop($recordings['recordings']);

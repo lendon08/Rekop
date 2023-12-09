@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PhonenumberController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 /*
@@ -18,8 +19,11 @@ Route::middleware('auth')->group(function () {
     Route::get('dashboard', App\Http\Livewire\Pages\Dashboard::class)->name('dashboard');
     Route::get('companies', App\Http\Livewire\Pages\Companies\CompanyIndex::class)->name('companies');
     Route::get('phone-trackings', App\Http\Livewire\Pages\PhoneTrackings\PhoneTrackingIndex::class)->name('phone-trackings');
+
+    Route::get('phone-trackings-seed', [PhonenumberController::class, 'seedPhoneNunber']);
+    
     // Route::get('phone-trackings/{company}/reports', App\Http\Livewire\Pages\PhoneTrackings\PhoneTrackingReport::class)->name('report-phone-trackings');
-    Route::get('call-histories/{company}', App\Http\Livewire\Pages\PhoneNumbers\CallHistory::class)->name('call-histories');
+    Route::get('call-histories', App\Http\Livewire\Pages\PhoneNumbers\CallHistory::class)->name('call-histories');
 });
 //still need more work to create invoice
 Route::get('call-histories/{company}/reports', App\Http\Livewire\Pages\PhoneNumbers\CallHistoryReport::class, function (Request $request) {
@@ -27,5 +31,7 @@ Route::get('call-histories/{company}/reports', App\Http\Livewire\Pages\PhoneNumb
         abort(401);
     }
 })->name('call-history-reports');
+
+
 
 require __DIR__ . '/auth.php';
