@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', App\Http\Livewire\Pages\Dashboard::class)->name('dashboard');
     Route::get('companies', App\Http\Livewire\Pages\Companies\CompanyIndex::class)->name('companies');
-    Route::get('phone-trackings', App\Http\Livewire\Pages\PhoneTrackings\PhoneTrackingIndex::class)->name('phone-trackings');
+    Route::get('phone-settings', App\Http\Livewire\Pages\PhoneTrackings\PhoneTrackingIndex::class)->name('phone-settings');
 
     Route::get('phone-trackings-seed', [PhonenumberController::class, 'seedPhoneNunber']);
     

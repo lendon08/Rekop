@@ -25,11 +25,6 @@ class PhoneTrackingView extends Component
             
             
         }
-
-        dd($recordings);
-
-
-
     }
 
     public function render()
