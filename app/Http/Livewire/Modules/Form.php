@@ -30,7 +30,7 @@ class Form extends Component
         $this->action = $action;   
 
         $this->data = $data; 
-
+       
         $this->isConfirm = ($action == 'destroy') ? true : false;
     }
 
