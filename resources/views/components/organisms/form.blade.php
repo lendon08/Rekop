@@ -16,10 +16,9 @@
     @else
         {{ $slot }}
     @endif
-
     <div class="mt-5 bottom-0 left-0 flex pb-4 space-x-4">
         <x-atoms.forms.button color="success" type="submit">
-            <x-atoms.icons.plus /> @if($isConfirm) Yes I'm sure @else  Submit @endif
+            <x-atoms.icons.edit /> @if($isConfirm) Yes I'm sure @else  Submit @endif
         </x-atoms.forms.button>
         <x-atoms.forms.button type="button" color="danger" wire:click.defer="$emitTo('modules.form', 'closeForm')">
             <x-atoms.icons.cancel /> Cancel

@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::get('call-histories', App\Http\Livewire\Pages\PhoneNumbers\CallHistory::class)->name('call-histories');
 });
 //still need more work to create invoice
-Route::get('call-histories/{company}/reports', App\Http\Livewire\Pages\PhoneNumbers\CallHistoryReport::class, function (Request $request) {
+Route::get('call-histories/reports/{calls}', App\Http\Livewire\Pages\PhoneNumbers\CallHistoryReport::class, function (Request $request) {
     if (!$request->hasValidSignature()) {
         abort(401);
     }

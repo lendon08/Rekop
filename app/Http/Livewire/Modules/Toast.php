@@ -24,16 +24,19 @@ class Toast extends Component
         'closeToast' => 'close',
     ];
 
-    public function open(string $mode, array $options)
+  
+    public function open(string $mode)
     {   
         $this->mode = $mode;
-
+        
         $this->showToast = true;
 
-        $this->title = $options['title'] ?? $this->defaultMessage['title'];
+        $this->title = session('title') ?? $this->defaultMessage['title'];
+        
+        $this->message = session('message') ?? $this->defaultMessage['message'];
 
-        $this->message = $options['message'] ?? $this->defaultMessage['message'];
-
+        session()->forget('title', 'message');
+        
         $this->dispatchBrowserEvent('closeToast');
     }
 

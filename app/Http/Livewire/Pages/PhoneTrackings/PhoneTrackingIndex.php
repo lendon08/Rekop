@@ -3,28 +3,41 @@
 namespace App\Http\Livewire\Pages\PhoneTrackings;
 
 use App\Http\Livewire\Traits\WithForm;
+use App\Http\Livewire\Traits\WithToast;
 use App\Integrations\SignalWire;
 use Livewire\Component;
 
 class PhoneTrackingIndex extends Component
 {
-    use WithForm;
+    use WithForm,WithToast;
 
+    public $flashmessage="";
+    public $xmlBins = [];
+    public $phoneNumbers = [];
     protected $listeners = [
         'phoneTrackingIndexRefresh' => '$refresh',
     ];
 
+    public function mount()
+    {
+        $this->xmlBins = SignalWire::http("/api/laml/2010-04-01/Accounts/".env("SIGNALWIRE_PROJECTID")."/LamlBins");
+        $this->phoneNumbers = SignalWire::http('/api/relay/rest/phone_numbers');
+        foreach($this->phoneNumbers['data'] as $key =>$pn){
+            $this->phoneNumbers['data'][$key]['number'] = $this->beautifyPhoneNumber($pn['number']);
+            $this->phoneNumbers['data'][$key]['bin_name'] = $this->checkBinName($pn['call_request_url'], $this->xmlBins['laml_bins']);
+        }   
+    }
     public function render()
     {
-        $phoneNumbers = SignalWire::http('/api/relay/rest/phone_numbers');
-        
-        foreach($phoneNumbers['data'] as $key =>$pn){
-            $phoneNumbers['data'][$key]['number'] = $this->beautifyPhoneNumber($pn['number']);
-        }        
-        return view('livewire.pages.phone-trackings.phone-tracking-index', compact('phoneNumbers'));
+        return view('livewire.pages.phone-trackings.phone-tracking-index');
     }
-
-    public function beautifyPhoneNumber($number){
+    
+    private function checkBinName($id, $bins){
+        foreach($bins as $bin){
+            if($bin['request_url'] == $id) return $bin['name'];
+        }
+    }
+    private function beautifyPhoneNumber($number){
         return substr($number, 2,3).'-'.substr($number, 5,3).'-'.substr($number, 8,4);
     }
 
@@ -38,6 +51,7 @@ class PhoneTrackingIndex extends Component
         $this->openForm('forms.phone-trackings.view-phone-number');
     }
     public function editPhoneNum($id){
+        
         $phoneInfo = SignalWire::http("/api/relay/rest/phone_numbers/".$id);
         $xmlBins = SignalWire::http("/api/laml/2010-04-01/Accounts/".env("SIGNALWIRE_PROJECTID")."/LamlBins");
         $phoneInfo['bins']=$xmlBins['laml_bins']; 

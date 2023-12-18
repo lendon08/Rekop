@@ -1,6 +1,7 @@
 <main>
     <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5 dark:bg-gray-800 dark:border-gray-700">
         <div class="w-full mb-1">
+           
             <div class="mb-4">
                 <nav class="flex mb-5" aria-label="Breadcrumb">
                     <ol class="inline-flex items-center space-x-1 text-sm font-medium md:space-x-2">
@@ -34,7 +35,7 @@
             </div>
         </div>
     </div>
-
+    
     @if(isset($phoneNumbers['data']))
         <div class="flex flex-col">
             <div class="overflow-x-auto">
@@ -43,6 +44,7 @@
                         <tr>
                             <x-atoms.tables.th>ID</x-atoms.tables.th>
                             <x-atoms.tables.th>Number</x-atoms.tables.th>
+                            <x-atoms.tables.th>Bin Use</x-atoms.tables.th>
                             <x-atoms.tables.th>Action</x-atoms.tables.th>
                         </tr>
                     </x-molecules.tables.thead>
@@ -57,9 +59,12 @@
                                     <div class="text-sm font-normal text-gray-500 dark:text-gray-400">{{ $phoneNumber['id'] }}</div>
                                 </x-atoms.tables.td>
                                 <x-atoms.tables.td>{{ $phoneNumber['number'] }}</x-atoms.tables.td>
+                                <x-atoms.tables.td>{{ $phoneNumber['bin_name'] }}</x-atoms.tables.td>
                                 <x-atoms.tables.td>
                                     <!-- TODO -->
-                                    <button wire:click="editPhoneNum('{{$phoneNumber['id']}}')" class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700">
+                                    <button wire:click="editPhoneNum('{{$phoneNumber['id']}}')" 
+                                    name="something"
+                                    class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700">
                                         Edit
                                     </button>
                                 </x-atoms.tables.td>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Pages\PhoneNumbers;
 
+use App\Http\Livewire\Traits\WithToast;
 use App\Integrations\SignalWire;
 use App\Models\Company;
 use Livewire\Component;
@@ -12,7 +13,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class CallHistory extends Component
 {
-    use WithPagination;
+    use WithPagination, WithToast;
 
     public $selectAll = false;
 
@@ -76,7 +77,7 @@ class CallHistory extends Component
         
         $sortedUsers = $this->phoneNumbers ?? [];
         $companyNumbers = SignalWire::http('/api/relay/rest/phone_numbers/')['data'];
-// dd($companyNumbers);
+
         if ($this->sortDirection === 'desc') {
             $sortedUsers =  $sortedUsers->sortByDesc($this->sortField);
         } else {
@@ -187,30 +188,29 @@ class CallHistory extends Component
 
     public function generateReport()
     {
-        $collection = $this->phoneNumbers;
-        $sidArray = $this->selectedItems;
 
-        $filteredCollection = $collection->filter(function ($item) use ($sidArray) {
-            return in_array($item['sid'], $sidArray);
-        })->toArray();
+        if(!empty($this->selectedItems))
+        return to_route('call-history-reports', ['calls' =>  json_encode($this->selectedItems)]);
+        else{
+            session(['title' => 'Failed to Generate Report', 'message' => 'Select from the list first!']);
+            $this->openToast('failed'); 
+        }
 
+        // $collection = $this->phoneNumbers;
+        // $sidArray = $this->selectedItems;
+        
+
+        // $filteredCollection = $collection->filter(function ($item) use ($sidArray) {
+        //     return in_array($item['sid'], $sidArray);
+        // })->toArray();
+       
         //todo
         // $tempURL = URL::temporarySignedRoute('call-history-reports', now()->addMinutes(5), ['company' => $this->selectedCompany->id, 'calls' =>  json_encode($filteredCollection)]);
         // view()->share('company', $this->selectedCompany->id);
 
-        return redirect()->route(
-            'call-history-reports',
-            [
-                'company' => $this->selectedCompany->id,
-                'calls' =>  json_encode($filteredCollection)
-
-            ],
-        );
+      
+        
     }
 
-    public function toTimeFormat($seconds)
-    {
-
-        return Carbon\CarbonInterval::seconds($seconds)->cascade()->forHumans();
-    }
+   
 }
