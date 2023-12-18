@@ -16,6 +16,8 @@ class EditPhoneNumber extends Component
     public $action="";
     public $name;
     public $forwarding;
+    public $starttime="01:30";
+    public $endtime="02:30";
     //initialize before opening form
     public function mount($action, $data){
         $this->action = $action;
