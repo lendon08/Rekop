@@ -36,7 +36,7 @@ class SignalWire
     public static function updateForwarding(string $endpoint, string $externalUrl){
 
         $url = 'https://' . env('SIGNALWIRE_SPACE_URL') . '' .$endpoint;
-        $externalUrl = 'https://'.env('SIGNALWIRE_SPACE_URL').'/laml-bins/'.$externalUrl;
+        // $externalUrl = 'https://'.env('SIGNALWIRE_SPACE_URL').'/laml-bins/'.$externalUrl;
         try {
             $response = Http::asForm()
             ->withBasicAuth(env('SIGNALWIRE_PROJECTID'), env('SIGNALWIRE_TOKEN'))

@@ -36,7 +36,6 @@
         </div>
     </div>
     
-    @if(isset($phoneNumbers['data']))
         <div class="flex flex-col">
             <div class="overflow-x-auto">
                 <x-organisms.table>
@@ -51,29 +50,53 @@
 
                     <x-molecules.tables.tbody>
                         @foreach ($phoneNumbers['data'] as $phoneNumber)
-                            <tr>
-                                <x-atoms.tables.td>
-                                    <div class="text-base font-semibold text-gray-900 dark:text-white">
-                                        {{ Str::limit($phoneNumber['name'] ?? $phoneNumber['number'] , 50, ' ...') }}
-                                    </div>
-                                    <div class="text-sm font-normal text-gray-500 dark:text-gray-400">{{ $phoneNumber['id'] }}</div>
-                                </x-atoms.tables.td>
-                                <x-atoms.tables.td>{{ $phoneNumber['number'] }}</x-atoms.tables.td>
-                                <x-atoms.tables.td>{{ $phoneNumber['bin_name'] }}</x-atoms.tables.td>
-                                <x-atoms.tables.td>
-                                    <!-- TODO -->
-                                    <button wire:click="editPhoneNum('{{$phoneNumber['id']}}')" 
-                                    name="something"
-                                    class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700">
-                                        Edit
-                                    </button>
-                                </x-atoms.tables.td>
-                            </tr>
+                        <tr>
+                        
+                            <x-atoms.tables.td>
+                                <div class="text-base font-semibold text-gray-900 dark:text-white">
+                                    {{ Str::limit($phoneNumber['name'] ?? $phoneNumber['number'] , 50, ' ...') }}
+                                </div>
+                                <div class="text-sm font-normal text-gray-500 dark:text-gray-400">{{ $phoneNumber['id'] }}</div>
+                            </x-atoms.tables.td>
+                            <x-atoms.tables.td>{{ $phoneNumber['number'] }}</x-atoms.tables.td>
+                            <x-atoms.tables.td>
+
+                                @foreach($phoneNumber['schedule'] as $key => $sched)
+                                    <span>
+                                        @if(!empty($sched['call_request_url']))
+                                            {{ $sched['bin_name'] }}   
+                                            @if($sched['start_sched'] !== $sched['end_sched'])
+                                                {{ " (". date("h:ia", strtotime($sched['start_sched']))."-".date("h:ia", strtotime($sched['end_sched'])).")" }}
+                                            @else
+                                                (No Schedule)
+                                            @endif
+
+                                            @if(!array_key_last($sched) == $key)
+                                                <hr>
+                                            @endif
+                                        
+                                        
+                                        @endif
+                                        
+                                    </span>
+                                   
+                                @endforeach
+                                
+                            </x-atoms.tables.td>
+                            <x-atoms.tables.td>
+                                <!-- TODO -->
+                                <button wire:click="editPhoneNum('{{$phoneNumber['id']}}')"
+                                class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700">
+                                    Edit
+                                </button>
+                            </x-atoms.tables.td>
+                        </tr>
                         @endforeach
+                        
                     </x-molecules.tables.tbody>
                 </x-organisms.table>
             </div>
         </div>
-    @endif
+ 
 </main>
 

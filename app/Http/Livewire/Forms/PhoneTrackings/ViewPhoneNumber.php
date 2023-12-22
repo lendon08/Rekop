@@ -8,6 +8,7 @@ class ViewPhoneNumber extends Component
 {
     public function render()
     {
+        dd('here?');
         return view('livewire.forms.phone-trackings.view-phone-number');
     }
 }

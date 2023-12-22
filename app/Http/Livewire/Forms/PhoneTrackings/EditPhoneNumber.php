@@ -6,6 +6,7 @@ use App\Http\Livewire\Traits\WithForm;
 use App\Http\Livewire\Traits\WithToast;
 use App\Integrations\SignalWire;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 
 class EditPhoneNumber extends Component
 {
@@ -13,22 +14,61 @@ class EditPhoneNumber extends Component
     use WithForm,WithToast;
 
     public $data=[];
+    
     public $action="";
+    
     public $name;
-    public $forwarding;
-    public $starttime="01:30";
-    public $endtime="02:30";
+
+    public $schedid = [];
+    
+    public $xmlbins=[];
+
+    public $startsched = [];
+
+    public $endsched = [];
+
+
     //initialize before opening form
     public function mount($action, $data){
         $this->action = $action;
         $this->data = $data;
         $this->name = $data['name'];
-        $this->forwarding= substr($data['call_request_url'], 46);
+        
+        foreach($data['schedule'] as $key => $sched){
+            $this->startsched[$key] = $this->arrangeTime($sched['start_sched']);
+            $this->endsched[$key] = $this->arrangeTime($sched['end_sched']);
+            $this->xmlbins[$key] = $sched['bin_name'];
+            $this->schedid[$key] = $sched['id'];
+        }
+       
+    }
+    private function arrangeTime($time){
+        return date('H:i', strtotime($time));
     }
 
     public function create(){
+        //IMPORTANT
         
-        SignalWire::updateForwarding("/api/relay/rest/phone_numbers/".$this->data['id'],$this->forwarding );
+        //1. Create Cron job to trigger signalwire udpate
+
+        //2. Trigger Cron job using database time
+
+        //3. Upddate signalwire on the cronjob trigger
+        // SignalWire::updateForwarding("/api/relay/rest/phone_numbers/".$this->data['id'], id_here );
+
+        dd($this);
+        
+        foreach($this->schedid as $key => $id){
+            DB::table('phonenumbers')
+                ->where('id', $id)
+                ->update([
+                    'call_request_url' => "https://".env("SIGNALWIRE_SPACE_URL")."/laml-bins/".$this->xmlbins[$key], 
+                    'start_sched' => $this->startsched[$key], 
+                    'end_sched' => $this->endsched[$key]
+                ]);
+        }
+      
+        
     
         session(['title' => 'Success', 'message' => 'Call Forwarding settings has been updated!']);
         
@@ -36,6 +76,8 @@ class EditPhoneNumber extends Component
         
         $this->openToast('success');
     }
+
+
 
     public function render()
     {

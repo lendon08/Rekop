@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('phonenumbers', function (Blueprint $table) {
-            $table->string('id')->unique();
+            $table->id();
+            $table->string('phone_id');
             $table->string('name')->nullable();
             $table->string('number');
-            $table->string('call_handler');
             $table->string('call_request_url')->nullable();
-            $table->string('message_handler');
-            $table->string('message_request_url')->nullable();
+            $table->time('start_sched')->nullable();
+            $table->time('end_sched')->nullable();
             $table->timestamps();
         });
     }
