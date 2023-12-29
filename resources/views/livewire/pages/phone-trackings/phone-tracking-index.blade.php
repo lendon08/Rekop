@@ -59,36 +59,20 @@
                                 <div class="text-sm font-normal text-gray-500 dark:text-gray-400">{{ $phoneNumber['id'] }}</div>
                             </x-atoms.tables.td>
                             <x-atoms.tables.td>{{ $phoneNumber['number'] }}</x-atoms.tables.td>
-                            <x-atoms.tables.td>
-
-                                @foreach($phoneNumber['schedule'] as $key => $sched)
-                                    <span>
-                                        @if(!empty($sched['call_request_url']))
-                                            {{ $sched['bin_name'] }}   
-                                            @if($sched['start_sched'] !== $sched['end_sched'])
-                                                {{ " (". date("h:ia", strtotime($sched['start_sched']))."-".date("h:ia", strtotime($sched['end_sched'])).")" }}
-                                            @else
-                                                (No Schedule)
-                                            @endif
-
-                                            @if(!array_key_last($sched) == $key)
-                                                <hr>
-                                            @endif
-                                        
-                                        
-                                        @endif
-                                        
-                                    </span>
-                                   
+                            <x-atoms.tables.td wire:ignore>
+                                @foreach($phoneNumber['schedule'] as $sched)
+                                    @livewire('pages.phone-trackings.phone-tracking-index-dropdown', ['sched'=> $sched])
                                 @endforeach
-                                
+
                             </x-atoms.tables.td>
+                            
                             <x-atoms.tables.td>
                                 <!-- TODO -->
-                                <button wire:click="editPhoneNum('{{$phoneNumber['id']}}')"
-                                class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700">
-                                    Edit
-                                </button>
+                                <input type='button' wire:click="editPhoneNum('{{$phoneNumber['id']}}')" value='Edit'
+                                class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700" />
+                                <div wire:loading wire:target="editPhoneNum('{{$phoneNumber['id']}}')">
+                                    Loading this number.
+                                </div>
                             </x-atoms.tables.td>
                         </tr>
                         @endforeach

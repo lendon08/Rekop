@@ -16,16 +16,16 @@
                 @endif
                     SCHEDULE
             </legend>
-            <!-- <div wire:ignore.self> -->
-            <x-atoms.forms.label for="xmlbins">BINS</x-atoms.label>
+
+            <x-atoms.forms.label for="xmlbins">BINS
                 <x-atoms.forms.select wire:model="xmlbins.{{$key}}">    
                     <option value="" disabled>--SELECT OPTION--</option>
                     @foreach($data['bins'] as $bin)
-                        <option value="{{$bin['sid']}}">{{ $bin['name'] }}</option>
+                        <option>{{ $bin['name'] }}</option>
                     @endforeach
                 </x-atoms.forms.select>
             <x-atoms.forms.validation for="form.xmlbins"/>
-            <!-- </div>          -->
+            </x-atoms.label>
             <div class="grid grid-cols-2 gap-4">
                 <x-atoms.forms.label for="startsched" class="mt-4">Start Time</x-atoms.label>
                 <x-atoms.forms.label for="endsched" class="mt-4">End Time</x-atoms.label>

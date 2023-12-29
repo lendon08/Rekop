@@ -37,11 +37,16 @@ class PhoneTrackingIndex extends Component
             $this->phoneNumbers['data'][$key]['number'] = $this->beautifyPhoneNumber($pn['number']);
             $this->phoneNumbers['data'][$key]['schedule'] = $this->getSchedule($pn['id']);
         }
-        dd($this->phoneNumbers['data']);
+        // dd($this->phoneNumbers['data']); 
     }
     public function render()
     {
         return view('livewire.pages.phone-trackings.phone-tracking-index');
+    }
+    public function hydrate(){
+        foreach($this->phoneNumbers['data'] as $key =>$pn){
+            $this->phoneNumbers['data'][$key]['schedule'] = $this->getSchedule($pn['id']);
+        }
     }
 
     public function createPhoneNum()
@@ -59,9 +64,11 @@ class PhoneTrackingIndex extends Component
         $xmlBins = SignalWire::http("/api/laml/2010-04-01/Accounts/".env("SIGNALWIRE_PROJECTID")."/LamlBins");
         $phoneInfo['bins']=$xmlBins['laml_bins']; 
         $phoneInfo['schedule']=$this->getSchedule($id);
-        // dd($phoneInfo);
+           
         $this->openForm('forms.phone-trackings.edit-phone-number', 'create' , $phoneInfo);
     }
+
+
 
     private function getSchedule($id):array{
         $phoneSchedules = json_decode(DB::table('phonenumbers')->where('phone_id', $id)->get(), true);
@@ -89,7 +96,8 @@ class PhoneTrackingIndex extends Component
 
     private function checkBinName($id, $bins){
         foreach($bins as $bin){
-            if($bin['request_url'] == $id) return $bin['name'];
+            if($bin['request_url'] == $id) 
+            return $bin['name'];
         }
     }
     private function beautifyPhoneNumber($number){

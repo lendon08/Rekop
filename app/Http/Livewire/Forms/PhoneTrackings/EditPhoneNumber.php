@@ -28,7 +28,6 @@ class EditPhoneNumber extends Component
     public $endsched = [];
 
 
-    //initialize before opening form
     public function mount($action, $data){
         $this->action = $action;
         $this->data = $data;
@@ -47,22 +46,21 @@ class EditPhoneNumber extends Component
     }
 
     public function create(){
-        //IMPORTANT
-        
-        //1. Create Cron job to trigger signalwire udpate
-
-        //2. Trigger Cron job using database time
-
-        //3. Upddate signalwire on the cronjob trigger
-        // SignalWire::updateForwarding("/api/relay/rest/phone_numbers/".$this->data['id'], id_here );
-
-        dd($this);
-        
+        $newbin = [];
+        foreach($this->xmlbins as $key => $xmlbin)
+        {
+            foreach($this->data['bins'] as $index => $bin){
+                if($xmlbin==$bin['name']){
+                    $newbin[$key]=$bin['request_url'];
+                    break;
+                }
+            }
+        }
         foreach($this->schedid as $key => $id){
             DB::table('phonenumbers')
                 ->where('id', $id)
                 ->update([
-                    'call_request_url' => "https://".env("SIGNALWIRE_SPACE_URL")."/laml-bins/".$this->xmlbins[$key], 
+                    'call_request_url' =>$newbin[$key] , 
                     'start_sched' => $this->startsched[$key], 
                     'end_sched' => $this->endsched[$key]
                 ]);
