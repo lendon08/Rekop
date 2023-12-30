@@ -6,11 +6,14 @@ use Illuminate\Http\Request;
 use Livewire\Component;
 use App\Integrations\SignalWire;
 use App\Models\Company;
-
+use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 
 class CallHistoryReport extends Component
 {
     public $phoneNumbers = [];
+
+    public bool $playRecording;
 
     public ?string $currentRecording = null;
 
@@ -27,39 +30,35 @@ class CallHistoryReport extends Component
 
     public $calls= array();
     public Company $selectedCompany;
+    
+    public $multiply= 50;
+    public $total =0;
 
     public function mount(Request $request)
     {
         
         //something is wrong in here
         // $this->selectedCompany = Company::where('id', 1)->first();
-
+        
        
-        $this->phoneNumbers = json_decode($request->calls, true);
-        $this->numOfCall = count($this->phoneNumbers ?? []);
-
-
-        foreach($this->phoneNumbers as $key => $sid){
+        $this->phoneNumbers = Str::of($request->call)->trim('[]')->replace('"', '')->explode(',');
         
-            array_push(
-                $this->calls, 
-                SignalWire::http('/api/laml/2010-04-01/Accounts/'. env('SIGNALWIRE_PROJECTID') . '/Calls/'.$sid) 
-            );
+        $this->numOfCall = 2;
+        // count($this->phoneNumbers ?? []);
+
+
+        foreach($this->phoneNumbers as $sid){
+            $this->calls[]= SignalWire::http('/api/laml/2010-04-01/Accounts/'. env('SIGNALWIRE_PROJECTID') . '/Calls/'.$sid);
         }
-        dd($this->calls);    
-    
-        
+
+        $this->total = array_sum(array_column($this->calls, 'price'));
+
         // $this->tempURL = $request->tempURL;
     }
 
     public function render()
     {
-        $total = array_sum(array_column($this->phoneNumbers, 'price'));
-        return view('livewire.pages.phone-numbers.call-history-report', [
-            'calls' => $this->phoneNumbers,
-            'multiplier' => $this->selectedCompany->toArray()['lead_value'],
-            'total' => $total,
-        ]);
+        return view('livewire.pages.phone-numbers.call-history-report');
     }
 
     public function playRecordingEnded()

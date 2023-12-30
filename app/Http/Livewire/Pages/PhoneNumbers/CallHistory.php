@@ -19,7 +19,7 @@ class CallHistory extends Component
 
     public $selectedItems = [];
 
-    public $phoneNumbers = []; // Your custom array of users
+    public $phoneNumbers ; // Your custom array of users
 
     public $sortField = 'name'; // Default sorting field
 
@@ -76,7 +76,7 @@ class CallHistory extends Component
         // "https://riztheseowiz.signalwire.com/api/laml/2010-04-01/Accounts/341c89fe-24f0-4265-8c1f-ba993b277d0c/LamlBins/b39786ed-ab4e-4db1-8ef1-81e19b3a153c");
         
         $sortedUsers = $this->phoneNumbers ?? [];
-        $companyNumbers = SignalWire::http('/api/relay/rest/phone_numbers/')['data'];
+        $companyNumbers = SignalWire::http('/api/relay/rest/phone_numbers/');
 
         if ($this->sortDirection === 'desc') {
             $sortedUsers =  $sortedUsers->sortByDesc($this->sortField);
@@ -95,7 +95,7 @@ class CallHistory extends Component
             $sortedUsers[$key]['date_created'] = $this->beautifyCallDate($value['date_created']);
             $sortedUsers[$key]['direction'] = $this->beautifyCallDirection($value['direction']);
 
-            foreach($companyNumbers as $key2 => $value2){
+            foreach($companyNumbers['data'] as $key2 => $value2){
                 if($value2['id'] == $sortedUsers[$key2]['phone_number_sid']){
                     $sortedUsers[$key]['pname']=$value2['name'];
                 }
@@ -190,7 +190,10 @@ class CallHistory extends Component
     {
 
         if(!empty($this->selectedItems))
-        return to_route('call-history-reports', ['calls' =>  json_encode($this->selectedItems)]);
+        {
+            // dd($this->selectedItems);
+            return to_route('call-history-reports', ['call' =>  json_encode($this->selectedItems)]);
+        }
         else{
             session(['title' => 'Failed to Generate Report', 'message' => 'Select from the list first!']);
             $this->openToast('failed'); 

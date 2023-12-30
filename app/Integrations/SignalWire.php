@@ -15,7 +15,7 @@ class SignalWire
     public static function http(string $endpoint)
     {
         $url = 'https://' . env('SIGNALWIRE_SPACE_URL') . '' . $endpoint;
-
+ 
         try {
             $response = Http::asForm()
             ->withBasicAuth(env('SIGNALWIRE_PROJECTID'), env('SIGNALWIRE_TOKEN'))
@@ -27,7 +27,7 @@ class SignalWire
             }
             return $response->json();
         } catch (\Exception $ex) {
-            // throw new Exception('HTTP ERROR: ' . $ex->getMessage());
+            throw new Exception('HTTP ERROR: ' . $ex->getMessage());
         }
     }
 
@@ -36,7 +36,6 @@ class SignalWire
     public static function updateForwarding(string $endpoint, string $externalUrl){
 
         $url = 'https://' . env('SIGNALWIRE_SPACE_URL') . '' .$endpoint;
-        // $externalUrl = 'https://'.env('SIGNALWIRE_SPACE_URL').'/laml-bins/'.$externalUrl;
         try {
             $response = Http::asForm()
             ->withBasicAuth(env('SIGNALWIRE_PROJECTID'), env('SIGNALWIRE_TOKEN'))

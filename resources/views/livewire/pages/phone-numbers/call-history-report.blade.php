@@ -35,7 +35,7 @@
                 <div class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
                     <div class="w-full">
                         <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">Lead Value</h3>
-                        <span class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl dark:text-white">{{ $multiplier }}</span>
+                        <span class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl dark:text-white">{{ $multiply }}</span>
                     </div>
                 </div>
             </div>
@@ -106,7 +106,7 @@
                     <tr>
                         <x-atoms.tables.td colspan="3"></x-atoms.tables.td>
                         <x-atoms.tables.td>TOTAL PRICE</x-atoms.tables.td>
-                        <x-atoms.tables.td><strong>{{ $total * $multiplier }}</strong></x-atoms.tables.td>
+                        <x-atoms.tables.td><strong>{{ $total * $multiply }}</strong></x-atoms.tables.td>
                         <x-atoms.tables.td></x-atoms.tables.td>
                         <x-atoms.tables.td></x-atoms.tables.td>
                     </tr>
@@ -125,7 +125,7 @@
                     <path d="M18 7H2a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2v-3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Zm-1-2V2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v3h14Z" />
                 </svg> Print
             </a>
-            <a href="{{ route('call-histories', ['company'=> $selectedCompany->id]) }}" class="inline-flex items-center justify-center flex-1 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-primary-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-primary-800">
+            <a href="{{ route('call-histories') }}" class="inline-flex items-center justify-center flex-1 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-primary-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-primary-800">
                 <svg class="w-5 h-5 mr-1 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                 </svg>
