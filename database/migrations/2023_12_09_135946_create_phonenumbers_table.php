@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('phone_id');
             $table->string('name')->nullable();
             $table->string('number');
+            $table->string('fwd');
             $table->string('call_request_url')->nullable();
             $table->time('start_sched')->nullable();
             $table->time('end_sched')->nullable();

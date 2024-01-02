@@ -27,17 +27,20 @@ class EditPhoneNumber extends Component
 
     public $endsched = [];
 
+    public $fwd = [];
 
     public function mount($action, $data){
         $this->action = $action;
         $this->data = $data;
         $this->name = $data['name'];
-        
+        // dd($data);
         foreach($data['schedule'] as $key => $sched){
+            // dd($sched['fwd']);
             $this->startsched[$key] = $this->arrangeTime($sched['start_sched']);
             $this->endsched[$key] = $this->arrangeTime($sched['end_sched']);
             $this->xmlbins[$key] = $sched['bin_name'];
             $this->schedid[$key] = $sched['id'];
+            $this->fwd[$key] = $sched['fwd'];
         }
        
     }
@@ -46,23 +49,14 @@ class EditPhoneNumber extends Component
     }
 
     public function create(){
-        $newbin = [];
-        foreach($this->xmlbins as $key => $xmlbin)
-        {
-            foreach($this->data['bins'] as $index => $bin){
-                if($xmlbin==$bin['name']){
-                    $newbin[$key]=$bin['request_url'];
-                    break;
-                }
-            }
-        }
+       
         foreach($this->schedid as $key => $id){
             DB::table('phonenumbers')
                 ->where('id', $id)
                 ->update([
-                    'call_request_url' =>$newbin[$key] , 
                     'start_sched' => $this->startsched[$key], 
-                    'end_sched' => $this->endsched[$key]
+                    'end_sched' => $this->endsched[$key],
+                    'fwd' => $this->fwd[$key]
                 ]);
         }
       

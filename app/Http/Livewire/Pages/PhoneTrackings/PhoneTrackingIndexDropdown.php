@@ -10,7 +10,7 @@ class PhoneTrackingIndexDropdown extends Component
     public $sched=[];
     public function mount($sched){
         $this->sched = $sched;
-        // dd($sched);
+        // dd(strlen($sched['fwd'])); 
     }
     public function render()
     {

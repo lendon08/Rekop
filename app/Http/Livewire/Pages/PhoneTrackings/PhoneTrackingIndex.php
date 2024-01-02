@@ -73,11 +73,12 @@ class PhoneTrackingIndex extends Component
     private function getSchedule($id):array{
         $phoneSchedules = json_decode(DB::table('phonenumbers')->where('phone_id', $id)->get(), true);
         $schedule = [];
-        
+                
         foreach($phoneSchedules as $index => $phoneSchedule){
             $schedule[$index] = $phoneSchedule;    
             $schedule[$index]['bin_name'] = $this->checkBinName($phoneSchedule['call_request_url'], $this->xmlBins['laml_bins']);
         }
+        // dd($schedule);
         return $schedule;
     }
 
