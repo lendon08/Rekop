@@ -58,7 +58,7 @@ class CallHistoryReport extends Component
 
     public function render()
     {
-        return view('livewire.pages.phone-numbers.call-history-report');
+        return view('livewire.pages.phone-numbers.call-history-report')->layout('layouts.report');
     }
 
     public function playRecordingEnded()
