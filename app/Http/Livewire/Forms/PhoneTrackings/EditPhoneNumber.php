@@ -11,17 +11,19 @@ use Illuminate\Support\Facades\DB;
 class EditPhoneNumber extends Component
 {
 
-    use WithForm,WithToast;
+    use WithForm, WithToast;
 
-    public $data=[];
-    
-    public $action="";
-    
+
+
+    public $action = "";
+
     public $name;
 
+    public $schedules = [];
+
     public $schedid = [];
-    
-    public $xmlbins=[];
+
+    public $xmlbins = [];
 
     public $startsched = [];
 
@@ -29,43 +31,63 @@ class EditPhoneNumber extends Component
 
     public $fwd = [];
 
-    public function mount($action, $data){
+    public $i = 0;
+
+    public function mount($action, $data)
+    {
         $this->action = $action;
-        $this->data = $data;
         $this->name = $data['name'];
-        // dd($data);
-        foreach($data['schedule'] as $key => $sched){
+        $this->schedules = $data['schedule'];
+        foreach ($this->schedules as $key => $sched) {
             // dd($sched['fwd']);
             $this->startsched[$key] = $this->arrangeTime($sched['start_sched']);
             $this->endsched[$key] = $this->arrangeTime($sched['end_sched']);
-            $this->xmlbins[$key] = $sched['bin_name'];
+            $this->xmlbins[$key] = $sched['bin_name']; // Needed
             $this->schedid[$key] = $sched['id'];
             $this->fwd[$key] = $sched['fwd'];
+            $this->i = $key;
         }
-       
     }
-    private function arrangeTime($time){
+
+    public function addSchedule($i)
+    {
+        $this->i = $i + 1;
+        array_push($this->schedules, $i);
+    }
+    public function removeSchedule($i)
+    {
+        $i = $i - 1;
+        $this->i = $i;
+        unset($this->schedules[$i]);
+        unset($this->startsched[$i]);
+        unset($this->endsched[$i]);
+        unset($this->fwd[$i]);
+    }
+    private function arrangeTime($time)
+    {
         return date('H:i', strtotime($time));
     }
 
-    public function create(){
-       
-        foreach($this->schedid as $key => $id){
+    public function create()
+    {
+
+        dd($this);
+        foreach ($this->schedid as $key => $id) {
             DB::table('phonenumbers')
                 ->where('id', $id)
                 ->update([
-                    'start_sched' => $this->startsched[$key], 
+                    'start_sched' => $this->startsched[$key],
                     'end_sched' => $this->endsched[$key],
                     'fwd' => $this->fwd[$key]
                 ]);
         }
-      
-        
-    
+
+
+
         session(['title' => 'Success', 'message' => 'Call Forwarding settings has been updated!']);
-        
+
         $this->closeForm();
-        
+
         $this->openToast('success');
     }
 
@@ -75,4 +97,4 @@ class EditPhoneNumber extends Component
     {
         return view('livewire.forms.phone-trackings.edit-phone-number');
     }
-}   
+}
