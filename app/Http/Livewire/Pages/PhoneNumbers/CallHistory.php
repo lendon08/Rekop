@@ -48,7 +48,7 @@ class CallHistory extends Component
 
     //1. Make use of the Signalwire Natural Pagination or
     // store it in database
-    //2. 
+    //2.
     public function mount()
     {
         $calls = SignalWire::http('/api/laml/2010-04-01/Accounts/' . env('SIGNALWIRE_PROJECTID') . '/Calls??Status=completed');
@@ -72,9 +72,9 @@ class CallHistory extends Component
     {
 
         // Update Forwarding
-        // SignalWire::updateForwarding('/api/relay/rest/phone_numbers/a76a4ebc-4f6e-47aa-bd66-21b36ccd6ec7', 
+        // SignalWire::updateForwarding('/api/relay/rest/phone_numbers/a76a4ebc-4f6e-47aa-bd66-21b36ccd6ec7',
         // "https://riztheseowiz.signalwire.com/api/laml/2010-04-01/Accounts/341c89fe-24f0-4265-8c1f-ba993b277d0c/LamlBins/b39786ed-ab4e-4db1-8ef1-81e19b3a153c");
-        
+
         $sortedUsers = $this->phoneNumbers ?? [];
         $companyNumbers = SignalWire::http('/api/relay/rest/phone_numbers/')['data'];
 
@@ -95,13 +95,13 @@ class CallHistory extends Component
             $sortedUsers[$key]['date_created'] = $this->beautifyCallDate($value['date_created']);
             $sortedUsers[$key]['direction'] = $this->beautifyCallDirection($value['direction']);
 
-            foreach($companyNumbers as $key2 => $value2){
-                if($value2['id'] == $sortedUsers[$key2]['phone_number_sid']){
-                    $sortedUsers[$key]['pname']=$value2['name'];
+            foreach ($companyNumbers as $key2 => $value2) {
+                if ($value2['id'] == $sortedUsers[$key2]['phone_number_sid']) {
+                    $sortedUsers[$key]['pname'] = $value2['name'];
                 }
             }
         }
-        
+
         //Laravel Pagination -> Signalwire
         $paginatedUsers = new LengthAwarePaginator(
             array_slice($sortedUsers, $offset, $perPage, true),
@@ -111,7 +111,7 @@ class CallHistory extends Component
             ['path' => request()->url()]
         );
 
-        
+
         return view('livewire.pages.phone-numbers.call-history', [
             'calls' => $paginatedUsers
         ]);
@@ -189,28 +189,27 @@ class CallHistory extends Component
     public function generateReport()
     {
 
-        if(!empty($this->selectedItems))
-        return to_route('call-history-reports', ['calls' =>  json_encode($this->selectedItems)]);
-        else{
-            session(['title' => 'Failed to Generate Report', 'message' => 'Select from the list first!']);
-            $this->openToast('failed'); 
+        if (!empty($this->selectedItems)) {
+            return to_route('call-history-reports', ['calls' =>  json_encode($this->selectedItems)]);
         }
+
+        session(['title' => 'Failed to Generate Report', 'message' => 'Select from the list first!']);
+        $this->openToast('failed');
+
 
         // $collection = $this->phoneNumbers;
         // $sidArray = $this->selectedItems;
-        
+
 
         // $filteredCollection = $collection->filter(function ($item) use ($sidArray) {
         //     return in_array($item['sid'], $sidArray);
         // })->toArray();
-       
+
         //todo
         // $tempURL = URL::temporarySignedRoute('call-history-reports', now()->addMinutes(5), ['company' => $this->selectedCompany->id, 'calls' =>  json_encode($filteredCollection)]);
         // view()->share('company', $this->selectedCompany->id);
 
-      
-        
-    }
 
-   
+
+    }
 }

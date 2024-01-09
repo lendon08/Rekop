@@ -21,9 +21,11 @@ Route::middleware('auth')->group(function () {
     Route::get('phone-settings', App\Http\Livewire\Pages\PhoneTrackings\PhoneTrackingIndex::class)->name('phone-settings');
 
     Route::get('phone-trackings-seed', [PhonenumberController::class, 'seedPhoneNunber']);
-    
+
     // Route::get('phone-trackings/{company}/reports', App\Http\Livewire\Pages\PhoneTrackings\PhoneTrackingReport::class)->name('report-phone-trackings');
     Route::get('call-histories', App\Http\Livewire\Pages\PhoneNumbers\CallHistory::class)->name('call-histories');
+
+    Route::get('phone-settings/add-schedule/{id}', App\Http\Livewire\Pages\PhoneTrackings\PhoneTrackingAddSchedule::class)->name('phone-settings-add-schedule');
 });
 //still need more work to create invoice
 Route::get('call-histories/reports/{calls}', App\Http\Livewire\Pages\PhoneNumbers\CallHistoryReport::class, function (Request $request) {
@@ -31,6 +33,7 @@ Route::get('call-histories/reports/{calls}', App\Http\Livewire\Pages\PhoneNumber
         abort(401);
     }
 })->name('call-history-reports');
+
 
 
 

@@ -2,21 +2,28 @@
     <x-organisms.form>
         <div>
             <x-atoms.forms.label for="name">Name</x-atoms.label>
-                <x-atoms.forms.textbox type="text" wire:model="name" aria-disabled="true" disabled="true" />
+                <x-atoms.forms.textbox type="text" wire:model="name" disabled="false" />
                 <x-atoms.forms.validation for="form.name" />
         </div>
-        <button wire:click.prevent="addSchedule({{$i}})">Add Schedule</button>
-        <button wire:click.prevent="removeSchedule({{$i}})">Remove Schedule</button>
+
+        <!-- <x-atoms.forms.button type="button" color="success" wire:click.prevent="addSchedule({{$i}})">
+            <x-atoms.icons.addschedule />Add Schedule
+        </x-atoms.forms.button>
+
+        <x-atoms.forms.button type="button" color="secondary" wire:click.prevent="removeSchedule({{$i}})" disabled>
+            <x-atoms.icons.trash />Remove Schedule
+        </x-atoms.forms.button> -->
+
 
         @foreach($schedules as $key => $schedule)
         <input type="hidden" wire:model="schedid.{{$key}}" value="schedid[{{$key}}]">
         <fieldset class="block p-2.5 w-50 text-sm text-gray-900 bg-gray-700 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <legend>
-                {{ $i ."  ". $key}}
+                Business Hours # {{ " ". $key+1}}
             </legend>
 
             <x-atoms.forms.label for="fwd">Forwarded to
-                <x-atoms.forms.textbox type="text" wire:model="fwd.{{$key}}" />
+                <x-atoms.forms.textbox type="text" wire:model="fwd.{{$key}}" wire:change="formatNumber({{$key}})" wire:keyup="formatNumber({{$key}})" />
                 <x-atoms.forms.validation for="form.fwd" />
                 </x-atoms.label>
                 <div class="grid grid-cols-2 gap-4">

@@ -25,30 +25,30 @@ class CallHistoryReport extends Component
 
     public int $numOfCall = 0;
 
-    public $calls= array();
+    public $calls = array();
     public Company $selectedCompany;
 
     public function mount(Request $request)
     {
-        
+
         //something is wrong in here
         // $this->selectedCompany = Company::where('id', 1)->first();
 
-       
+
         $this->phoneNumbers = json_decode($request->calls, true);
         $this->numOfCall = count($this->phoneNumbers ?? []);
 
 
-        foreach($this->phoneNumbers as $key => $sid){
-        
+        foreach ($this->phoneNumbers as $key => $sid) {
+
             array_push(
-                $this->calls, 
-                SignalWire::http('/api/laml/2010-04-01/Accounts/'. env('SIGNALWIRE_PROJECTID') . '/Calls/'.$sid) 
+                $this->calls,
+                SignalWire::http('/api/laml/2010-04-01/Accounts/' . env('SIGNALWIRE_PROJECTID') . '/Calls/' . $sid)
             );
         }
-        dd($this->calls);    
-    
-        
+        // dd($this->calls);
+
+
         // $this->tempURL = $request->tempURL;
     }
 

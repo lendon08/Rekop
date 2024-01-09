@@ -5,8 +5,10 @@ namespace App\Http\Livewire\Forms\PhoneTrackings;
 use App\Http\Livewire\Traits\WithForm;
 use App\Http\Livewire\Traits\WithToast;
 use App\Integrations\SignalWire;
+use Faker\Provider\bg_BG\PhoneNumber;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
+use App\Models\Phonenumbers;
 
 class EditPhoneNumber extends Component
 {
@@ -33,11 +35,16 @@ class EditPhoneNumber extends Component
 
     public $i = 0;
 
+    public $pnid, $pnname, $pnnumber;
     public function mount($action, $data)
     {
+        $this->pnid = $data['id'];
+        $this->pnname = $data['name'];
+        $this->pnnumber = $data['number'];
         $this->action = $action;
         $this->name = $data['name'];
         $this->schedules = $data['schedule'];
+
         foreach ($this->schedules as $key => $sched) {
             // dd($sched['fwd']);
             $this->startsched[$key] = $this->arrangeTime($sched['start_sched']);
@@ -49,6 +56,22 @@ class EditPhoneNumber extends Component
         }
     }
 
+    public function formatNumber($key)
+    {
+        $num  = $this->fwd[$key];
+        $num = preg_replace('/[^0-9]+/', '', $num);
+        $num = substr($num, 0, 11);
+        $length = strlen($num);
+        $formatted = "";
+        for ($i = 0; $i < $length; $i++) {
+            $formatted .= $num[$i];
+            if ($i == 3 || $i == 6) {
+                $formatted .= "-";
+            }
+        }
+
+        $this->fwd[$key] = $formatted;
+    }
     public function addSchedule($i)
     {
         $this->i = $i + 1;
@@ -56,12 +79,13 @@ class EditPhoneNumber extends Component
     }
     public function removeSchedule($i)
     {
-        $i = $i - 1;
-        $this->i = $i;
+        //check if it i
         unset($this->schedules[$i]);
         unset($this->startsched[$i]);
         unset($this->endsched[$i]);
         unset($this->fwd[$i]);
+        $i = $i - 1;
+        $this->i = $i;
     }
     private function arrangeTime($time)
     {
@@ -70,17 +94,32 @@ class EditPhoneNumber extends Component
 
     public function create()
     {
-
-        dd($this);
-        foreach ($this->schedid as $key => $id) {
-            DB::table('phonenumbers')
-                ->where('id', $id)
-                ->update([
+        if (empty($this->schedid)) {
+            foreach ($this->schedules as $key => $id) {
+                Phonenumbers::insert([
+                    'phone_id' => $this->pnid,
+                    'name' => $this->pnname,
+                    'number' => $this->pnnumber,
                     'start_sched' => $this->startsched[$key],
                     'end_sched' => $this->endsched[$key],
                     'fwd' => $this->fwd[$key]
                 ]);
+            }
+        } else {
+            // foreach ($this->schedules as $key => $id) {
+            // if (Phonenumbers::where('id', $id)->exists()) {
+            //     dd("exist");
+            //     Phonenumbers::where('id', $id)
+            //         ->update([
+            //             'start_sched' => $this->startsched[$key],
+            //             'end_sched' => $this->endsched[$key],
+            //             'fwd' => $this->fwd[$key]
+            //         ]);
+            // } else {
+            //     dd("not");
+            // }
         }
+
 
 
 
