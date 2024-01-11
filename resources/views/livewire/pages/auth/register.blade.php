@@ -1,10 +1,10 @@
 <div>
     <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
-        Sign up to platform 
+        Sign up to platform
     </h2>
     <form class="mt-8 space-y-6" wire:submit.prevent="submit">
         <div>
-            <x-atoms.forms.label for="name">Your Name</x-atoms.label>
+            <x-atoms.forms.label for="name">Business Name</x-atoms.label>
             <x-atoms.forms.textbox type="name" name="name" id="name" wire:model="name"/>
             <x-atoms.forms.validation for="name"/>
         </div>

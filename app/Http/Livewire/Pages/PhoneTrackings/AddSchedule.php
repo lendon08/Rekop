@@ -9,7 +9,7 @@ use App\Models\Schedules;
 use App\Http\Livewire\Traits\WithToast;
 
 
-class PhoneTrackingAddSchedule extends Component
+class AddSchedule extends Component
 {
     use WithToast;
 
@@ -21,7 +21,8 @@ class PhoneTrackingAddSchedule extends Component
 
     public $schedid = [];
 
-    public $xmlbins = [];
+    // to Add later
+    // public $xmlbins = [];
 
     public $monstartsched=[], $tuestartsched=[],$wedstartsched=[],$thustartsched=[],$fristartsched=[],$satstartsched=[],$sunstartsched= [];
 
@@ -44,6 +45,7 @@ class PhoneTrackingAddSchedule extends Component
 
             Phonenumbers::insert([
                 'phone_id' => $phoneInfo['id'],
+                'owner_id' => auth()->user()->id,
                 'name' => $phoneInfo['name'],
                 'number' => $phoneInfo['number'],
 
@@ -58,12 +60,12 @@ class PhoneTrackingAddSchedule extends Component
             $this->pnnumber = $phoneInfo->number;
         }
         $this->sets =  Schedules::select(Schedules::raw('count(sets) as user_count'))
-        ->groupBy('sets')->get()->count();
+        ->groupBy('sets')->where('phone_id', $this->pnid)->get()->count();
 
     }
     public function render()
     {
-        return view('livewire.pages.phone-trackings.phone-tracking-add-schedule');
+        return view('livewire.pages.phone-trackings.add-schedule');
     }
 
     public function addSchedule($i)

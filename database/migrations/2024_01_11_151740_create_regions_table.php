@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -13,15 +14,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('phonenumbers', function (Blueprint $table) {
-            $table->string('phone_id')->unique();
-            $table->unsignedBigInteger('owner_id');
-            $table->string('name')->nullable();
-            $table->string('number');
+        Schema::create('regions', function (Blueprint $table) {
+            $table->id();
+            $table->enum('country', ['us', 'canada']);
+            $table->char('code', 2);
+            $table->string('name');
             $table->timestamps();
         });
-    }
 
+        Artisan::call('db:seed', [
+            '--class' => 'RegionsSeeder',
+            '--force' => true
+        ]);
+    }
 
     /**
      * Reverse the migrations.
@@ -30,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('phonenumbers');
+        Schema::dropIfExists('regions');
     }
 };

@@ -9,7 +9,7 @@ use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 
 
-class PhoneTrackingIndex extends Component
+class Index extends Component
 {
     use WithForm, WithToast;
 
@@ -36,12 +36,13 @@ class PhoneTrackingIndex extends Component
 
     public function render()
     {
-        return view('livewire.pages.phone-trackings.phone-tracking-index');
+        return view('livewire.pages.phone-trackings.index');
     }
 
-    public function createPhoneNum()
+    public function buyPhoneNum()
     {
-        $this->openForm('forms.phone-trackings.add-phone-number');
+        return to_route('buy-phone-number');
+        // $this->openForm('forms.phone-trackings.add-phone-number');
     }
 
     public function viewPhoneNum()
@@ -51,16 +52,17 @@ class PhoneTrackingIndex extends Component
 
     public function editPhoneNum($id)
     {
-        $phoneInfo = SignalWire::http("/api/relay/rest/phone_numbers/" . $id);
-        $xmlBins = SignalWire::http("/api/laml/2010-04-01/Accounts/" . env("SIGNALWIRE_PROJECTID") . "/LamlBins");
-        $phoneInfo['bins'] = $xmlBins['laml_bins'];
 
-        $this->openForm('forms.phone-trackings.edit-phone-number', 'edit', $phoneInfo);
+        // $xmlBins = SignalWire::http("/api/laml/2010-04-01/Accounts/" . env("SIGNALWIRE_PROJECTID") . "/LamlBins");
+        // $phoneInfo['bins'] = $xmlBins['laml_bins'];
+
+        // $this->openForm('forms.phone-trackings.edit-phone-number', 'edit', $phoneInfo);
+        return to_route('edit-schedule', ['id' => $id]);
     }
 
     public function addPhoneNum($id)
     {
-        return to_route('phone-settings-add-schedule', ['id' => $id]);
+        return to_route('add-schedule', ['id' => $id]);
     }
 
     private function beautifyPhoneNumber($number)
