@@ -15,7 +15,7 @@ class SignalWire
     public static function http(string $endpoint)
     {
         $url = 'https://' . env('SIGNALWIRE_SPACE_URL') . '' . $endpoint;
-
+        // dd($url);
         try {
             $response = Http::asForm()
             ->withBasicAuth(env('SIGNALWIRE_PROJECTID'), env('SIGNALWIRE_TOKEN'))
@@ -27,10 +27,13 @@ class SignalWire
             }
             return $response->json();
         } catch (\Exception $ex) {
-            // throw new Exception('HTTP ERROR: ' . $ex->getMessage());
+            throw new Exception('HTTP ERROR: ' . $ex->getMessage());
         }
     }
 
+    public static function buyNumber(){
+
+    }
 
 
     public static function updateForwarding(string $endpoint, string $externalUrl){
@@ -41,7 +44,7 @@ class SignalWire
             $response = Http::asForm()
             ->withBasicAuth(env('SIGNALWIRE_PROJECTID'), env('SIGNALWIRE_TOKEN'))
             ->put($url,
-                [ 
+                [
                     'call_request_url' => $externalUrl
                 ]
                 );
