@@ -16,18 +16,11 @@ class SignalWire
     {
         $url = 'https://' . env('SIGNALWIRE_SPACE_URL') . '' . $endpoint;
 
-        $headers = [
-            'Accept: application/json',
-            'Content-Type: application/x-www-form-urlencoded',
-        ];
-
         try {
-            $response = Http::withHeaders($headers)
-                ->withBasicAuth(env('SIGNALWIRE_PROJECTID'), env('SIGNALWIRE_TOKEN'))
-                ->withOptions([
-                    'verify' => true
-                ])
-                ->get($url);
+            $response = Http::asForm()
+            ->withBasicAuth(env('SIGNALWIRE_PROJECTID'), env('SIGNALWIRE_TOKEN'))
+            ->withToken(env('SIGNALWIRE_TOKEN'))
+            ->get($url);
 
             if ($response->failed()) {
                 throw new Exception('SIGNAL WIRE ERROR: ' . $response->body());
@@ -43,27 +36,19 @@ class SignalWire
     public static function updateForwarding(string $endpoint, string $externalUrl){
 
         $url = 'https://' . env('SIGNALWIRE_SPACE_URL') . '' .$endpoint;
-
-        $headers = [
-            'Accept: application/json',
-            'Content-Type: application/x-www-form-urlencoded',
-            '--data-raw \'{"call_handler": "laml_webhooks","call_request_url": "'.$externalUrl.'"}',
-        ];
-
+        // $externalUrl = 'https://'.env('SIGNALWIRE_SPACE_URL').'/laml-bins/'.$externalUrl;
         try {
-            $response = Http::withHeaders($headers)
-                ->withBasicAuth(env('SIGNALWIRE_PROJECTID'), env('SIGNALWIRE_TOKEN'))
-                ->put($url,
+            $response = Http::asForm()
+            ->withBasicAuth(env('SIGNALWIRE_PROJECTID'), env('SIGNALWIRE_TOKEN'))
+            ->put($url,
                 [ 
-                    'call_handler' => "laml_webhooks",
                     'call_request_url' => $externalUrl
                 ]
-            );
+                );
             if ($response->failed()) {
                 throw new Exception('SIGNAL WIRE ERROR: ' . $response->body());
             }
         } catch (\Exception $ex) {
-           
             throw new Exception('HTTP ERROR: ' . $ex->getMessage());
         }
     }

@@ -13,7 +13,7 @@ document.addEventListener('closeToast', function () {
     if (livewire) {
         setTimeout(() => {
             livewire.emitTo('modules.toast','closeToast');
-        }, 1000);
+        }, 3000);
     }
 });
 
@@ -121,6 +121,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         document.dispatchEvent(event);
-        
+
     });
 });
