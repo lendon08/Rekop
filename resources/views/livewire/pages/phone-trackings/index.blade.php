@@ -49,14 +49,15 @@
             <x-organisms.table>
                 <x-molecules.tables.thead>
                     <tr>
-                        <x-atoms.tables.th>ID</x-atoms.tables.th>
-                        <x-atoms.tables.th>Number</x-atoms.tables.th>
-                        <x-atoms.tables.th>Action</x-atoms.tables.th>
+                        <x-atoms.tables.th>Number Name</x-atoms.tables.th>
+                        <x-atoms.tables.th>Tracking Number</x-atoms.tables.th>
+                        <x-atoms.tables.th>Number of Schedules</x-atoms.tables.th>
+                        <x-atoms.tables.th>Actions</x-atoms.tables.th>
                     </tr>
                 </x-molecules.tables.thead>
 
                 <x-molecules.tables.tbody>
-                    @foreach ($phoneNumbers['data'] as $phoneNumber)
+                    @foreach ($phoneNumbers['data'] as $key => $phoneNumber)
                     <tr>
 
                         <x-atoms.tables.td>
@@ -66,15 +67,32 @@
                             <div class="text-sm font-normal text-gray-500 dark:text-gray-400">{{ $phoneNumber['id'] }}</div>
                         </x-atoms.tables.td>
                         <x-atoms.tables.td>{{ $phoneNumber['number'] }}</x-atoms.tables.td>
-                        <x-atoms.tables.td>
+                        <x-atoms.tables.td class='text-center'>{{ $phoneNumber['sets'] }}</x-atoms.tables.td>
+                        <x-atoms.tables.td class="pb-8">
                             <!-- TODO -->
+                            <div class="relative">
+                                <div class="absolute top-0 right-0">
+                                <x-atoms.forms.button wire:click="addPhoneNum('{{$phoneNumber['id']}}')" type="button" data-popover-target="add-schedule-{{$key}}">
+                                    <x-atoms.icons.addschedule />
+                                </x-atoms.forms.button>
+                                    <div data-popover id="add-schedule-{{$key}}" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                                        <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                            <h3 class="font-semibold text-gray-900 dark:text-white">Add Schedule</h3>
+                                        </div>
+                                    <div data-popper-arrow></div>
+                                    </div>
 
-                            <x-atoms.forms.button wire:click="addPhoneNum('{{$phoneNumber['id']}}')" color="success" type="button">
-                                <x-atoms.icons.plus /> ADD
-                            </x-atoms.forms.button>
-                            <x-atoms.forms.button wire:click="editPhoneNum('{{$phoneNumber['id']}}')" type="button" color="danger">
-                                <x-atoms.icons.edit /> EDIT
-                            </x-atoms.forms.button>
+                                <x-atoms.forms.button wire:click="editPhoneNum('{{$phoneNumber['id']}}')" type="button" data-popover-target="edit-schedule-{{$key}}">
+                                    <x-atoms.icons.edit />
+                                </x-atoms.forms.button>
+                                <div data-popover id="edit-schedule-{{$key}}" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                                        <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                            <h3 class="font-semibold text-gray-900 dark:text-white">Edit Schedule</h3>
+                                        </div>
+                                    <div data-popper-arrow></div>
+                                    </div>
+                                </div>
+                            </div>
 
 
                         </x-atoms.tables.td>
@@ -87,3 +105,6 @@
     </div>
 
 </main>
+
+
+

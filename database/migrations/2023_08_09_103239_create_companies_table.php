@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('owner_id');
-            $table->foreign('owner_id')->references('id')->on('users');
             $table->string('name');
-            $table->string('location');
+            $table->string('location')->nullable();
+            $table->string('projectid')->nullable();
+            $table->string('token')->nullable();
             $table->decimal('lead_value', $precision = 15, $scale = 2);
             $table->softDeletes();
             $table->timestamps();

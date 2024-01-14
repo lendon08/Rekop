@@ -113,7 +113,9 @@
                     </fieldset>
 
                 @endfor
-                <x-atoms.forms.button class="mt-4 object-right-bottom" color="success" type="submit">Edit Schedule</x-atoms.forms.button>
+                @if(!empty($sets))
+                    <x-atoms.forms.button class="mt-4 object-right-bottom" color="success" type="submit">Edit Schedule</x-atoms.forms.button>
+                @endif
             </form>
         </div>
     </div>

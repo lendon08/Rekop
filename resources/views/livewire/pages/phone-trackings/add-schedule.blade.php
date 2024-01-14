@@ -123,7 +123,9 @@
                 </x-atoms.forms.label>
             </fieldset>
             @endforeach
+            @if(!empty($schedules))
                 <x-atoms.forms.button class="mt-4 object-right-bottom" color="success" type="submit">Save Schedule</x-atoms.forms.button>
+            @endif
             </form>
         </div>
 

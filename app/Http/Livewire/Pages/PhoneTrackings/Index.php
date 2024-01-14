@@ -7,7 +7,8 @@ use App\Http\Livewire\Traits\WithToast;
 use App\Integrations\SignalWire;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\Phonenumbers;
+use App\Models\Schedules;
 
 class Index extends Component
 {
@@ -19,6 +20,7 @@ class Index extends Component
 
     public $phoneNumbers = [];
 
+
     protected $listeners = [
         'phoneTrackingIndexRefresh' => '$refresh',
     ];
@@ -27,22 +29,24 @@ class Index extends Component
     {
         $this->xmlBins = SignalWire::http("/api/laml/2010-04-01/Accounts/" . env("SIGNALWIRE_PROJECTID") . "/LamlBins");
         $this->phoneNumbers = SignalWire::http('/api/relay/rest/phone_numbers');
-        // dd($this->phoneNumbers);
 
         foreach ($this->phoneNumbers['data'] as $key => $pn) {
+            config(['database.connections.mysql.strict' => false]);
+            DB::reconnect();
+            $this->phoneNumbers['data'][$key]['sets'] = Schedules::groupBy('sets')->where('phone_id',$pn['id'])->get()->count();
             $this->phoneNumbers['data'][$key]['number'] = $this->beautifyPhoneNumber($pn['number']);
         }
     }
 
     public function render()
     {
+
         return view('livewire.pages.phone-trackings.index');
     }
 
     public function buyPhoneNum()
     {
         return to_route('buy-phone-number');
-        // $this->openForm('forms.phone-trackings.add-phone-number');
     }
 
     public function viewPhoneNum()
@@ -52,11 +56,6 @@ class Index extends Component
 
     public function editPhoneNum($id)
     {
-
-        // $xmlBins = SignalWire::http("/api/laml/2010-04-01/Accounts/" . env("SIGNALWIRE_PROJECTID") . "/LamlBins");
-        // $phoneInfo['bins'] = $xmlBins['laml_bins'];
-
-        // $this->openForm('forms.phone-trackings.edit-phone-number', 'edit', $phoneInfo);
         return to_route('edit-schedule', ['id' => $id]);
     }
 

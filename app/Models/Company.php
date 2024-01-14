@@ -10,24 +10,26 @@ class Company extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'owner_id',
-        'name',
-        'location',
-        'lead_value',
-    ];
+    // IMPORTANT TO DO LATER
 
-    public function validationRules()
-    {
-        return [
-            'form.name' => ['required', 'string'],
-            'form.location' => ['required', 'string'],
-            'form.lead_value' => ['required', 'numeric'],
-        ];
-    }
+    // protected $fillable = [
+    //     'owner_id',
+    //     'name',
+    //     'location',
+    //     'lead_value',
+    // ];
 
-    public function owner()
-    {
-        return $this->belongsTo(User::class, 'owner_id');
-    }
+    // public function validationRules()
+    // {
+    //     return [
+    //         'form.name' => ['required', 'string'],
+    //         'form.location' => ['required', 'string'],
+    //         'form.lead_value' => ['required', 'numeric'],
+    //     ];
+    // }
+
+    // public function owner()
+    // {
+    //     return $this->belongsTo(User::class, 'owner_id');
+    // }
 }

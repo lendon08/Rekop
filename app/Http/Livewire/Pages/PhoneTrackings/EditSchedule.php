@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Integrations\SignalWire;
 use App\Models\Schedules; // Try to link to "Phonenumbers" to get all the schedules
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Support\Facades\DB;
 
 class EditSchedule extends Component
 {
@@ -28,8 +29,11 @@ class EditSchedule extends Component
         $this->pnumber =  $phoneInfo['number'];
 
         $this->schedules = Schedules::where('phone_id', $phoneInfo['id'])->get();
-        $this->sets =  Schedules::select(Schedules::raw('count(sets) as user_count'))
-        ->groupBy('sets')->where('phone_id', $this->pid)->get()->count();
+        // $this->sets =  Schedules::select(Schedules::raw('count(sets) as user_count'))
+        // ->groupBy('sets')->where('phone_id', $this->pid)->get()->count();
+        config(['database.connections.mysql.strict' => false]);
+        DB::reconnect();
+        $this->sets =  Schedules::groupBy('sets')->where('phone_id', $this->pid)->get()->count();
 
         foreach($this->schedules as $sched){
             $this->setStartSched($sched['day'], $sched['sets'],$sched['start_sched']);
