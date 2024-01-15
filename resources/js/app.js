@@ -2,6 +2,7 @@ import 'flowbite';
 import { Dropdown } from 'flowbite';
 import ApexCharts from 'apexcharts';
 
+
 document.openDropdown = function(dropdownId) {
     const dropdownEl = document.getElementById(dropdownId);
     if (dropdownEl) {

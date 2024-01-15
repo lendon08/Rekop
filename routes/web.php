@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::get('phone-settings/edit-schedule/{id}', App\Http\Livewire\Pages\PhoneTrackings\EditSchedule::class)->name('edit-schedule');
 
     Route::get('phone-settings/buy-number', App\Http\Livewire\Pages\PhoneTrackings\AddPhonenumber::class)->name('buy-phone-number');
+    Route::get('graph-test', App\Http\Livewire\Test\Graphtest::class)->name('graph-test');
+
 });
 //still need more work to create invoice
 Route::get('call-histories/reports/{calls}', App\Http\Livewire\Pages\PhoneNumbers\CallHistoryReport::class, function (Request $request) {
