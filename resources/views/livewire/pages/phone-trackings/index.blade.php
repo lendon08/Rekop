@@ -1,4 +1,18 @@
 <main>
+    <div >
+        @if (session()->has('message'))
+            <div class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:bg-gray-800 dark:text-gray-400 border" role="alert">
+                <div class="flex">
+                    <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg ">
+                                <x-atoms.icons.toast-success />
+                    </div>
+                    <div class="ml-3 text-sm font-normal">
+                        <span class="text-sm font-semibold text-gray-900 dark:text-white">  {{ session('message') }}</span>
+                    </div>
+                </div>
+            </div>
+        @endif
+    </div>
     <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5 dark:bg-gray-800 dark:border-gray-700">
         <div class="w-full mb-1">
 

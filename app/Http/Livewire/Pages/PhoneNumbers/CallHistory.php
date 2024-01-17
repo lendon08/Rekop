@@ -70,11 +70,13 @@ class CallHistory extends Component
 
     public function render()
     {
+        //IMPORTANT
 
-        // Update Forwarding
-        // SignalWire::updateForwarding('/api/relay/rest/phone_numbers/a76a4ebc-4f6e-47aa-bd66-21b36ccd6ec7',
-        // "https://riztheseowiz.signalwire.com/api/laml/2010-04-01/Accounts/341c89fe-24f0-4265-8c1f-ba993b277d0c/LamlBins/b39786ed-ab4e-4db1-8ef1-81e19b3a153c");
+        // 1. Create database for call history for easy visuallization
 
+        // 2. Update the database daily(scheduler)
+
+        // 3.
         $sortedUsers = $this->phoneNumbers ?? [];
         $companyNumbers = SignalWire::http('/api/relay/rest/phone_numbers/')['data'];
 

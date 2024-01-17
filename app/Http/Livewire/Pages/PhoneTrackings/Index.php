@@ -40,8 +40,10 @@ class Index extends Component
 
     public function render()
     {
+        // dd("wtf");
 
         return view('livewire.pages.phone-trackings.index');
+        $this->openToast('success');
     }
 
     public function buyPhoneNum()

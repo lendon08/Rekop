@@ -75,12 +75,11 @@
                         <x-atoms.tables.th>
                             <x-atoms.forms.checkbox wire:model="selectAll" id="checkbox-all" />
                         </x-atoms.tables.th>
+                        <x-atoms.tables.th wire:click="sortBy('formatted_to')">
+                            Tracking Number @if($sortField === 'formatted_to') <span>{!! $sortDirection === 'asc' ? '&#x25B2;' : '&#x25BC;' !!}</span> @endif
+                        </x-atoms.tables.th>
                         <x-atoms.tables.th wire:click="sortBy('formatted_from')">
                             From @if($sortField === 'formatted_from') <span>{!! $sortDirection === 'asc' ? '&#x25B2;' : '&#x25BC;' !!}</span> @endif
-                        </x-atoms.tables.th>
-
-                        <x-atoms.tables.th wire:click="sortBy('formatted_to')">
-                            To @if($sortField === 'formatted_to') <span>{!! $sortDirection === 'asc' ? '&#x25B2;' : '&#x25BC;' !!}</span> @endif
                         </x-atoms.tables.th>
                         <x-atoms.tables.th wire:click="sortBy('duration')">
                             Duration @if($sortField === 'duration') <span>{!! $sortDirection === 'asc' ? '&#x25B2;' : '&#x25BC;' !!}</span> @endif
@@ -109,8 +108,8 @@
                         <x-atoms.tables.td>
                             <x-atoms.forms.checkbox id="checkbox-{{$call['sid']}}" wire:model="selectedItems" value="{{ $call['sid'] }}" />
                         </x-atoms.tables.td>
-                        <x-atoms.tables.td>{{ $call['formatted_from'] }}</x-atoms.tables.td>
                         <x-atoms.tables.td>{{ $call['formatted_to'] }}</x-atoms.tables.td>
+                        <x-atoms.tables.td>{{ $call['formatted_from'] }}</x-atoms.tables.td>
                         <x-atoms.tables.td>{{ $call['duration'] }}</x-atoms.tables.td>
                         <x-atoms.tables.td>{{ $call['direction'] }}</x-atoms.tables.td>
                         <x-atoms.tables.td>{{ $call['price'] }}</x-atoms.tables.td>

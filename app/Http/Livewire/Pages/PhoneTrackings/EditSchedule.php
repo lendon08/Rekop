@@ -46,7 +46,81 @@ class EditSchedule extends Component
     {
         return view('livewire.pages.phone-trackings.edit-schedule');
     }
+    public function create(){
+        session(['title' => 'Successfully Updated Schedule']);
 
+        return to_route('phone-settings');
+        foreach ($this->fwd as $key => $fwds) {
+            for($val=1; $val<=7; $val++){
+               Schedules::where('phone_id', $this->pid)
+                ->where('fwd_number', $fwds)
+                ->where('sets', $key)
+                ->where('day', $val)
+                ->update([
+                    'start_sched' => $this->getStartSched($val, $key),
+                    'end_sched' => $this->getEndSched($val, $key),
+                    'fwd_number' => $fwds
+                ]);
+
+            }
+        }
+
+    }
+
+    public function getStartSched($val, $key){
+        switch ($val) {
+            case 1:
+                return $this->monstartsched[$key];
+                break;
+            case 2:
+                return $this->tuestartsched[$key];
+                break;
+            case 3:
+                return $this->wedstartsched[$key];
+                break;
+            case 4:
+                return $this->thustartsched[$key];
+                break;
+            case 5:
+                return $this->fristartsched[$key];
+                break;
+            case 6:
+                return $this->satstartsched[$key];
+                break;
+            case 7:
+                return $this->sunstartsched[$key];
+                break;
+            default:
+                break;
+            }
+    }
+    public function getEndSched($val, $key){
+        switch ($val) {
+            case 1:
+                return $this->monendsched[$key];
+                break;
+            case 2:
+                return $this->tueendsched[$key];
+                break;
+            case 3:
+                return $this->wedendsched[$key];
+                break;
+            case 4:
+                return $this->thuendsched[$key];
+                break;
+            case 5:
+                return $this->friendsched[$key];
+                break;
+            case 6:
+                return $this->satendsched[$key];
+                break;
+            case 7:
+                return $this->sunendsched[$key];
+                break;
+            default:
+                break;
+            }
+    }
     public function formatNumber($key)
     {
         $num  = $this->fwd[$key];

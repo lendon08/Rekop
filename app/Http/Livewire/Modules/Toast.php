@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Modules;
 use Livewire\Component;
 
 class Toast extends Component
-{   
+{
     public string $mode;
 
     public string $title;
@@ -20,28 +20,30 @@ class Toast extends Component
     ];
 
     protected $listeners = [
-        'showToast' => 'open', 
+        'showToast' => 'open',
         'closeToast' => 'close',
     ];
 
-  
+
     public function open(string $mode)
-    {   
+    {
         $this->mode = $mode;
-        
+
         $this->showToast = true;
 
         $this->title = session('title') ?? $this->defaultMessage['title'];
-        
+
         $this->message = session('message') ?? $this->defaultMessage['message'];
 
-        session()->forget('title', 'message');
-        
+        session()->forget('title');
+        session()->forget('message');
+
+
         $this->dispatchBrowserEvent('closeToast');
     }
 
     public function close()
-    {   
+    {
         $this->showToast = false;
     }
 
