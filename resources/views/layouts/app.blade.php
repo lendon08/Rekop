@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
-
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         @vite(['resources/css/app.css','resources/js/app.js'])
 
         @livewireStyles
@@ -17,7 +17,7 @@
 
     <body class="bg-gray-50 dark:bg-gray-800">
                 
-        <div role="status" class="z-10 absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" >
+        <!-- <div role="status" class="z-10 absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" >
             <svg aria-hidden="true" class="w-20 h-20 text-gray-200 animate-spin dark:text-gray-600 fill-black dark:fill-white" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g transform="rotate(30 50 50)" style="transform:matrix(0.866025, 0.5, -0.5, 0.866025, 31.6987, -18.3013);" ><rect x="47" y="24" rx="3" ry="6" width="6" height="12"  opacity="0.166667" style="opacity:0.166667;" ></rect></g>
                 <g transform="rotate(60 50 50)" style="transform:matrix(0.5, 0.866025, -0.866025, 0.5, 68.3013, -18.3013);" ><rect x="47" y="24" rx="3" ry="6" width="6" height="12"  opacity="0.25" style="opacity:0.25;" ></rect></g>
@@ -31,7 +31,7 @@
                 <g transform="rotate(300 50 50)" style="transform:matrix(0.5, -0.866025, 0.866025, 0.5, -18.3013, 68.3013);" ><rect x="47" y="24" rx="3" ry="6" width="6" height="12"  opacity="0.916667" style="opacity:0.916667;" ></rect></g>
                 <g transform="rotate(330 50 50)" style="transform:matrix(0.866025, -0.5, 0.5, 0.866025, -18.3013, 31.6987);" ><rect x="47" y="24" rx="3" ry="6" width="6" height="12"  opacity="1" style="" ></rect></g></svg>
             <span class="sr-only">Loading...</span>
-        </div>
+        </div> -->
         @include('partials.header')
 
         <div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">

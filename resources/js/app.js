@@ -1,6 +1,7 @@
 import 'flowbite';
 import { Dropdown } from 'flowbite';
 
+
 document.openDropdown = function(dropdownId) {
     const dropdownEl = document.getElementById(dropdownId);
     if (dropdownEl) {
