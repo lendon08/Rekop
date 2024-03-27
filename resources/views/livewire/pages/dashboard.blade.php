@@ -233,10 +233,10 @@
               <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
                 <thead class="bg-gray-50 dark:bg-gray-700">
                   <tr>
-                    <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                    <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 dark:text-white">
                       Call ID
                     </th>
-                    <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                    <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 dark:text-white">
                       Reference
                     </th>
                   </tr>

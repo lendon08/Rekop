@@ -50,8 +50,11 @@
                 <x-molecules.tables.thead>
                     <tr>
                         <x-atoms.tables.th>Number Name</x-atoms.tables.th>
+                        <x-atoms.tables.th>Source</x-atoms.tables.th>
                         <x-atoms.tables.th>Tracking Number</x-atoms.tables.th>
                         <x-atoms.tables.th>Number of Schedules</x-atoms.tables.th>
+                        <x-atoms.tables.th>Call Recording</x-atoms.tables.th>
+                        <x-atoms.tables.th>Status</x-atoms.tables.th>
                         <x-atoms.tables.th>Actions</x-atoms.tables.th>
                     </tr>
                 </x-molecules.tables.thead>
@@ -66,8 +69,11 @@
                             </div>
                             <div class="text-sm font-normal text-gray-500 dark:text-gray-400">{{ $phoneNumber['id'] }}</div>
                         </x-atoms.tables.td>
+                        <x-atoms.tables.td>Google Ads</x-atoms.tables.td>
                         <x-atoms.tables.td>{{ $phoneNumber['number'] }}</x-atoms.tables.td>
-                        <x-atoms.tables.td class='text-center'>{{ $phoneNumber['sets'] }}</x-atoms.tables.td>
+                        <x-atoms.tables.td>{{ $phoneNumber['sets'] }}</x-atoms.tables.td>
+                        <x-atoms.tables.td>On</x-atoms.tables.td>
+                        <x-atoms.tables.td>Active</x-atoms.tables.td>
                         <x-atoms.tables.td class="pb-8">
                             <!-- TODO -->
                             <div class="relative">

@@ -1,0 +1,25 @@
+NUMBER OPTIONS
+Number Name
+
+
+TRACKING SOURCE
+Search -> Visitors from 
+	(google,
+	bing,
+	yahoo
+	All Search) 
+		for
+		(Paid,
+		Organic,
+		All)
+		Search 
+
+
+Web Refererals -> visitors from ___ . Ex yelp.com
+Landing Page -> Visitor who land on ____. Ex landingpage.com
+Direct -> Visitor without a referring website
+Offline -> No dynamic number swaping
+Google ad Extension -> same
+Google Mobile Extension -> same
+Google My Business -> same
+
