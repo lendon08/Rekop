@@ -12,6 +12,19 @@ composer install
 ```
 npm install
 ```
+
+```
+php artisan key:generate
+```
+
+## Migrate and Seed the Database
+```
+php artisan migrate
+```
+
+```
+php artisan db:seed
+```
 ## Run the code
 ```
 php artisan serve
