@@ -10,8 +10,8 @@ $isConfirm = ($performAction == 'destroy') ? true : false;
 
     @if($isConfirm)
     <x-atoms.icons.toast-confirm />
-    <h2 class="mb-1 text-lg font-semibold text-dark-500 dark:text-white">Are you sure?</h2>
-    <h3 class="mb-1 text-lg text-dark-500 dark:text-white">You won't be able to revert this!</h3>
+    <h2 class="mb-1 text-lg font-semibold text-dark-500">Are you sure?</h2>
+    <h3 class="mb-1 text-lg text-dark-500">You won't be able to revert this!</h3>
     @else
     {{ $slot }}
     @endif

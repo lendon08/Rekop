@@ -1,5 +1,5 @@
 <div>
-    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+    <h2 class="text-2xl font-bold text-gray-900">
         Sign up to platform
     </h2>
     <form class="mt-8 space-y-6" wire:submit.prevent="submit">
@@ -23,7 +23,7 @@
             <x-atoms.forms.textbox type="password" name="password_confirmation" id="password_confirmation" wire:model="password_confirmation"/>
         </div>
         <x-atoms.forms.button color="success" type="submit">Register to your account</x-atoms.forms.button>
-        <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
+        <div class="text-sm font-medium text-gray-500">
             Already have an account? <x-atoms.forms.href href="{{ route('login') }}">Login account</x-atoms.forms.href>
         </div>
     </form>

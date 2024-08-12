@@ -1,5 +1,5 @@
 
-<thead {!! $attributes->merge(['class' =>'bg-gray-100 dark:bg-gray-700']) !!}>
+<thead {!! $attributes->merge(['class' =>'bg-gray-100']) !!}>
     {{ $slot }}
 </thead>
 

@@ -1,5 +1,5 @@
 <div>
-    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+    <h2 class="text-2xl font-bold text-gray-900">
         Sign in to platform 
     </h2>
     <form class="mt-8 space-y-6" wire:submit.prevent="submit">
@@ -14,7 +14,7 @@
             <x-atoms.forms.validation for="password"/>
         </div>
         <x-atoms.forms.button color="success" type="submit">Login to your account</x-atoms.forms.button>
-        <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
+        <div class="text-sm font-medium text-gray-500">
             Not registered? <x-atoms.forms.href href="{{ route('register') }}">Create account</x-atoms.forms.href>
         </div>
     </form>
