@@ -33,3 +33,8 @@ php artisan serve
 ```
 npm run dev
 ```
+
+## Before Deployment
+```
+php artisan config:cache
+```
