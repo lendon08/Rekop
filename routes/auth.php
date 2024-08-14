@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Livewire\Pages\Auth\Login;
-use App\Http\Livewire\Pages\Auth\Register;
+use App\Livewire\Pages\Auth\Login;
+use App\Livewire\Pages\Auth\Register;
 
 use Illuminate\Support\Facades\Route;
 
