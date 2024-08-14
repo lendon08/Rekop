@@ -6,7 +6,7 @@
 $isConfirm = ($performAction == 'destroy') ? true : false;
 @endphp
 
-<form wire:submit.prevent="{{ $performAction }}" {!! $attributes->merge(['class' => 'space-y-4']) !!}>
+<form wire:submit="{{ $performAction }}" {!! $attributes->merge(['class' => 'space-y-4']) !!}>
 
     @if($isConfirm)
     <x-atoms.icons.toast-confirm />
