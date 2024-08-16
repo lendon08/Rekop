@@ -4,7 +4,9 @@ namespace App\Livewire\Pages;
 
 use Livewire\Component;
 use Carbon\Carbon;
+use Livewire\Attributes\Title;
 
+#[Title('Dashboard')]
 class Dashboard extends Component
 {
 //    TODO SET the correct timezone

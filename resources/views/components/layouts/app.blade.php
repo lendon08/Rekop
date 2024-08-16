@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+<html lang="{{ str_replace('-', '-', app()->getLocale()) }}">
     <head>
 
         <meta charset="utf-8">
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>{{ $title ?? 'Page Title'}}</title>
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         
         @vite(['resources/css/app.css','resources/js/app.js'])

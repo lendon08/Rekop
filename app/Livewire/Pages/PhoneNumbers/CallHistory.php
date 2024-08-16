@@ -8,9 +8,9 @@ use App\Models\Company;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Livewire\Attributes\Title;
 
-
-
+#[Title('Call History')]
 class CallHistory extends Component
 {
     use WithPagination, WithToast;
