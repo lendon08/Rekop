@@ -44,7 +44,7 @@ class EditSchedule extends Component
     }
     public function render()
     {
-        return view('components.livewire.pages.phone-trackings.edit-schedule');
+        return view('livewire.pages.phone-trackings.edit-schedule');
     }
 
     public function formatNumber($key)

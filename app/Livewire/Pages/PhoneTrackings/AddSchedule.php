@@ -65,7 +65,7 @@ class AddSchedule extends Component
     }
     public function render()
     {
-        return view('components.livewire.pages.phone-trackings.add-schedule');
+        return view('livewire.pages.phone-trackings.add-schedule');
     }
 
     public function addSchedule($i)

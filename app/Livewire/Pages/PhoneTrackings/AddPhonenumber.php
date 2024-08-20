@@ -15,7 +15,7 @@ class AddPhonenumber extends Component
     }
     public function render()
     {
-        return view('components.livewire.pages.phone-trackings.add-phonenumber');
+        return view('livewire.pages.phone-trackings.add-phonenumber');
     }
     public function buyPhonenumber(){
         dd($this);

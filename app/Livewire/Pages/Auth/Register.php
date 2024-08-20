@@ -30,7 +30,7 @@ class Register extends Component
 
     public function render()
     {
-        return view('components.livewire.pages.auth.register')->layout('layouts.guest');
+        return view('livewire.pages.auth.register')->layout('layouts.guest');
     }
 
     public function submit()

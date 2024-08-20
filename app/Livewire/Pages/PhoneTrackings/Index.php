@@ -42,7 +42,7 @@ class Index extends Component
     public function render()
     {
 
-        return view('components.livewire.pages.phone-trackings.index');
+        return view('livewire.pages.phone-trackings.index');
     }
 
     public function buyPhoneNum()

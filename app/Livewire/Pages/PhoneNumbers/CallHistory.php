@@ -110,7 +110,7 @@ class CallHistory extends Component
         );
 
 
-        return view('components.livewire.pages.phone-numbers.call-history', [
+        return view('livewire.pages.phone-numbers.call-history', [
             'calls' => $paginatedUsers
         ]);
     }

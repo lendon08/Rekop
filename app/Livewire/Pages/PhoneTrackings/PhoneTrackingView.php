@@ -29,6 +29,6 @@ class PhoneTrackingView extends Component
 
     public function render()
     {
-        return view('components.livewire.pages.phone-trackings.phone-tracking-view');
+        return view('livewire.pages.phone-trackings.phone-tracking-view');
     }
 }
