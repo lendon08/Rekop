@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Validate;
+use Livewire\Attributes\Layout;
+
 
 class Login extends Component
 {
@@ -21,10 +23,10 @@ class Login extends Component
     public string $password;
 
   
-
+    #[Layout('layouts.guest')]
     public function render()
     {
-        return view('livewire.pages.auth.login')->layout('layouts.guest');
+        return view('livewire.auth.login');
     }
 
     public function submit()
