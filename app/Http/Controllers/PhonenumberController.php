@@ -29,6 +29,6 @@ class PhonenumberController extends Controller
                     $message_request_url
                 ]);
         }
-        return to_route('dashboard');
+        return to_route('home');
     }
 }

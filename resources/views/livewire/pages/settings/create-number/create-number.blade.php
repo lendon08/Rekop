@@ -39,7 +39,7 @@
         <div class="w-screen px-6 rounded-lg {{ $pageCnt >= 4 ? 'bg-white' : '' }} -mt-10 pt-4">
         
             <div class="{{ $pageCnt == 0 ? '' : 'hidden' }}">
-                <p class="mb-5 text-xl text-left sm:text-xl">Where will you display this tracking number?</p>
+                <p class="mb-5 text-xl text-left sm:text-xl font-semibold">Where will you display this tracking number?</p>
                 
                 <div class="w-full mb-10 items-center justify-center space-y-10 sm:flex sm:space-y-0 sm:mt-10 space-x-10  rtl:space-x-reverse">
                     <div class="w-full">
@@ -64,7 +64,7 @@
             <!-- -------------------------------------------------------------------------------------------------------------------- -->
 
             <div class="{{ $pageCnt == 1 ? '' : 'hidden' }}">
-                <p class="mb-5 text-xl text-left sm:text-xl">What would you like to track?</p>
+                <p class="mb-5 text-xl text-left sm:text-xl font-semibold">What would you like to track?</p>
                 
                 <div class="w-full mb-10 items-center justify-center space-y-10 sm:flex sm:space-y-0 sm:mt-10 space-x-10  rtl:space-x-reverse">
                     <div class="w-full">
@@ -92,7 +92,7 @@
             <!-- -------------------------------------------------------------------------------------------------------------------- -->
             
             <div class="{{ $pageCnt == 2 ? '' : 'hidden' }}">
-                <p class="mb-5 text-xl text-left sm:text-xl">Will this number be used in a Google Ads extension?</p>
+                <p class="mb-5 text-xl text-left sm:text-xl font-semibold">Will this number be used in a Google Ads extension?</p>
                 
                 <div class="w-full mb-10 items-center justify-center space-y-10 sm:flex sm:space-y-0 sm:mt-10 space-x-10  rtl:space-x-reverse">
                     <div class="w-full">
@@ -120,7 +120,7 @@
             <!-- -------------------------------------------------------------------------------------------------------------------- -->
 
             <div class="{{ $pageCnt == 3 ? '' : 'hidden' }}">
-                <p class="mb-5 text-xl text-left sm:text-xl">Where will your Google ads be displayed?</p>
+                <p class="mb-5 text-xl text-left sm:text-xl font-semibold">Where will your Google ads be displayed?</p>
                 
                 <div class="w-full mb-10 items-center justify-center space-y-10 sm:flex sm:space-y-0 sm:mt-10 space-x-10  rtl:space-x-reverse">
                     <div class="w-full">
@@ -149,71 +149,72 @@
             <div class="{{ $pageCnt == 4 ? '' : 'hidden' }} text-left">
 
                 <div class="space-y-4 mb-4">
-                    <p class="mb-5 text-xl sm:text-xl">Tracking Options</p>
+                    <p class="mb-5 text-2xl sm:text-2xl font-semibold">Tracking Options</p>
                     <hr class="h-px my-8 bg-gray-200 border-0">
-                    <div>
-                        <p class="text-lg sm:text-xl">Which visitors do you want to track?</p>
+                    <div class="font-medium">
+                        <p class="text-xl sm:text-xl">Which visitors do you want to track?</p>
                         <p class="text-xs font-normal text-gray-500">Pick one- you can always change this later.</p>
                     </div>
                 </div>
 
-                <div class="space-y-4">
-                    <div class="flex">
+                <div class="space-y-4 text-base">
+                    <div class="flex space-x-2">
                         <div class="flex items-center h-5">
-                            <input id="existing-number" name="" aria-describedby="helper-radio-text" type="radio" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" checked>
+                            <input  wire:model.live="trackingOption" aria-describedby="all-visitors" type="radio" value="0" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" >
                         </div>
-                        <div class="ms-2 text-sm">
-                            <label for="helper-radio" class="font-medium text-gray-900">All visitors (Recommended)</label>        
+                        <div>
+                            <label for="all-visitors" class="font-medium text-gray-900"> All visitors (Recommended)</label>        
                         </div>
                     </div>
 
-                    <div class="flex">
+                    <div class="flex space-x-2">
                         <div class="flex items-center h-5">
-                            <input id="" name="" aria-describedby="helper-radio-text" type="radio" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                            <input wire:model.live="trackingOption" aria-describedby="google-ads" type="radio" value="1" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
                         </div>
-                        <div class="ms-2 text-sm">
-                            <label for="helper-radio" class="font-medium text-gray-900">Visitors from Google Ads</label>
+                        <div>
+                            <label for="google-ads" class="font-medium text-gray-900">Visitors from Google Ads</label>
                         </div>
                         
                     </div>
 
-                    <div class="flex">
+                    <div class="flex space-x-2">
                         <div class="flex items-center h-5">
-                            <input id="" name="" aria-describedby="helper-radio-text" type="radio" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                            <input wire:model.live="trackingOption" aria-describedby="ppc-search" type="radio" value="2" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
                         </div>
-                        <div class="ms-2 text-sm">
+                        <div>
                             <label for="helper-radio" class="font-medium text-gray-900">PPC search</label>
-                            <p id="helper-radio-text" class="text-xs font-normal text-gray-500">Visitors from Google, Bing and Yahoo PPC search.</p>
+                            <p id="ppc-search" class="{{ $trackingOption==2 ? '' : 'hidden' }} text-xs font-normal text-gray-500">Visitors from Google, Bing and Yahoo PPC search.</p>
                         </div>
                     </div>
                         
-                    <div class="flex">
+                    <div class="flex space-x-2">
                         <div class="flex items-center h-5">
-                            <input id="" name="" aria-describedby="helper-radio-text" type="radio" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                            <input wire:model.live="trackingOption" aria-describedby="landing-page" type="radio" value="3" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
                         </div>
-                        <div class="ms-2 text-sm">
+                        <div>
                             <label for="helper-radio" class="font-medium text-gray-900">Landing Page or URL parameter</label>
-                            <p id="helper-radio-text" class="text-xs font-normal text-gray-500">Visitors who land on. <input placeholder="xyz.com or utm_campaign=xyz" type="text"></p>
+                            <p id="landing-page" class="{{ $trackingOption==3 ? '' : 'hidden' }} text-xs font-normal text-gray-500">Visitors who land on. <input placeholder="xyz.com or utm_campaign=xyz" type="text"></p>
                             
                         </div>
                     </div>
 
-
-                    <div class="flex">
+                    <div class="flex space-x-2">
                         <div class="flex items-center h-5">
-                            <input id="" name="" aria-describedby="helper-radio-text" type="radio" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                            <input wire:model.live="trackingOption" aria-describedby="refering-page" type="radio" value="4" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
                         </div>
-                        <div class="ms-2 text-sm">
+                        <div>
                             <label for="helper-radio" class="font-medium text-gray-900">Referring page</label>
-                            <p id="helper-radio-text" class="text-xs font-normal text-gray-500">Visitors who are referred from <input placeholder="websitename.com" type="text"></p>
+                            <p id="refering-page" class="{{ $trackingOption==4 ? '' : 'hidden' }} text-xs font-normal text-gray-500">Visitors who are referred from <input placeholder="websitename.com" type="text"></p>
                             
                         </div>
                     </div>
                 </div>
 
-                <div>
+                <div class="py-4 mt-4 space-y-2 font-medium">
                     <p class="text-lg sm:text-xl">Swap target</p>
-                    <p class="text-xs font-normal text-gray-500">This is the phone number we look for on your website to dynamically replace with a tracking number. 
+                    
+                    <p class="text-xs font-normal text-gray-500">
+                        This is the phone number we look for on your website to dynamically replace with a tracking number. <br>
                         Typically, this is the primary business phone number or the destination number.</p>
                     <input x-mask="(999)999-9999" placeholder="(123)456-7890" type="tel">
                 </div>
@@ -221,28 +222,30 @@
             </div>
             <!-- -------------------------------------------------------------------------------------------------------------------- -->
             
-            <div class="{{ $pageCnt == 5 ? '' : 'hidden' }} text-left">
-                <p class="mb-5 text-xl sm:text-xl">Call Forwarding</p>
-                <hr class="h-px my-8 bg-gray-200 border-0">
-                <p class="mb-5 text-lg sm:text-lg">Where do you want to route these calls?</p>
+            <div class="{{ $pageCnt == 5 ? '' : 'hidden' }} text-left space-y-4">
+                <div class="space-y-4">
+                    <p class="text-xl sm:text-xl">Call Forwarding</p>
+                    <hr class="h-px my-8 bg-gray-200 border-0">
+                    <p class="text-lg sm:text-lg">Where do you want to route these calls?</p>
+                </div>
                 
                 <div class="space-y-4 pb-4">
-                    <div class="flex">
+                    <div class="flex space-x-2">
                         <div class="flex items-center h-5">
-                            <input id="existing-number" name="call-forwarding" aria-describedby="helper-radio-text" type="radio" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" checked>
+                            <input wire:model="callForwarding" aria-describedby="existing-phone" type="radio" value="0" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
                         </div>
-                        <div class="ms-2 text-sm">
+                        <div class="text-base">
                             <label for="helper-radio" class="font-medium text-gray-900">An existing phone number</label>
-                            <p id="helper-radio-text" class="text-xs font-normal text-gray-500">Enter an existing phone number where we should forward your calls.</p>
+                            <p id="existing-phone" class="text-xs font-normal text-gray-500 mb-2">Enter an existing phone number where we should forward your calls.</p>
                             <input x-mask="(999)999-9999" placeholder="(123)456-7890" type="text">
                         </div>
                     </div>
-                    <div class="flex">
+                    <div class="flex space-x-2">
                         <div class="flex items-center h-5">
-                            <input id="existing-softphone" name="call-forwarding" aria-describedby="helper-radio-text" type="radio" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                            <input wire:model="callForwarding" aria-describedby="softphone" type="radio" value="1" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
                         </div>
-                        <div class="ms-2 text-sm">
-                            <label for="helper-radio" class="font-medium text-gray-900">Lead Center's softphone</label>
+                        <div class="text-base">
+                            <label for="softphone" class="font-medium text-gray-900">Lead Center's softphone</label>
                         </div>
                     </div>
                 </div>
@@ -258,7 +261,7 @@
                 <p class="mb-5 text-xl text-left sm:text-xl">Number Setup</p>
                 <hr class="h-px my-8 bg-gray-200 border-0">
                 <p class="mb-5 text-lg mt-5 font-semibold text-left sm:text-lg">How Many numbers should we add to your pool?</p>
-                <div class="flex items-center"> Create <input type="text" name="" id="" x-mask="9" value="4"> new tracking numbers.
+                <div class="flex items-center"> Create <input type="text" name="" id="" x-mask="9" value="4" class="mx-2"> new tracking numbers.
                 <button data-popover-target="number-description" data-popover-placement="top" type="button" class="text-blue-700"> How many numbers should we create?
                     <span class="sr-only">Show information</span></button>    
                 </div>
@@ -268,7 +271,6 @@
                 
                 <div data-popover id="number-description" role="tooltip" class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72">
                     <div class="p-3 space-y-2">
-                        <h3 class="font-semibold text-gray-900">Website Pool</h3>
                         <p class="text-justify">The size of your website pool determines how many concurrent visitors we can track on your website at any given time. Your pool size should be a quarter of the peak hourly traffic reported in Google Analytics, with a minimum of 4 numbers.</p>
                     </div>
                     <div data-popper-arrow></div>
