@@ -235,7 +235,7 @@
 
             <div class="{{ $pageCnt == 5 ? '' : 'hidden' }} text-left space-y-4">
                 <div class="space-y-4">
-                    <p class="mb-5 text-2xl sm:text-2xl font-semibold">Call Forwarding</p>
+                    <p class="text-xl sm:text-xl">Call Forwarding</p>
                     <hr class="h-px my-8 bg-gray-200 border-0">
                     <p class="text-lg sm:text-lg">Where do you want to route these calls?</p>
                 </div>
@@ -248,7 +248,7 @@
                         <div class="text-base">
                             <label for="helper-radio" class="font-medium text-gray-900">An existing phone number</label>
                             <p id="existing-phone" class="text-xs font-normal text-gray-500 mb-2">Enter an existing phone number where we should forward your calls.</p>
-                            <input x-mask="(999)999-9999" placeholder="(123)456-7890" type="tel">
+                            <input x-mask="(999)999-9999" placeholder="(123)456-7890" type="text">
                         </div>
                     </div>
                     <div class="flex space-x-2">
