@@ -8,7 +8,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 
+#[Title('Register - EZSEO')]
 class Register extends Component
 {   
     public string $name;
@@ -28,9 +31,10 @@ class Register extends Component
         $this->validate();
     }
 
+    #[Layout('layouts.guest')]
     public function render()
     {
-        return view('livewire.pages.auth.register')->layout('layouts.guest');
+        return view('livewire.auth.register');
     }
 
     public function submit()

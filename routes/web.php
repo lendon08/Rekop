@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 
 //fix routing
 Route::middleware('auth')->group(function () {
-    Route::get('dashboard', App\Livewire\Pages\Dashboard::class)->name('home');
+    Route::get('dashboard', App\Livewire\Pages\Dashboard::class)->name('dashboard');
     Route::get('companies', App\Livewire\Pages\Companies\CompanyIndex::class)->name('companies');
     Route::get('settings/create-number', App\Livewire\Pages\Settings\CreateNumber\CreateNumberIndex::class);
 

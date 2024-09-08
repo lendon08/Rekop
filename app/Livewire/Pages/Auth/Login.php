@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Validate;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 
 
+#[Title('EZSEO')]
 class Login extends Component
 {
     #[Validate('required', as: 'Email')]
@@ -22,7 +24,6 @@ class Login extends Component
     #[Validate('min:6', message: 'The password must be have atleast 6 characters.')]
     public string $password;
 
-  
     #[Layout('layouts.guest')]
     public function render()
     {

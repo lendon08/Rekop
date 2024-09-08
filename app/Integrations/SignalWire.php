@@ -5,7 +5,7 @@ namespace App\Integrations;
 
 use Exception;
 use Illuminate\Support\Facades\Http;
-
+use Illuminate\Http\Client\Request;
 
 
 class SignalWire
@@ -18,32 +18,58 @@ class SignalWire
 
         try {
             $response = Http::asForm()
-            ->withBasicAuth(env('SIGNALWIRE_PROJECTID'), env('SIGNALWIRE_TOKEN'))
-            ->withToken(env('SIGNALWIRE_TOKEN'))
-            ->get($url);
+                ->withBasicAuth(env('SIGNALWIRE_PROJECTID'), env('SIGNALWIRE_TOKEN'))
+                ->withToken(env('SIGNALWIRE_TOKEN'))
+                ->get($url);
 
             if ($response->failed()) {
                 throw new Exception('SIGNAL WIRE ERROR: ' . $response->body());
             }
             return $response->json();
         } catch (\Exception $ex) {
-            // throw new Exception('HTTP ERROR: ' . $ex->getMessage());
+            throw new Exception('HTTP ERROR: ' . $ex->getMessage());
         }
     }
 
 
+    //Search Number using Areacode
+    public static function searchNumber(int $number)
+    {
+        $url = 'https://' . env('SIGNALWIRE_SPACE_URL') . '' . '/api/laml/2010-04-01/Accounts/' . env('SIGNALWIRE_PROJECTID') . '/AvailablePhoneNumbers/us/Local??';
 
-    public static function updateForwarding(string $endpoint, string $externalUrl){
+        try {
+            $response = Http::asForm()
+                ->withBasicAuth(env('SIGNALWIRE_PROJECTID'), env('SIGNALWIRE_TOKEN'))
+                ->withToken(env('SIGNALWIRE_TOKEN'))
+                ->get(
+                    $url,
+                    [
+                        'AreaCode' => $number
+                    ]
+                );
 
-        $url = 'https://' . env('SIGNALWIRE_SPACE_URL') . '' .$endpoint;
+            if ($response->failed()) {
+                throw new Exception('SIGNAL WIRE ERROR: ' . $response->body());
+            }
+            return $response->json();
+        } catch (\Exception $ex) {
+            throw new Exception('HTTP ERROR: ' . $ex->getMessage());
+        }
+    }
+
+    public static function updateForwarding(string $endpoint, string $externalUrl)
+    {
+
+        $url = 'https://' . env('SIGNALWIRE_SPACE_URL') . '' . $endpoint;
         // $externalUrl = 'https://'.env('SIGNALWIRE_SPACE_URL').'/laml-bins/'.$externalUrl;
         try {
             $response = Http::asForm()
-            ->withBasicAuth(env('SIGNALWIRE_PROJECTID'), env('SIGNALWIRE_TOKEN'))
-            ->put($url,
-                [ 
-                    'call_request_url' => $externalUrl
-                ]
+                ->withBasicAuth(env('SIGNALWIRE_PROJECTID'), env('SIGNALWIRE_TOKEN'))
+                ->put(
+                    $url,
+                    [
+                        'call_request_url' => $externalUrl
+                    ]
                 );
             if ($response->failed()) {
                 throw new Exception('SIGNAL WIRE ERROR: ' . $response->body());
