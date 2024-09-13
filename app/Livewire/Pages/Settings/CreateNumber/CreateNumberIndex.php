@@ -5,15 +5,31 @@ namespace App\Livewire\Pages\Settings\CreateNumber;
 use App\Integrations\SignalWire;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
 use Illuminate\Support\Str;
+use Livewire\Attributes\Title;
+
 
 #[Title('Number Wizard - EZSEO')]
 class CreateNumberIndex extends Component
 {
-    public $pageCnt = 5;
 
-    public $toTrack = 0; // 0-All, 1-Calls Only
+    // page 1
+    public $trackingDisplay = 0; // own website - 0 , somwhere else - 1
+
+    // page 2
+    public $trackingUse = 0; // website poll - 0,  calls only -1
+
+    // page 3
+    public $trakcingGoogleAds = 0; // extension - 0, somewhere else - 1
+
+    // page 4
+
+
+    // $client->sendAsync($request)->wait();
+
+
+
+
 
     // all- 0
     // google- 1
@@ -29,8 +45,14 @@ class CreateNumberIndex extends Component
     // softphone - 1
     public $callForwarding = 0;
 
+
+    public $areaCode = "941";
+
+    public $availableNumbers = [];
+    //---------------------Page Counter---------------------------
+    public $pageCnt = 6;
+
     public $percent = [
-        10,
         10,
         30,
         35,
@@ -41,8 +63,48 @@ class CreateNumberIndex extends Component
         100
     ];
 
+    public $pages = [
+        "Tracking Number Display",
+        "Tracking Number Use",
+        "Tracking Google Ads",
+        "Tracking Options",
+        "Call Forwarding",
+        "Number Setup",
+        "Number Feature",
+        "Activate Tracking Number"
+    ];
 
+    public $numberCnt = 1;
 
+    public function mount()
+    {
+        $numbers = SignalWire::searchNumber("941")['available_phone_numbers'];
+        // Slice the array to only get the first 4 items
+        $slicedNumbers = array_slice($numbers, 0, 4);
+
+        // Map only the needed data (friendly names)
+        $this->availableNumbers = array_map(fn($number) => $number['friendly_name'], $slicedNumbers);
+        // dd($this->availableNumbers);
+        // Set the count if required
+        $this->numberCnt = count($this->availableNumbers);
+    }
+
+    public function searchNumber()
+    {
+
+        if (Str::length($this->areaCode) == 3) {
+            $numbers = SignalWire::searchNumber($this->areaCode)['available_phone_numbers'];
+
+            // Slice the array to only get the first 4 items
+            $slicedNumbers = array_slice($numbers, 0, 4);
+
+            // Map only the needed data (friendly names)
+            $this->availableNumbers = array_map(fn($number) => $number['friendly_name'], $slicedNumbers);
+            // dd($this->availableNumbers);
+            // Set the count if required
+            $this->numberCnt = count($this->availableNumbers);
+        }
+    }
 
 
     #[Layout('layouts.wizard')]

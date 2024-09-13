@@ -73,7 +73,7 @@ class CallHistory extends Component
     public function render()
     {
 
-        $sortedUsers = $this->phoneNumbers ?? [];
+        $sortedUsers = (object) $this->phoneNumbers ?? [];
         $companyNumbers = SignalWire::http('/api/relay/rest/phone_numbers/')['data'];
 
         if ($this->sortDirection === 'desc') {

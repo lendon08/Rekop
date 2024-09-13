@@ -7,7 +7,9 @@ use App\Livewire\Traits\WithToast;
 use App\Models\Company;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\Attributes\Title;
 
+#[Title('Company - EZSEO')]
 class CompanyIndex extends Component
 {
     use WithPagination;

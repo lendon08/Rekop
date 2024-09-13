@@ -13,13 +13,13 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 
 
-#[Title('EZSEO')]
+#[Title('Login - EZSEO')]
 class Login extends Component
 {
     #[Validate('required', as: 'Email')]
     #[Validate('email', message: 'Please enter a valid Email Address.')]
     public string $email;
-    
+
     #[Validate('required', as: 'Password')]
     #[Validate('min:6', message: 'The password must be have atleast 6 characters.')]
     public string $password;

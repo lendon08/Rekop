@@ -1,8 +1,10 @@
-<main>
-
-    <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5">
+<div>
+    <div class="p-6 w-full text-2xl font-bold sm:p-6">
+        Call History
+    </div>
+    <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 rounded-lg lg:mt-1.5">
         <div class="w-full mb-1">
-           
+
 
             <div class="grid w-full mb-3 grid-cols-1 gap-4 mt-4 xl:grid-cols-4 2xl:grid-cols-2">
                 <div class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex sm:p-6">
@@ -124,7 +126,7 @@
                                     @endif
                                 </button>
                         </x-atoms.tables.td>
-                        
+
                     </tr>
                     @endforeach
                 </x-molecules.tables.tbody>
@@ -133,5 +135,4 @@
     </div>
 
     {{ $calls->links('components.custom-pagination') }}
-
-</main>
+</div>

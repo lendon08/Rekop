@@ -7,10 +7,10 @@ use App\Livewire\Traits\WithToast;
 use App\Integrations\SignalWire;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
-use App\Models\Phonenumbers;
 use App\Models\Schedules;
+use Livewire\Attributes\Title;
 
-
+#[Title('Phone Settings')]
 class Index extends Component
 {
     use WithForm, WithToast;
@@ -34,7 +34,7 @@ class Index extends Component
         foreach ($this->phoneNumbers['data'] as $key => $pn) {
             config(['database.connections.mysql.strict' => false]);
             DB::reconnect();
-            $this->phoneNumbers['data'][$key]['sets'] = Schedules::groupBy('sets')->where('phone_id',$pn['id'])->get()->count();
+            $this->phoneNumbers['data'][$key]['sets'] = Schedules::groupBy('sets')->where('phone_id', $pn['id'])->get()->count();
             $this->phoneNumbers['data'][$key]['number'] = $this->beautifyPhoneNumber($pn['number']);
         }
     }

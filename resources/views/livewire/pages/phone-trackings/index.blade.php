@@ -1,8 +1,8 @@
-<main>
+<div>
     <div class="bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5">
         <div class="w-full mb-1">
 
-            
+
             <div class="sm:flex">
                 <div class="flex items-center ml-auto space-x-2 sm:space-x-3">
                     <button type="button" wire:click="buyPhoneNum" class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-primary-300 sm:w-auto ">
@@ -50,24 +50,24 @@
                             <!-- TODO -->
                             <div class="relative">
                                 <div class="absolute top-0 right-0">
-                                <x-atoms.forms.button wire:click="addPhoneNum('{{$phoneNumber['id']}}')" type="button" data-popover-target="add-schedule-{{$key}}">
-                                    <x-atoms.icons.addschedule />
-                                </x-atoms.forms.button>
+                                    <x-atoms.forms.button wire:click="addPhoneNum('{{$phoneNumber['id']}}')" type="button" data-popover-target="add-schedule-{{$key}}">
+                                        <x-atoms.icons.addschedule />
+                                    </x-atoms.forms.button>
                                     <div data-popover id="add-schedule-{{$key}}" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0">
                                         <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg">
                                             <h3 class="font-semibold text-gray-900">Add Schedule</h3>
                                         </div>
-                                    <div data-popper-arrow></div>
+                                        <div data-popper-arrow></div>
                                     </div>
 
-                                <x-atoms.forms.button wire:click="editPhoneNum('{{$phoneNumber['id']}}')" type="button" data-popover-target="edit-schedule-{{$key}}">
-                                    <x-atoms.icons.edit />
-                                </x-atoms.forms.button>
-                                <div data-popover id="edit-schedule-{{$key}}" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0">
+                                    <x-atoms.forms.button wire:click="editPhoneNum('{{$phoneNumber['id']}}')" type="button" data-popover-target="edit-schedule-{{$key}}">
+                                        <x-atoms.icons.edit />
+                                    </x-atoms.forms.button>
+                                    <div data-popover id="edit-schedule-{{$key}}" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0">
                                         <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg">
                                             <h3 class="font-semibold text-gray-900">Edit Schedule</h3>
                                         </div>
-                                    <div data-popper-arrow></div>
+                                        <div data-popper-arrow></div>
                                     </div>
                                 </div>
                             </div>
@@ -81,8 +81,4 @@
             </x-organisms.table>
         </div>
     </div>
-
-</main>
-
-
-
+</div>
