@@ -19,12 +19,9 @@ php artisan key:generate
 
 ## Migrate and Seed the Database
 ```
-php artisan migrate
+php artisan migrate:fresh --seed
 ```
 
-```
-php artisan db:seed
-```
 ## Run the code
 ```
 php artisan serve
@@ -34,7 +31,7 @@ php artisan serve
 npm run dev
 ```
 
-## Before Deployment
+## Before Production Deployment(Warning don't do it in Developement)
 ```
 php artisan config:cache
 ```
