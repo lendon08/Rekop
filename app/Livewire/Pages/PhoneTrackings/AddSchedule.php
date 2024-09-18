@@ -7,7 +7,7 @@ use App\Integrations\SignalWire;
 use App\Models\Phonenumbers;
 use App\Models\Schedule;
 use App\Livewire\Traits\WithToast;
-
+use Illuminate\Support\Facades\Auth;
 
 class AddSchedule extends Component
 {
@@ -48,7 +48,7 @@ class AddSchedule extends Component
 
             Phonenumbers::insert([
                 'phonenumber_id' => $phoneInfo['id'],
-                'user_id' => auth()->user()->id,
+                'user_id' => Auth::id(),
                 'name' => $phoneInfo['name'],
                 'number' => $phoneInfo['number'],
             ]);
