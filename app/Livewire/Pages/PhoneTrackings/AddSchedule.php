@@ -8,7 +8,9 @@ use App\Models\Phonenumbers;
 use App\Models\Schedule;
 use App\Livewire\Traits\WithToast;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Title;
 
+#[Title('Add Schedule')]
 class AddSchedule extends Component
 {
     use WithToast;
