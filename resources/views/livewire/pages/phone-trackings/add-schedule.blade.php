@@ -3,11 +3,20 @@
 
 
         <form wire:submit="create()" class="space-y-4">
-            <div class="mt-6 mb-6">
-                <x-atoms.forms.label for="name">Name</x-atoms.label>
+            
+                <div class="mt-6 mb-6">
+                    <div class="flex">
+                        <a href="{{ route('phone-settings') }}" class="text-center">
+                            <x-atoms.icons.back></x-atoms.icons.back>
+                        </a>
+                        <x-atoms.forms.label for="name">Name</x-atoms.label>
+                    </div>
                     <x-atoms.forms.textbox type="text" wire:model.live="pnname" disabled />
+                    
                     <x-atoms.forms.validation for="form.name" />
-            </div>
+                </div>
+                
+            
             <div class='mb-6'>
                 <x-atoms.forms.button type="button" color="success" wire:click.prevent="addSchedule({{$i}})">
                     <x-atoms.icons.addschedule />Add Schedule
@@ -24,7 +33,7 @@
                     Business Hours # {{ " ". $key + $sets + 1}}
                 </legend>
                 <x-atoms.forms.label class="text-xl font-bold" for="fwd">Forwarded to
-                    <x-atoms.forms.textbox type="text" wire:model.live="fwd.{{$key}}" wire:change="formatNumber({{$key}})" wire:keyup="formatNumber({{$key}})" />
+                    <x-atoms.forms.textbox type="text" wire:model.live="fwd.{{$key}}" x-mask="(999)999-9999" />
                     <x-atoms.forms.validation for="form.fwd" />
                     </x-atoms.label>
                     <x-atoms.forms.label class="text-xl font-bold mt-10" for="schedule">Schedule
@@ -74,6 +83,7 @@
                         </div>
                     </x-atoms.forms.label>
 
+                        {{-- useless for now --}}
                     <x-atoms.forms.label class="text-xl font-bold" for="callflow">Call Flow
                         <div class="grid grid-cols-5 text-xl font-bold">
                             <x-atoms.forms.button class='col-start-2 w-40 p-5'>

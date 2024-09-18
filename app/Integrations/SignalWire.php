@@ -5,7 +5,7 @@ namespace App\Integrations;
 
 use Exception;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Http\Client\Request;
+use GuzzleHttp\Client;
 
 
 class SignalWire
@@ -31,7 +31,28 @@ class SignalWire
         }
     }
 
+    public static function purchasePhoneNumber($number)
+    {
+        $url = 'https://' . env('SIGNALWIRE_SPACE_URL') . '' . '/api/relay/rest/phone_numbers';
 
+        try {
+
+            $response = Http::withBasicAuth(env('SIGNALWIRE_PROJECTID'), env('SIGNALWIRE_TOKEN'))
+                ->withToken(env('SIGNALWIRE_AUTH_TOKEN'))
+                ->post($url, [
+                    'number' => $number
+                ]);
+
+            if ($response->failed()) {
+                throw new Exception('SIGNAL WIRE ERROR: ' . $response->body());
+            }
+            return $response->json();
+        } catch (\Exception $ex) {
+            throw new Exception('HTTP ERROR: ' . $ex->getMessage());
+        }
+    }
+
+    // $client->sendAsync($request)->wait(); // TO TRY next time
     //Search Number using Areacode
     public static function searchNumber(int $number)
     {

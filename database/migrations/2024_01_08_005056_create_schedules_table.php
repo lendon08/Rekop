@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->string('phone_id')->nullable();
             $table->string('fwd_number');
             $table->integer('sets');
             $table->enum('day', [1, 2, 3, 4, 5, 6, 7]);

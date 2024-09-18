@@ -13,14 +13,15 @@
     @vite(['resources/css/app.css','resources/js/app.js'])
 
     @livewireStyles
-
+    
     @stack('styles')
 
 </head>
 
 <body class="bg-gray-50">
 
-
+    
+    
     @include('partials.header')
 
     <div class="flex overflow-hidden bg-gray-50">
@@ -28,9 +29,7 @@
         @include('partials.sidebar')
 
         <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-16 lg:mx-2">
-            <main class="px-4">
-                {{ $slot }}
-            </main>
+            {{ $slot }}
         </div>
 
     </div>

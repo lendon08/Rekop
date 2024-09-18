@@ -9,10 +9,17 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Renderless;
 
 #[Title('Call History')]
 class CallHistory extends Component
 {
+
+    public $class = "inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto";
+
+    // TODO get all recording values to another controller
+
+
     use WithPagination, WithToast;
 
     public $selectAll = false;
@@ -29,7 +36,7 @@ class CallHistory extends Component
 
     public bool $readyToPlay = false;
 
-    public bool $playRecording = false;
+    public bool $playRecordingBool = false;
 
     public ?string $currentRecording = null;
 
@@ -88,6 +95,7 @@ class CallHistory extends Component
         $currentPage = $this->page ?: 1;
         $offset = ($currentPage - 1) * $perPage;
 
+        //TODO transfer to another controller or helper 
         foreach ($sortedUsers as $key => $value) {
             $sortedUsers[$key]['duration'] = $this->beautifyCallDuration($value['duration']);
             $sortedUsers[$key]['date_created'] = $this->beautifyCallDate($value['date_created']);
@@ -141,6 +149,7 @@ class CallHistory extends Component
         $this->sortField = $field;
     }
 
+    #[Renderless]
     public function updatedSelectAll($value)
     {
         if ($value) {
@@ -150,6 +159,7 @@ class CallHistory extends Component
         }
     }
 
+    #[Renderless]
     public function playRecordingEnded()
     {
         $this->readyToPlay = false;
@@ -161,7 +171,7 @@ class CallHistory extends Component
 
         $this->readyToPlay = false;
 
-        $this->playRecording = true;
+        $this->playRecordingBool = true;
 
         $this->currentPlayButton = $currentPlayButton;
 
@@ -175,9 +185,10 @@ class CallHistory extends Component
             }
         }
 
+
         $this->readyToPlay = true;
 
-        $this->playRecording = false;
+        $this->playRecordingBool = false;
 
         $this->dispatch('playAudio');
 

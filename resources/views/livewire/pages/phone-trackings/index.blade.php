@@ -1,9 +1,12 @@
-<div>
+<main class="px-2 space-y-4">
+    <div class="p-6 w-full text-2xl font-bold sm:p-6">
+        Phone Setting
+    </div>
     <div class="bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5">
         <div class="w-full mb-1">
 
 
-            <div class="sm:flex">
+            <div class="sm:flex" >
                 <div class="flex items-center ml-auto space-x-2 sm:space-x-3">
                     <button type="button" wire:click="buyPhoneNum" class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-primary-300 sm:w-auto ">
                         <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -23,7 +26,7 @@
     </div>
 
     <div class="flex flex-col">
-        <div class="overflow-x-auto">
+        <div>
             <x-organisms.table>
                 <x-molecules.tables.thead>
                     <tr>
@@ -81,4 +84,4 @@
             </x-organisms.table>
         </div>
     </div>
-</div>
+</main>

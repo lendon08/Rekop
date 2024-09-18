@@ -1,4 +1,4 @@
-<div>
+<main class="px-2 space-y-4">
     <div class="p-6 w-full text-2xl font-bold sm:p-6">
         Call History
     </div>
@@ -47,10 +47,10 @@
             </div>
         </div>
     </div>
-
+    
     <div class="flex flex-col">
         <div class="overflow-x-auto">
-            <x-organisms.table id="example">
+            <x-organisms.table>
                 <x-molecules.tables.thead>
                     <tr>
                         <x-atoms.tables.th>
@@ -79,14 +79,14 @@
                     </tr>
                 </x-molecules.tables.thead>
                 <x-molecules.tables.tbody>
-
                     <audio id="playAudio" class="hidden">
                         <source src="{{ $currentRecording }}" type="audio/mp3">
                         Your browser does not support the audio element.
                     </audio>
+                    
 
-                    @foreach ($calls as $call)
-                    <tr>
+                    @foreach ($calls as $key => $call)
+                    <tr wire:key="call-{{ $key }}">
                         <x-atoms.tables.td>
                             <x-atoms.forms.checkbox id="checkbox-{{$call['sid']}}" wire:model.live="selectedItems" value="{{ $call['sid'] }}" />
                         </x-atoms.tables.td>
@@ -98,31 +98,29 @@
                         <x-atoms.tables.td>{{ $call['date_created']}}</x-atoms.tables.td>
                         <x-atoms.tables.td>
                             @php
-                            $class = "inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto";
-                            if(($currentPlayButton == $call['sid']) && $readyToPlay){
-                            $class = 'inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 sm:w-auto';
-                            }
-
-                            if(($currentPlayButton == $call['sid']) && !$currentRecording){
-                            $class = 'inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 sm:w-auto';
-                            }
+                                if(($currentPlayButton == $call['sid']) && $readyToPlay){
+                                    $class = 'inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 sm:w-auto';   
+                                }
+                                elseif(($currentPlayButton == $call['sid']) && !$currentRecording){
+                                    $class = 'inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 sm:w-auto';
+                                }
                             @endphp
                             <div class="flex items-center">
                                 <button wire:click="playRecording('{{ $call['sid'] }}', '{{ $call['subresource_uris']['recordings'] }}')" class="{{ $class }}">
                                     @if( ($currentPlayButton == $call['sid']) && $currentRecording)
-                                    @if ($playRecording)
-                                    Loading
-                                    @elseif ($readyToPlay)
-                                    <svg class="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 16">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m2.707 14.293 5.586-5.586a1 1 0 0 0 0-1.414L2.707 1.707A1 1 0 0 0 1 2.414v11.172a1 1 0 0 0 1.707.707Z" />
-                                    </svg> Listening
-                                    @else
-                                    Play Audio
-                                    @endif
+                                        @if ($playRecordingBool)
+                                        Loading
+                                        @elseif ($readyToPlay)
+                                        <svg class="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 16">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m2.707 14.293 5.586-5.586a1 1 0 0 0 0-1.414L2.707 1.707A1 1 0 0 0 1 2.414v11.172a1 1 0 0 0 1.707.707Z" />
+                                        </svg> Listening
+                                        @else
+                                            Play Audio
+                                        @endif
                                     @elseif( ($currentPlayButton == $call['sid']) && !$currentRecording)
-                                    No Audio
+                                        No Audio
                                     @else
-                                    Play Audio
+                                        Play Audio
                                     @endif
                                 </button>
                         </x-atoms.tables.td>
@@ -134,5 +132,5 @@
         </div>
     </div>
 
-    {{ $calls->links('components.custom-pagination') }}
-</div>
+    {{ $calls->links() }}
+    </div>

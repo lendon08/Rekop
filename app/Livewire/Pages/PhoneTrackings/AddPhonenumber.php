@@ -3,21 +3,23 @@
 namespace App\Livewire\Pages\PhoneTrackings;
 
 use Livewire\Component;
-use App\Models\Regions;
+use App\Models\Region;
 
 class AddPhonenumber extends Component
 {
-    public $regions =[];
+    public $regions = [];
 
-    public function mount(){
-        $this->regions  = Regions::get();
-        // dd($this->regions);
+    public function mount()
+    {
+        $this->regions  = Region::get();
+        // dd($this->region);
     }
     public function render()
     {
         return view('livewire.pages.phone-trackings.add-phonenumber');
     }
-    public function buyPhonenumber(){
+    public function buyPhonenumber()
+    {
         dd($this);
     }
 }

@@ -16,31 +16,31 @@ class EditSchedule extends Component
 
     public $sets = 0;
 
-    public $monstartsched=[], $tuestartsched=[],$wedstartsched=[],$thustartsched=[],$fristartsched=[],$satstartsched=[],$sunstartsched= [];
+    public $monstartsched = [], $tuestartsched = [], $wedstartsched = [], $thustartsched = [], $fristartsched = [], $satstartsched = [], $sunstartsched = [];
 
-    public $monendsched=[], $tueendsched=[],$wedendsched=[],$thuendsched=[],$friendsched=[],$satendsched=[],$sunendsched = [];
+    public $monendsched = [], $tueendsched = [], $wedendsched = [], $thuendsched = [], $friendsched = [], $satendsched = [], $sunendsched = [];
 
     public $fwd = [];
 
-    public function mount($id){
+    public function mount($id)
+    {
         $phoneInfo = SignalWire::http("/api/relay/rest/phone_numbers/" . $id);
         $this->pid = $phoneInfo['id'];
         $this->pname =  $phoneInfo['name'];
         $this->pnumber =  $phoneInfo['number'];
 
-        $this->schedules = Schedules::where('phone_id', $phoneInfo['id'])->get();
+        $this->schedules = Schedule::where('id', $phoneInfo['id'])->get();
         // $this->sets =  Schedules::select(Schedules::raw('count(sets) as user_count'))
-        // ->groupBy('sets')->where('phone_id', $this->pid)->get()->count();
+        // ->groupBy('sets')->where('id', $this->pid)->get()->count();
         config(['database.connections.mysql.strict' => false]);
         DB::reconnect();
-        $this->sets =  Schedules::groupBy('sets')->where('phone_id', $this->pid)->get()->count();
+        $this->sets =  Schedule::groupBy('sets')->where('id', $this->pid)->get()->count();
 
-        foreach($this->schedules as $sched){
-            $this->setStartSched($sched['day'], $sched['sets'],$sched['start_sched']);
-            $this->setEndSched($sched['day'], $sched['sets'],$sched['end_sched'], $sched['fwd_number']);
+        foreach ($this->schedules as $sched) {
+            $this->setStartSched($sched['day'], $sched['sets'], $sched['start_sched']);
+            $this->setEndSched($sched['day'], $sched['sets'], $sched['end_sched'], $sched['fwd_number']);
             //Add call flow
         }
-
     }
     public function render()
     {
@@ -63,7 +63,8 @@ class EditSchedule extends Component
 
         $this->fwd[$key] = $formatted;
     }
-    private function setStartSched($day, $set, $val){
+    private function setStartSched($day, $set, $val)
+    {
         switch ($day) {
             case 1:
                 $this->monstartsched[$set] = $val;
@@ -88,10 +89,11 @@ class EditSchedule extends Component
                 break;
             default:
                 break;
-            }
+        }
     }
 
-    private function setEndSched($day, $set, $val, $fwd){
+    private function setEndSched($day, $set, $val, $fwd)
+    {
         switch ($day) {
             case 1:
                 $this->monendsched[$set] = $val;
@@ -117,6 +119,6 @@ class EditSchedule extends Component
                 break;
             default:
                 break;
-            }
+        }
     }
 }

@@ -14,18 +14,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('regions', function (Blueprint $table) {
+        Schema::create('region', function (Blueprint $table) {
             $table->id();
             $table->enum('country', ['us', 'canada']);
             $table->char('code', 2);
             $table->string('name');
             $table->timestamps();
         });
-
-        Artisan::call('db:seed', [
-            '--class' => 'RegionsSeeder',
-            '--force' => true
-        ]);
     }
 
     /**
@@ -35,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('regions');
+        Schema::dropIfExists('region');
     }
 };

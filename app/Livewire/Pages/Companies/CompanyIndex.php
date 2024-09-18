@@ -19,12 +19,11 @@ class CompanyIndex extends Component
     //     'companyIndexRefresh' => '$refresh',
     // ];
 
+    // public $companies;
+
     public function render()
     {
-        // dd("something");
-        // dd(Companies::cursorPaginate(15));   
-        $companies = Company::paginate(50);
-        return view('livewire.pages.companies.company-index', compact('companies'));
+        return view('livewire.pages.companies.company-index', ['companies' => Company::paginate(10)]);
     }
 
     public function create()
@@ -37,7 +36,7 @@ class CompanyIndex extends Component
         $this->openForm('forms.companies.company-form', 'update', $company->toArray());
     }
 
-    public function confirm(Company $company)
+    public function destroy(Company $company)
     {
         $this->openForm('forms.companies.company-form', 'destroy', $company->toArray());
     }

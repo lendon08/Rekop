@@ -7,7 +7,7 @@ use App\Livewire\Traits\WithToast;
 use App\Integrations\SignalWire;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
-use App\Models\Schedules;
+use App\Models\Schedule;
 use Livewire\Attributes\Title;
 
 #[Title('Phone Settings')]
@@ -32,9 +32,10 @@ class Index extends Component
         $this->phoneNumbers = SignalWire::http('/api/relay/rest/phone_numbers');
 
         foreach ($this->phoneNumbers['data'] as $key => $pn) {
+            //wtf is this. 
             config(['database.connections.mysql.strict' => false]);
             DB::reconnect();
-            $this->phoneNumbers['data'][$key]['sets'] = Schedules::groupBy('sets')->where('phone_id', $pn['id'])->get()->count();
+            $this->phoneNumbers['data'][$key]['sets'] = Schedule::groupBy('sets')->where('id', $pn['id'])->get()->count();
             $this->phoneNumbers['data'][$key]['number'] = $this->beautifyPhoneNumber($pn['number']);
         }
     }
@@ -47,7 +48,7 @@ class Index extends Component
 
     public function buyPhoneNum()
     {
-        return to_route('buy-phone-number');
+        return to_route('wizard');
     }
 
     public function viewPhoneNum()

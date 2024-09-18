@@ -1,9 +1,9 @@
-<main class="px-2 space-y-4 w-full">
-  <div class="p-6 w-full text-2xl font-bold sm:p-6">
+<main class="px-2 space-y-4">
+  <div class="p-6 text-2xl font-bold sm:p-6">
     Account Home
   </div>
 
-  <div class="flex w-full mt-2 text-md bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-1 sm:p-6">
+  <div class="flex mt-2 text-md bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-1 sm:p-6">
     <div class="w-1/3">Data listed in Central Time</div>
     <div class="w-2/3 float-right">
       <a href="/settings/create-number" class="float-right mr-4 inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto">
@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <div class="grid w-full grid-cols-1 gap-2 xl:grid-cols-4 2xl:grid-cols-4">
+  <div class="grid grid-cols-1 gap-2 xl:grid-cols-4 2xl:grid-cols-4">
 
     <div class="bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 sm:p-6"><!--Total Calls-->
 
@@ -330,17 +330,19 @@
         series: [44, 55, 33],
         chart: {
           width: 400,
+          height: 500,
           type: 'pie',
         },
         labels: ['Google My Business', 'Child Support', 'Google Ads'],
         responsive: [{
-          breakpoint: 480,
+          breakpoint: 400,
           options: {
             chart: {
               width: 50
             },
             legend: {
-              position: 'bottom'
+              show: false,
+              position: 'left'
             }
           }
         }]

@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class RegionsSeeder extends Seeder
+class RegionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +16,7 @@ class RegionsSeeder extends Seeder
     public function run()
     {
 
-        DB::table('regions')->insert([
+        DB::table('region')->insert([
             ['country' => 'us', 'code' => 'AL', 'name' => 'Alabama'],
             ['country' => 'us', 'code' => 'AK', 'name' => 'Alaska'],
             ['country' => 'us', 'code' => 'AZ', 'name' => 'Arizona'],
@@ -83,10 +83,3 @@ class RegionsSeeder extends Seeder
         ]);
     }
 }
-
-
-
-
-
-
-
