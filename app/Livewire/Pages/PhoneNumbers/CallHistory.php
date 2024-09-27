@@ -15,7 +15,7 @@ use Livewire\Attributes\Renderless;
 class CallHistory extends Component
 {
 
-    public $class = "inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto";
+
 
     // TODO get all recording values to another controller
 
@@ -49,6 +49,8 @@ class CallHistory extends Component
     public int $numOfUniqueCall = 0;
 
     public int $page = 0;
+
+    public string $search = "";
 
     protected $listeners = [
         'refreshComponent' => '$refresh',

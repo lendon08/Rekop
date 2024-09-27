@@ -45,7 +45,8 @@
             </div>
             <div>
                 <label for="helper-radio" class="font-medium text-gray-900">Landing Page or URL parameter</label>
-                <p id="landing-page" class="{{ $trackingOption==3 ? '' : 'hidden' }} text-xs font-normal text-gray-500">Visitors who land on. <input placeholder="xyz.com or utm_campaign=xyz" type="text"></p>
+                <p id="landing-page" class="{{ $trackingOption==3 ? '' : 'hidden' }} text-xs font-normal text-gray-500">Visitors who land on. 
+                    <input placeholder="xyz.com or utm_campaign=xyz" type="text"></p>
 
             </div>
         </div>
@@ -56,7 +57,8 @@
             </div>
             <div>
                 <label for="helper-radio" class="font-medium text-gray-900">Referring page</label>
-                <p id="refering-page" class="{{ $trackingOption==4 ? '' : 'hidden' }} text-xs font-normal text-gray-500">Visitors who are referred from <input placeholder="websitename.com" type="text"></p>
+                <p id="refering-page" class="{{ $trackingOption==4 ? '' : 'hidden' }} text-xs font-normal text-gray-500">Visitors who are referred from 
+                    <input placeholder="websitename.com" type="text"></p>
 
             </div>
         </div>

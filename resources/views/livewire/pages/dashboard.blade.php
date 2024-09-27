@@ -1,20 +1,20 @@
 <main class="px-2 space-y-4">
   <div class="p-6 text-2xl font-bold sm:p-6">
-    Account Home
+    Account Home 1112223333
   </div>
 
-  <div class="flex mt-2 text-md bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-1 sm:p-6">
-    <div class="w-1/3">Data listed in Central Time</div>
-    <div class="w-2/3 float-right">
-      <a href="/settings/create-number" class="float-right mr-4 inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto">
-        Create Number</a>
+  <div class="flex justify-between mt-2 text-md bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-1 sm:p-6">
+    <span>Data listed in Central Time</span>
+    <div>
+      <x-atoms.forms.button href="/settings/create-number" variant="primary">
+        Create Number
+      </x-atoms.forms.button>
     </div>
   </div>
 
   <div class="grid grid-cols-1 gap-2 xl:grid-cols-4 2xl:grid-cols-4">
 
     <div class="bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 sm:p-6"><!--Total Calls-->
-
       <div class="flex items-center justify-between mb-4">
         <div class="flex-shrink-0">
           <span class="text-base leading-none text-gray-900 sm:text-md ">Total calls </span>
@@ -49,7 +49,7 @@
       </div>
     </div>
 
-    <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 sm:p-6"><!-- First Time Callers -->
+    <div class="bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 sm:p-6"><!-- First Time Callers -->
       <div class="flex items-center justify-between mb-4">
         <div class="flex-shrink-0">
           <span class="text-base leading-none text-gray-900 sm:text-md">Total First-time Callers </span>
@@ -84,7 +84,7 @@
       </div>
     </div>
 
-    <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-3 sm:p-6"><!-- Calls by number -->
+    <div class=" bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-3 sm:p-6"><!-- Calls by number -->
       <div class="flex items-center justify-between mb-4">
         <div class="flex-shrink-0">
           <span class="text-base leading-none text-gray-900 sm:text-md">Calls by number</span>
@@ -106,7 +106,7 @@
       </div>
     </div>
 
-    <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-1 sm:p-6"><!-- Call attribution by source -->
+    <div class=" bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-1 sm:p-6"><!-- Call attribution by source -->
       <div class="flex items-center justify-between mb-4">
         <div class="flex-shrink-0">
           <span class="text-base leading-none text-gray-900 sm:text-md">Call attribution by source</span>
@@ -130,7 +130,7 @@
 
     </div>
 
-    <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 sm:p-6"><!-- Call Status -->
+    <div class=" bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 sm:p-6"><!-- Call Status -->
       <div class="flex items-center justify-between mb-4">
         <div class="flex-shrink-0">
           <span class="text-base leading-none text-gray-900 sm:text-md">Call Status</span>
@@ -182,7 +182,7 @@
 
     </div>
 
-    <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 sm:p-6"><!-- Unanswered Calls by Hour -->
+    <div class=" bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 sm:p-6"><!-- Unanswered Calls by Hour -->
       <div class="flex items-center justify-between mb-4">
         <div class="flex-shrink-0">
           <span class="text-base leading-none text-gray-900 sm:text-md">Unanswered Calls by Hour</span>
@@ -209,7 +209,7 @@
       </div>
     </div>
 
-    <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-4 sm:p-6"><!-- Recent activity -->
+    <div class=" bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-4 sm:p-6"><!-- Recent activity -->
       <div class="flex items-center justify-between mb-4">
         <div class="flex-shrink-0">
           <span class="text-base leading-none text-gray-900 sm:text-md">Recent activity </span>
@@ -276,8 +276,6 @@
         </a>
       </div>
     </div>
-
-
 
 
     @push('scripts')

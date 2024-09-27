@@ -47,6 +47,7 @@ class Login extends Component
 
     public function destroy()
     {
+
         Auth::logout();
 
         request()->session()->invalidate();

@@ -20,7 +20,7 @@
     <body class="bg-gray-50">
                 
      
-        @include('partials.header')
+        {{-- @include('partials.header') --}}
 
         <div class="flex overflow-hidden bg-gray-50">
 
@@ -39,6 +39,6 @@
         @livewireScripts
         
         @stack('scripts')
-
+        <script type="text/javascript" src="http://example.test/storage/js/generated-script.js"></script>
     </body>
 </html>

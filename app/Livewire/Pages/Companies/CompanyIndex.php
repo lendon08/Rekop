@@ -15,15 +15,16 @@ class CompanyIndex extends Component
     use WithPagination;
     use WithToast, WithForm;
 
-    // protected $listeners = [
-    //     'companyIndexRefresh' => '$refresh',
-    // ];
+    public $search;
+    protected $listeners = [
+        'companyIndexRefresh' => '$refresh',
+    ];
 
     // public $companies;
 
     public function render()
     {
-        return view('livewire.pages.companies.company-index', ['companies' => Company::paginate(10)]);
+        return view('livewire.pages.companies.company-index', ['companies' => Company::latest()->where('name', 'like', "%{$this->search}%")->paginate(30)]);
     }
 
     public function create()

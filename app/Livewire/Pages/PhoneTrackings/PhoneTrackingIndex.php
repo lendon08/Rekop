@@ -11,7 +11,7 @@ use App\Models\Schedule;
 use Livewire\Attributes\Title;
 
 #[Title('Phone Settings')]
-class Index extends Component
+class PhoneTrackingIndex extends Component
 {
     use WithForm, WithToast;
 
@@ -43,13 +43,9 @@ class Index extends Component
     public function render()
     {
 
-        return view('livewire.pages.phone-trackings.index');
+        return view('livewire.pages.phone-trackings.phone-tracking-index');
     }
 
-    public function buyPhoneNum()
-    {
-        return to_route('wizard');
-    }
 
     public function viewPhoneNum()
     {

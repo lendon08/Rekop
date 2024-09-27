@@ -180,7 +180,7 @@
                 wire:click="Decrease(1)">
                 {{ $pages[$pageCnt-1]}}
             </button>
-            {{$pageCnt}}
+            
         </div>
 
         

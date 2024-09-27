@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Phonenumbers::class);
             $table->tinyInteger('display');
-            $table->tinyInteger('use');
+            $table->tinyInteger('useon');
             $table->tinyInteger('googleads');
             $table->tinyInteger('options');
             $table->string('swaptarget');

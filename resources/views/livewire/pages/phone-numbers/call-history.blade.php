@@ -24,24 +24,22 @@
             <div class="sm:flex">
                 <div class="items-center hidden mb-3 sm:flex sm:divide-x sm:divide-gray-100 sm:mb-0">
                     <form class="lg:pr-3" action="#" method="GET">
-                        <label for="companies-search" class="sr-only">Search</label>
+                        <label for="companies-search" class="sr-only" wire:model.live="search">Search</label>
                         <div class="relative mt-1 lg:w-64 xl:w-96">
-                            <input type="text" name="email" id="companies-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 " placeholder="Search Calls" autocomplete="false">
+                            <input type="text" name="email" id="companies-search" 
+                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 " 
+                            placeholder="Search Calls" autocomplete="false">
                         </div>
                     </form>
                     <div class="flex pl-0 mt-3 space-x-3 sm:pl-3 sm:mt-0">
-                        <a href="#" class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto">
-                            <svg class="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                                <path d="M18.85 1.1A1.99 1.99 0 0 0 17.063 0H2.937a2 2 0 0 0-1.566 3.242L6.99 9.868 7 14a1 1 0 0 0 .4.8l4 3A1 1 0 0 0 13 17l.01-7.134 5.66-6.676a1.99 1.99 0 0 0 .18-2.09Z" />
-                            </svg>
+                        <x-atoms.forms.button class="border-gray-300 border-2 p-2" wire:click.prevent="">
+                            <x-atoms.icons.filter></x-atoms.icons.filter>
                             Filters
-                        </a>
-                        <a href="#" wire:click="generateReport" class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto">
-                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"></path>
-                            </svg>
+                        </x-atoms.forms.button>
+                        <x-atoms.forms.button class="border-gray-300 border-2 p-2" wire:click.prevent="">
+                            <x-atoms.icons.download></x-atoms.icons.download>
                             Generate Report
-                        </a>
+                        </x-atoms.forms.button>
                     </div>
                 </div>
             </div>
@@ -98,6 +96,7 @@
                         <x-atoms.tables.td>{{ $call['date_created']}}</x-atoms.tables.td>
                         <x-atoms.tables.td>
                             @php
+                                $class = "inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto";
                                 if(($currentPlayButton == $call['sid']) && $readyToPlay){
                                     $class = 'inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 sm:w-auto';   
                                 }
@@ -131,6 +130,8 @@
             </x-organisms.table>
         </div>
     </div>
-
-    {{ $calls->links() }}
+    <div class="fixed bottom-0 pt-4 left-1 pl-16 z-40 grid w-full h-16 grid-cols-1 px-8 bg-white border-t border-gray-200 justify-between">
+        {{ $calls->links() }}
+    </div>
+    
     </div>

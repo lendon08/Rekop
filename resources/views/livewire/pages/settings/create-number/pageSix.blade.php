@@ -57,7 +57,7 @@
                 </div>
             </label>
         </li>
-        {{-- <li x-data="{ isEnabled: false }">
+        <li x-data="{ isEnabled: false }">
             <input
                 type="radio"
                 id="hosting-big"
@@ -90,7 +90,7 @@
                     </div>
                 </div>
             </label>
-        </li> --}}
+        </li>
     </ul>
 
 

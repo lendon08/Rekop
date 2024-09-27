@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pages\Settings\CreateNumber;
 
+use Exception;
 use App\Integrations\SignalWire;
 use App\Models\phone_tracking;
 use App\Models\Phonenumbers;
@@ -81,8 +82,8 @@ class CreateNumberIndex extends Component
         if (Str::length($this->areaCode) == 3) {
             try {
                 $numbers = SignalWire::searchNumber($this->areaCode)['available_phone_numbers'];
-            } catch (\Throwable $th) {
-                dd($th);
+            } catch (\Exception $th) {
+                throw new Exception('ERROR: ' . $th->getMessage());
             }
 
             // Slice the array to only get the first 4 items
@@ -104,10 +105,7 @@ class CreateNumberIndex extends Component
 
     public function store()
     {
-        // authorize
 
-        // validate
-        //fix this
         $pnumber = Phonenumbers::latest()->first();
 
         phone_tracking::create([
@@ -122,12 +120,20 @@ class CreateNumberIndex extends Component
             'areacode' => $this->areaCode,
             'poolname' => $this->poolName
         ]);
-        // $this->purchaseNumber();
 
-        // save
+        //Buy number from Signalwire 
+        $this->purchaseNumber();
+
         //redirect
         return redirect()->route('dashboard');
     }
+
+    public function purchaseNumber()
+    {
+        $this->selectedNumber = preg_replace('/[^\d+]/', '', $this->selectedNumber);
+        SignalWire::purchasePhoneNumber($this->selectedNumber);
+    }
+
     public function Decrease($decBy)
     {
         if ($this->pageCnt == 0) {
@@ -142,12 +148,5 @@ class CreateNumberIndex extends Component
         } else {
             $this->pageCnt += $incBy;
         }
-    }
-
-    public function purchaseNumber()
-    {
-        $this->selectedNumber = preg_replace('/[^\d+]/', '', $this->selectedNumber);
-        // dd($this->selectedNumber);
-        SignalWire::purchasePhoneNumber($this->selectedNumber);
     }
 }

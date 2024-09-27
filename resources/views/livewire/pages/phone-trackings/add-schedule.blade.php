@@ -17,11 +17,11 @@
                 
             
             <div class='mb-6'>
-                <x-atoms.forms.button type="button" color="success" wire:click.prevent="addSchedule({{$i}})">
+                <x-atoms.forms.button type="button" variant="primary" wire:click.prevent="addSchedule({{$i}})">
                     <x-atoms.icons.addschedule />Add Schedule
                 </x-atoms.forms.button>
 
-                <x-atoms.forms.button type="button" color="secondary" wire:click.prevent="removeSchedule({{$i}})">
+                <x-atoms.forms.button type="button" variant="secondary" wire:click.prevent="removeSchedule({{$i}})">
                     <x-atoms.icons.trash />Remove Schedule
                 </x-atoms.forms.button>
             </div>

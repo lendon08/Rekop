@@ -13,7 +13,7 @@
             <x-atoms.forms.textbox type="password" name="password" id="password" wire:model="password"/>
             <x-atoms.forms.validation for="password"/>
         </div>
-        <x-atoms.forms.button color="success" type="submit">Login to your account</x-atoms.forms.button>
+        <x-atoms.forms.button variant="success" type="submit">Login to your account</x-atoms.forms.button>
         <div class="text-sm font-medium text-gray-500">
             Not registered? <x-atoms.forms.href href="{{ route('register') }}">Create account</x-atoms.forms.href>
         </div>

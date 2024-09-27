@@ -10,9 +10,9 @@ document.openDropdown = function (dropdownId) {
 };
 
 document.addEventListener("closeToast", function () {
-    if (livewire) {
+    if (Livewire) {
         setTimeout(() => {
-            livewire.emitTo("modules.toast", "closeToast");
+            Livewire.dispatchTo("modules.toast", "closeToast");
         }, 3000);
     }
 });
@@ -32,7 +32,7 @@ document.addEventListener("playAudio", function () {
     const audio = document.getElementById("playAudio");
 
     audio.addEventListener("ended", function () {
-        window.Livewire.dispatch("playRecordingEnded");
+        Livewire.dispatch("playRecordingEnded");
     });
 
     audio.addEventListener("canplaythrough", function () {
