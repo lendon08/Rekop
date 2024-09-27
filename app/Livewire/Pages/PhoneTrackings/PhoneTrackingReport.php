@@ -53,7 +53,7 @@ class PhoneTrackingReport extends Component
 
         $this->numOfUniqueCall = count(array_unique($uniqueCalls) ?? []);
 
-        return view('components.livewire.pages.phone-trackings.phone-tracking-report', [
+        return view('livewire.pages.phone-trackings.phone-tracking-report', [
             'calls' => $calls ?? ['calls' => []],
         ]);
     }

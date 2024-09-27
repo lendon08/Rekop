@@ -6,22 +6,21 @@ use Livewire\Component;
 use Carbon\Carbon;
 use Livewire\Attributes\Title;
 
-#[Title('Dashboard')]
+#[Title('EZSEO')]
 class Dashboard extends Component
 {
-//    TODO SET the correct timezone
+    //    TODO SET the correct timezone
     public $week;
-    
+
     public function mount()
     {
         // Get date now until last week
         $now = Carbon::now();
-        $prev = Carbon::now()->subDays(7); 
-        $this->week = $now->format('M d') ." - ".  $prev->format('M d');
-
+        $prev = Carbon::now()->subDays(7);
+        $this->week = $now->format('M d') . " - " .  $prev->format('M d');
     }
     public function render()
     {
-        return view('components.livewire.pages.dashboard');
+        return view('livewire.pages.dashboard');
     }
 }

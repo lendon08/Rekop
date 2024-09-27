@@ -38,7 +38,7 @@ class CompanyForm extends Component
     {
         $validated = $this->validate()['form'];
 
-        $validated['owner_id'] = Auth::id();
+        $validated['user_id'] = Auth::id();
 
         Company::create($validated);
 
@@ -74,5 +74,4 @@ class CompanyForm extends Component
 
         $this->dispatch('companyIndexRefresh');
     }
-
 }

@@ -7,22 +7,24 @@ use App\Livewire\Traits\WithToast;
 use App\Models\Company;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\Attributes\Title;
 
+#[Title('Company - EZSEO')]
 class CompanyIndex extends Component
 {
     use WithPagination;
     use WithToast, WithForm;
 
+    public $search;
     protected $listeners = [
         'companyIndexRefresh' => '$refresh',
     ];
 
+    // public $companies;
+
     public function render()
     {
-        // dd("something");
-        // dd(Companies::cursorPaginate(15));   
-        $companies = Company::paginate(50);
-        return view('components.livewire.pages.companies.company-index', compact('companies'));
+        return view('livewire.pages.companies.company-index', ['companies' => Company::latest()->where('name', 'like', "%{$this->search}%")->paginate(30)]);
     }
 
     public function create()
@@ -35,7 +37,7 @@ class CompanyIndex extends Component
         $this->openForm('forms.companies.company-form', 'update', $company->toArray());
     }
 
-    public function confirm(Company $company)
+    public function destroy(Company $company)
     {
         $this->openForm('forms.companies.company-form', 'destroy', $company->toArray());
     }

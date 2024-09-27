@@ -14,10 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('phonenumbers', function (Blueprint $table) {
-            $table->string('phone_id')->unique();
-            $table->unsignedBigInteger('owner_id');
+            $table->id();
+            $table->string('phonenumber_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('name')->nullable();
             $table->string('number');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

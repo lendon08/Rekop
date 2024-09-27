@@ -9,22 +9,25 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Validate;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 
+
+#[Title('Login - EZSEO')]
 class Login extends Component
 {
     #[Validate('required', as: 'Email')]
     #[Validate('email', message: 'Please enter a valid Email Address.')]
     public string $email;
-    
+
     #[Validate('required', as: 'Password')]
     #[Validate('min:6', message: 'The password must be have atleast 6 characters.')]
     public string $password;
 
-  
-
+    #[Layout('layouts.guest')]
     public function render()
     {
-        return view('components.livewire.pages.auth.login')->layout('layouts.guest');
+        return view('livewire.auth.login');
     }
 
     public function submit()
@@ -44,6 +47,7 @@ class Login extends Component
 
     public function destroy()
     {
+
         Auth::logout();
 
         request()->session()->invalidate();

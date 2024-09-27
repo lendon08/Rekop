@@ -55,7 +55,7 @@ class CallHistoryReport extends Component
     public function render()
     {
         $total = array_sum(array_column($this->phoneNumbers, 'price'));
-        return view('components.livewire.pages.phone-numbers.call-history-report', [
+        return view('livewire.pages.phone-numbers.call-history-report', [
             'calls' => $this->phoneNumbers,
             'multiplier' => $this->selectedCompany->toArray()['lead_value'],
             'total' => $total,

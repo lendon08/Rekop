@@ -30,22 +30,19 @@ class CreateCronCommand extends Command
     public function handle()
     {
         $scheds = json_decode(DB::table('phonenumbers')
-        ->select('name', 'phone_id', 'call_request_url')
-        ->where('start_sched', date('H:i'))
-        ->get());
-      
+            ->select('name', 'id', 'call_request_url')
+            ->where('start_sched', date('H:i'))
+            ->get());
+
         // ->where('start_sched', '08:00') 
-        
-        if(count($scheds)>0)
-        {
-            foreach($scheds as $sched){
-                SignalWire::updateForwarding("/api/relay/rest/phone_numbers/". $sched->phone_id , $sched->call_request_url );
-                info('UPDATED: '. $sched->name.', TIME: '.date('H:i'));
+
+        if (count($scheds) > 0) {
+            foreach ($scheds as $sched) {
+                SignalWire::updateForwarding("/api/relay/rest/phone_numbers/" . $sched->id, $sched->call_request_url);
+                info('UPDATED: ' . $sched->name . ', TIME: ' . date('H:i'));
             }
         }
 
         return Command::SUCCESS;
-        
-        
     }
 }

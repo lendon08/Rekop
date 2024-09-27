@@ -97,7 +97,7 @@ class EditPhoneNumber extends Component
         if (empty($this->schedid)) {
             foreach ($this->schedules as $key => $id) {
                 Phonenumbers::insert([
-                    'phone_id' => $this->pnid,
+                    'id' => $this->pnid,
                     'name' => $this->pnname,
                     'number' => $this->pnnumber,
                     'start_sched' => $this->startsched[$key],

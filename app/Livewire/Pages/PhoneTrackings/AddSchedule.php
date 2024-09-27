@@ -5,10 +5,12 @@ namespace App\Livewire\Pages\PhoneTrackings;
 use Livewire\Component;
 use App\Integrations\SignalWire;
 use App\Models\Phonenumbers;
-use App\Models\Schedules;
+use App\Models\Schedule;
 use App\Livewire\Traits\WithToast;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Title;
 
-
+#[Title('Add Schedule')]
 class AddSchedule extends Component
 {
     use WithToast;
@@ -24,9 +26,9 @@ class AddSchedule extends Component
     // to Add later
     // public $xmlbins = [];
 
-    public $monstartsched=[], $tuestartsched=[],$wedstartsched=[],$thustartsched=[],$fristartsched=[],$satstartsched=[],$sunstartsched= [];
+    public $monstartsched = [], $tuestartsched = [], $wedstartsched = [], $thustartsched = [], $fristartsched = [], $satstartsched = [], $sunstartsched = [];
 
-    public $monendsched=[], $tueendsched=[],$wedendsched=[],$thuendsched=[],$friendsched=[],$satendsched=[],$sunendsched = [];
+    public $monendsched = [], $tueendsched = [], $wedendsched = [], $thuendsched = [], $friendsched = [], $satendsched = [], $sunendsched = [];
 
     public $fwd = [];
 
@@ -39,33 +41,34 @@ class AddSchedule extends Component
 
     public function mount($id)
     {
+
         $this->PhoneID = $id;
-        if (!Phonenumbers::where('phone_id', $id)->exists()) {
+
+        // dd(Phonenumbers::firstWhere('phonenumber_id', $id));
+        if (!Phonenumbers::firstWhere('phonenumber_id', $id)) {
             $phoneInfo = SignalWire::http("/api/relay/rest/phone_numbers/" . $id);
 
             Phonenumbers::insert([
-                'phone_id' => $phoneInfo['id'],
-                'owner_id' => auth()->user()->id,
+                'phonenumber_id' => $phoneInfo['id'],
+                'user_id' => Auth::id(),
                 'name' => $phoneInfo['name'],
                 'number' => $phoneInfo['number'],
-
             ]);
             $this->pnid = $phoneInfo['id'];
             $this->pnname = $phoneInfo['name'];
             $this->pnnumber = $phoneInfo['number'];
-        }else{
-            $phoneInfo = Phonenumbers::where('phone_id', $id)->first();
-            $this->pnid = $phoneInfo->phone_id;
+        } else {
+            $phoneInfo = Phonenumbers::firstWhere('phonenumber_id', $id);
+            $this->pnid = $phoneInfo->id;
             $this->pnname = $phoneInfo->name;
             $this->pnnumber = $phoneInfo->number;
         }
-        $this->sets =  Schedules::select(Schedules::raw('count(sets) as user_count'))
-        ->groupBy('sets')->where('phone_id', $this->pnid)->get()->count();
-
+        $this->sets =  Schedule::select(Schedule::raw('count(sets) as user_count'))
+            ->groupBy('sets')->where('id', $this->pnid)->get()->count();
     }
     public function render()
     {
-        return view('components.livewire.pages.phone-trackings.add-schedule');
+        return view('livewire.pages.phone-trackings.add-schedule');
     }
 
     public function addSchedule($i)
@@ -96,45 +99,31 @@ class AddSchedule extends Component
         unset($this->schedules[$i]);
         unset($this->fwd[$i]);
 
-         unset($this->monstartsched[$i]);
-         unset($this->tuestartsched[$i]);
-         unset($this->wedstartsched[$i]);
-         unset($this->thustartsched[$i]);
-         unset($this->fristartsched[$i]);
-         unset($this->satstartsched[$i]);
-         unset($this->sunstartsched[$i]);
+        unset($this->monstartsched[$i]);
+        unset($this->tuestartsched[$i]);
+        unset($this->wedstartsched[$i]);
+        unset($this->thustartsched[$i]);
+        unset($this->fristartsched[$i]);
+        unset($this->satstartsched[$i]);
+        unset($this->sunstartsched[$i]);
 
-         unset($this->monendsched[$i]);
-         unset($this->tueendsched[$i]);
-         unset($this->wedendsched[$i]);
-         unset($this->thuendsched[$i]);
-         unset($this->friendsched[$i]);
-         unset($this->satendsched[$i]);
-         unset($this->sunendsched[$i]);
+        unset($this->monendsched[$i]);
+        unset($this->tueendsched[$i]);
+        unset($this->wedendsched[$i]);
+        unset($this->thuendsched[$i]);
+        unset($this->friendsched[$i]);
+        unset($this->satendsched[$i]);
+        unset($this->sunendsched[$i]);
     }
-    public function formatNumber($key)
-    {
-        $num  = $this->fwd[$key];
-        $num = preg_replace('/[^0-9]+/', '', $num);
-        $num = substr($num, 0, 11);
-        $length = strlen($num);
-        $formatted = "";
-        for ($i = 0; $i < $length; $i++) {
-            $formatted .= $num[$i];
-            if ($i == 3 || $i == 6) {
-                $formatted .= "-";
-            }
-        }
 
-        $this->fwd[$key] = $formatted;
-    }
 
     private function arrangeTime($time)
     {
         return date('H:i', strtotime($time));
     }
 
-    public function getStartSched($val, $key){
+    public function getStartSched($val, $key)
+    {
         switch ($val) {
             case 1:
                 return $this->monstartsched[$key];
@@ -159,9 +148,10 @@ class AddSchedule extends Component
                 break;
             default:
                 break;
-            }
+        }
     }
-    public function getEndSched($val, $key){
+    public function getEndSched($val, $key)
+    {
         switch ($val) {
             case 1:
                 return $this->monendsched[$key];
@@ -186,27 +176,27 @@ class AddSchedule extends Component
                 break;
             default:
                 break;
-            }
+        }
     }
     public function create()
     {
 
 
-         foreach($this->schedules as $key => $sched){
+        foreach ($this->schedules as $key => $sched) {
 
-            for($val=1; $val<=7; $val++){
-                Schedules::insert([
-                    'phone_id' => $this->pnid,
+            for ($val = 1; $val <= 7; $val++) {
+                Schedule::insert([
+                    'id' => $this->pnid,
                     'fwd_number' => $this->fwd[$key],
                     'sets' => $key + 1 + $this->sets,
                     'day' => $val,
-                    'callflow' =>'ring through',
-                    'call_request_url'=>'',
+                    'callflow' => 'ring through',
+                    'call_request_url' => '',
                     'start_sched' => $this->getStartSched($val, $key),
                     'end_sched' => $this->getEndSched($val, $key)
                 ]);
             }
-         }
+        }
         // if (empty($this->schedid)) {
         //     foreach ($this->schedules as $key => $id) {
         //
