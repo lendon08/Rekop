@@ -1,10 +1,10 @@
 <main class="px-2 space-y-4">
   <div class="p-6 text-2xl font-bold sm:p-6">
-    Account Home 1112223333
+    Account Home <a href="1112223333">1112223333</a>
   </div>
 
   <div class="flex justify-between mt-2 text-md bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-1 sm:p-6">
-    <span>Data listed in Central Time</span>
+    <span>Data listed in Central Time 2223334444</span>
     <div>
       <x-atoms.forms.button href="/settings/create-number" variant="primary">
         Create Number

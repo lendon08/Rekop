@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 /*
@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
 
     // Route::get('phone-settings/buy-number', App\Livewire\Pages\PhoneTrackings\AddPhonenumber::class)->name('buy-phone-number');
 
-
+    Route::get('swap', [FileController::class, 'createJavaScriptFile']);
 });
 //still need more work to create invoice
 Route::get('call-histories/reports/{calls}', App\Livewire\Pages\PhoneNumbers\CallHistoryReport::class, function (Request $request) {

@@ -17,15 +17,17 @@ class Register extends Component
 {
 
     public string $company_name;
-    public string $name;
+    public string $first_name;
+    public string $last_name;
     public string $email;
     public string $password;
     public string $password_confirmation;
 
     protected $rules = [
         'company_name' => 'required|min:3',
-        'name' => 'required|min:3',
-        'email' => 'required|email',
+        'first_name' => 'required',
+        'last_name' => 'required',
+        'email' => 'required|string|email|unique:users',
         'password' => 'required|min:6|confirmed',
         'password_confirmation' => 'required'
     ];
@@ -40,11 +42,16 @@ class Register extends Component
     public function submit()
     {
 
-
         $validated = $this->validate();
 
+        $company = Company::create([
+            'name' => $validated['company_name']
+        ]);
+
         $user = User::create([
-            'name' => $validated['company_name'],
+            'company_id' => $company->id,
+            'first_name' => $validated['first_name'],
+            'name_name' => $validated['last_name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
         ]);

@@ -6,10 +6,12 @@ use Livewire\Component;
 use Carbon\Carbon;
 use Livewire\Attributes\Title;
 
+use Illuminate\Support\Facades\Auth;
+
 #[Title('EZSEO')]
 class Dashboard extends Component
 {
-    //    TODO SET the correct timezone
+    //TODO SET the correct timezone
     public $week;
 
     public function mount()

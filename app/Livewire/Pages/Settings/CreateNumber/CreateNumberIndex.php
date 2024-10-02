@@ -122,7 +122,7 @@ class CreateNumberIndex extends Component
         ]);
 
         //Buy number from Signalwire 
-        $this->purchaseNumber();
+        // $this->purchaseNumber();
 
         //redirect
         return redirect()->route('dashboard');

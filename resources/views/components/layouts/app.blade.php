@@ -39,6 +39,6 @@
         @livewireScripts
         
         @stack('scripts')
-        <script type="text/javascript" src="http://example.test/storage/js/generated-script.js"></script>
+        <script type="text/javascript" src="http://rekop.test/storage/js/1/swap.js"></script>
     </body>
 </html>

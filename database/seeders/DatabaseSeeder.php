@@ -6,8 +6,7 @@ use App\Models\Company;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-
-
+use Illuminate\Support\Testing\Fakes\Fake;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,7 +25,6 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         User::factory()->create([
-            'name' => "John Doe",
             'email' => "sample@gmail.com",
             'password' => Hash::make("watercannon"),
             'email_verified_at' => now(),
