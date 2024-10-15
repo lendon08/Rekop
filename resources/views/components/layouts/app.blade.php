@@ -5,6 +5,7 @@
         <meta charset="utf-8">
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ $title ?? 'Page Title'}}</title>
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
@@ -14,7 +15,7 @@
         @livewireStyles
 
         @stack('styles')
-
+        
     </head>
 
     <body class="bg-gray-50">

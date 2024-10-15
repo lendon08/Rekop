@@ -4,8 +4,9 @@ namespace App\Livewire\Pages\Settings\CreateNumber;
 
 use Exception;
 use App\Integrations\SignalWire;
-use App\Models\phone_tracking;
+
 use App\Models\Phonenumbers;
+use App\Models\Phonetracking;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 use Illuminate\Support\Str;
@@ -40,7 +41,7 @@ class CreateNumberIndex extends Component
     public string $poolName = "Website Pool";
 
 
-    public int $pageCnt = 0;
+    public int $pageCnt = 4;
 
     //Misc
     public array $availableNumbers = [];
@@ -108,7 +109,7 @@ class CreateNumberIndex extends Component
 
         $pnumber = Phonenumbers::latest()->first();
 
-        phone_tracking::create([
+        Phonetracking::create([
             'phonenumbers_id' => $pnumber->id,
             'display' => $this->trackingDisplay,
             'use' => $this->trackingUse,
@@ -121,7 +122,7 @@ class CreateNumberIndex extends Component
             'poolname' => $this->poolName
         ]);
 
-        //Buy number from Signalwire 
+        //Buy number from Signalwire
         // $this->purchaseNumber();
 
         //redirect

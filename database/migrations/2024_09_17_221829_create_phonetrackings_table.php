@@ -12,18 +12,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('phone_trackings', function (Blueprint $table) {
+        Schema::create('phonetrackings', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Phonenumbers::class);
             $table->tinyInteger('display');
             $table->tinyInteger('useon');
             $table->tinyInteger('googleads');
-            $table->tinyInteger('options');
+            $table->string('tracking_options', 50);
+            $table->string('URL', 100)->nullable();
+            $table->string('search_engine', 100)->nullable(); //Google, Yahoo, Bing, All
+            $table->string('traffic', 100)->nullable(); // paid, organic, all
             $table->string('swaptarget');
             $table->string('callforwarding');
             $table->tinyInteger('numoftracking');
             $table->string('areacode');
             $table->string('poolname');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -33,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('phone_trackings');
+        Schema::dropIfExists('phonetrackings');
     }
 };

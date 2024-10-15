@@ -15,6 +15,9 @@ use Illuminate\Http\Request;
 */
 
 
+
+
+
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', App\Livewire\Pages\Dashboard::class)->name('dashboard');
     Route::get('companies', App\Livewire\Pages\Companies\CompanyIndex::class)->name('companies');

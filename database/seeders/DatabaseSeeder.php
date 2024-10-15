@@ -30,7 +30,10 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
         ]);
 
-        Company::factory()->create();
-        $this->call(RegionSeeder::class);
+        Company::factory(10)->create();
+        $this->call([
+            RegionSeeder::class,
+            PhoneTrackingSeeder::class,
+        ]);
     }
 }

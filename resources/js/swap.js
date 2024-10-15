@@ -1,4 +1,4 @@
-/*! swap.js | Copyright © 2011-2024 CallRail Inc. | License: www.callrail.com/legal */ !(function () {
+!(function () {
     "use strict";
     var Wrappers = (function () {
             function e() {}

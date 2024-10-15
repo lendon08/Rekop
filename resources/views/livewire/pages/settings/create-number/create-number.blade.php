@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <div class="mx-20 text-center">
+    <div class="mx-60 text-center">
         <h1 class="mb-2 pt-4 text-3xl font-bold text-gray-900">Create Tracking Number</h1>
         <button data-modal-target="large-modal" data-modal-toggle="large-modal" class="absolute top-5 end-5 text-gray-500 font-medium text-xl px-5 py-2.5 text-center type=" button">
             &times;
@@ -38,7 +38,7 @@
     </div>
 
 
-    <div class="mx-16 my-16 text-center ">
+    <div class="mx-60 my-16 text-center ">
         <div class="px-6 rounded-lg {{ $pageCnt >= 4 ? 'bg-white' : '' }} -mt-10 pt-4">
 
             <div class="{{ $pageCnt == 0 ? '' : 'hidden' }}">
@@ -163,7 +163,7 @@
 
             <!----------------------------------------Number Setup------------------------------------------------------------------------------ -->
             @include('livewire.pages.settings.create-number.pageSix')
-            
+
             <!----------------------------------------Activation of Number------------------------------------------------------------------------------ -->
             @include('livewire.pages.settings.create-number.pageSeven')
         </div>
@@ -180,15 +180,15 @@
                 wire:click="Decrease(1)">
                 {{ $pages[$pageCnt-1]}}
             </button>
-            
+
         </div>
 
-        
+
 
         <div class="items-center justify-center hidden ms-auto md:flex">
             @switch($pageCnt)
                 @case(4)
-                    <button type="button" 
+                    <button type="button"
                         class="p-2.5 group bg-blue-700 text-white hover:bg-blue-800 me-1 focus:outline-none focus:ring-4 focus:ring-gray-200"
                         wire:click="Increase(1)"
                         :class="{ 'bg-gray-400 cursor-not-allowed': !$wire.swapTarget }"
@@ -229,7 +229,7 @@
                     </button>
             @endswitch
         </div>
-        
+
     </div>
 
     @endif

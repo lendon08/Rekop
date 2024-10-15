@@ -15,9 +15,9 @@ class PhoneTrackingIndex extends Component
 {
     use WithForm, WithToast;
 
-    public $flashmessage = "";
 
-    public $xmlBins = [];
+
+
 
     public $phoneNumbers = [];
 
@@ -28,14 +28,19 @@ class PhoneTrackingIndex extends Component
 
     public function mount()
     {
-        $this->xmlBins = SignalWire::http("/api/laml/2010-04-01/Accounts/" . env("SIGNALWIRE_PROJECTID") . "/LamlBins");
+        // $this->xmlBins = SignalWire::http("/api/laml/2010-04-01/Accounts/" . env("SIGNALWIRE_PROJECTID") . "/LamlBins");
+
         $this->phoneNumbers = SignalWire::http('/api/relay/rest/phone_numbers');
 
         foreach ($this->phoneNumbers['data'] as $key => $pn) {
-            //wtf is this. 
-            config(['database.connections.mysql.strict' => false]);
-            DB::reconnect();
-            $this->phoneNumbers['data'][$key]['sets'] = Schedule::groupBy('sets')->where('id', $pn['id'])->get()->count();
+
+            // config(['database.connections.mysql.strict' => false]);
+            // DB::reconnect();
+            $this->phoneNumbers['data'][$key]['sets'] = Schedule::where('id', $pn['id'])
+                ->groupBy('id', 'sets')
+                ->get()
+                ->count();
+
             $this->phoneNumbers['data'][$key]['number'] = $this->beautifyPhoneNumber($pn['number']);
         }
     }

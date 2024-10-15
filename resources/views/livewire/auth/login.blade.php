@@ -1,6 +1,6 @@
 <div>
     <h2 class="text-2xl font-bold text-gray-900">
-        Sign in to platform 
+        Sign in to platform
     </h2>
     <form class="mt-8 space-y-6" wire:submit="submit">
         <div>
@@ -8,7 +8,7 @@
             <x-atoms.forms.textbox type="email" name="email" id="email" wire:model="email"/>
             <x-atoms.forms.validation for="email"/>
         </div>
-        <div>
+        <div class="relative">
             <x-atoms.forms.label for="password">Your Password</x-atoms.label>
             <x-atoms.forms.textbox type="password" name="password" id="password" wire:model="password"/>
             <x-atoms.forms.validation for="password"/>
@@ -19,5 +19,3 @@
         </div>
     </form>
 </div>
-
-

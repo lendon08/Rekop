@@ -29,58 +29,78 @@
     }
 
     // Function to detect traffic source
-    function detectSource() {
+
+    // Function to send traffic source data to Laravel without redirection
+    function sendTrafficData() {
+        const currentUrl = window.location.host;
         const referrer = document.referrer;
+
         const urlParams = new URLSearchParams(window.location.search);
-        const utmSource = urlParams.get("utm_source");
+        const utmSource = urlParams.get("utm_source") || "unknown";
+        const utmmedium = urlParams.get("utm_medium") || "unknown";
+        const utmcampaign = urlParams.get("utm_campaign") || "unknown";
+        const utmterm = urlParams.get("utm_term") || "unknown";
+        const utmcontent = urlParams.get("utm_content") || "unknown";
 
-        const sources = [
-            { name: "Google", pattern: /google\.com/ },
-            { name: "Facebook", pattern: /facebook\.com/ },
-            { name: "Twitter", pattern: /twitter\.com/ },
-            { name: "Bing", pattern: /bing\.com/ },
-            { name: "DuckDuckGo", pattern: /duckduckgo\.com/ },
-            { name: "Instagram", pattern: /instagram\.com/ },
-            { name: "Nextdoor", pattern: /nextdoor\.com/ },
-            { name: "LinkedIn", pattern: /linkedin\.com/ },
-            { name: "TikTok", pattern: /tiktok\.com/ },
-            { name: "Reddit", pattern: /reddit\.com/ },
-            { name: "YouTube", pattern: /youtube\.com/ },
-            { name: "Pinterest", pattern: /pinterest\.com/ },
-        ];
+        // Try to get CSRF token, but don't fail if it's not available
+        const csrfTokenElement = document.querySelector(
+            'meta[name="csrf-token"]'
+        );
+        const csrfToken = csrfTokenElement
+            ? csrfTokenElement.getAttribute("content")
+            : null;
 
-        // Check for UTM source
-        if (utmSource) {
-            console.log(
-                "Traffic source detected from UTM parameter:",
-                utmSource
-            );
-            return utmSource;
+        // Prepare the data to be sent
+        const data = {
+            source: utmSource,
+            medium: utmmedium,
+            campaign: utmcampaign,
+            term: utmterm,
+            content: utmcontent,
+            url: currentUrl,
+            referrer: referrer,
+        };
+
+        // Log the data to view it in the browser console
+        console.log("Data to be sent to Laravel:", data);
+
+        // Prepare headers for fetch request
+        const headers = {
+            "Content-Type": "application/json",
+        };
+        if (csrfToken) {
+            headers["X-CSRF-TOKEN"] = csrfToken; // Add CSRF token if available
         }
 
-        // Check referrer source
-        for (let source of sources) {
-            if (source.pattern.test(referrer)) {
-                console.log(
-                    "Traffic source detected from referrer:",
-                    source.name
-                );
-                return source.name;
-            }
-        }
-
-        // Default if no source is detected
-        console.log("Unknown traffic source");
-        return "Unknown";
+        // Send the traffic source data to Laravel using fetch (AJAX)
+        fetch("https://koala-sincere-quail.ngrok-free.app/api/traffic-source", {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify(data),
+        })
+            .then((response) => {
+                // Check if the response is in JSON format
+                const contentType = response.headers.get("content-type");
+                if (contentType && contentType.includes("application/json")) {
+                    return response.json(); // Parse JSON if the response is in JSON format
+                } else {
+                    return response.text(); // Otherwise, return text (or HTML)
+                }
+            })
+            .then((data) => {
+                console.log("Traffic source data sent successfully:", data);
+            })
+            .catch((error) => {
+                console.error("Error sending traffic source data:", error);
+            });
     }
 
-    // Call the source detection function
-    const trafficSource = detectSource();
-    console.log("Traffic source:", trafficSource);
+    // Call the function to send traffic data without redirection
+    sendTrafficData();
 
     // Traverse and replace numbers
     traverseAndReplace(document.body);
 })([
     ["1112223333", "4445556666"],
-    ["2223334444", "1234567890"],
+    ["1112223333", "1234567890"],
 ]);

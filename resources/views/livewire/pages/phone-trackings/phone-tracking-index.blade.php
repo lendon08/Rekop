@@ -40,8 +40,8 @@
                             <div class="text-sm font-normal text-gray-500">{{ $phoneNumber['id'] }}</div>
                         </x-atoms.tables.td>
                         <x-atoms.tables.td>All</x-atoms.tables.td>
-                        <x-atoms.tables.td>TODO Numbers</x-atoms.tables.td>
                         <x-atoms.tables.td>{{ $phoneNumber['number'] }}</x-atoms.tables.td>
+                        <x-atoms.tables.td>TODO Numbers</x-atoms.tables.td>
                         <x-atoms.tables.td>TODO Numbers</x-atoms.tables.td>
                         <x-atoms.tables.td>TODO Numbers</x-atoms.tables.td>
                         
