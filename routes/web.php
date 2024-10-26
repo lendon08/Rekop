@@ -14,9 +14,7 @@ use Illuminate\Http\Request;
 |
 */
 
-
-
-
+Route::redirect('/landing', '/dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', App\Livewire\Pages\Dashboard::class)->name('dashboard');

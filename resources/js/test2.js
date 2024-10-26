@@ -30,24 +30,57 @@ document.addEventListener("DOMContentLoaded", function () {
         const source = urlParams.get("utm_source");
         const sourceNumberPools = [
             {
-                referrer_tracking_source: "google",
+                tracking_source: "Landing Page",
                 swap_targets: "1234567890",
                 number: ["19182764831", "19182576033", "13463586844"],
+                url: "http://www.nienow.biz/landing",
+                search_engine: null,
+                traffic: null,
             },
             {
-                referrer_tracking_source: "facebook",
+                tracking_source: "Landing Page",
+                swap_targets: "1234567890",
+                number: ["19182764831", "19182576033", "555-222-0003"],
+                url: "http://www.nienow.biz/landing2",
+                search_engine: null,
+                traffic: null,
+            },
+            {
+                tracking_source: "Search",
                 swap_targets: "1234567890",
                 number: ["15392001096", "555-222-0002", "555-222-0003"],
+                url: null,
+                search_engine: "google",
+                traffic: "organic",
             },
             {
-                referrer_tracking_source: "email",
+                tracking_source: "Search",
                 swap_targets: "12345640727",
                 number: ["17135640727", "555-333-0002", "555-333-0003"],
+                url: null,
+                search_engine: "google",
+                traffic: "paid",
+            },
+            {
+                tracking_source: "Search",
+                swap_targets: "12345640727",
+                number: ["17135640727", "555-333-0002", "555-333-0003"],
+                url: null,
+                search_engine: "bing",
+                traffic: "all",
+            },
+            {
+                tracking_source: "All Visitors",
+                swap_targets: "12345640727",
+                number: ["17135640727", "555-333-0002", "555-333-0003"],
+                url: null,
+                search_engine: null,
+                traffic: null,
             },
         ];
 
         const pool = sourceNumberPools.find(
-            (item) => item.referrer_tracking_source === source
+            (item) => item.tracking_source === source
         );
 
         if (pool) {
@@ -59,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
-        return "555-000-0000";
+        return null;
     }
 
     async function checkAndUpdatePhoneNumber() {
@@ -79,15 +112,19 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         const phoneNumber = await getDynamicNumber();
+        if (phoneNumber !== null) {
+            document.querySelectorAll(".dynamic-number").forEach((element) => {
+                const originalFormat = element.textContent;
 
-        document.querySelectorAll(".dynamic-number").forEach((element) => {
-            const originalFormat = element.textContent;
+                const formattedNumber = formatNumber(
+                    originalFormat,
+                    phoneNumber
+                );
 
-            const formattedNumber = formatNumber(originalFormat, phoneNumber);
-
-            element.textContent = formattedNumber;
-            element.setAttribute("href", `tel:${phoneNumber}`);
-        });
+                element.textContent = formattedNumber;
+                element.setAttribute("href", `tel:${phoneNumber}`);
+            });
+        }
     }
 
     function formatNumber(originalFormat, newNumber) {

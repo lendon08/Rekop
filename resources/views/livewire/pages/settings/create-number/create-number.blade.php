@@ -186,48 +186,37 @@
 
 
         <div class="items-center justify-center hidden ms-auto md:flex">
-            @switch($pageCnt)
-                @case(4)
-                    <button type="button"
-                        class="p-2.5 group bg-blue-700 text-white hover:bg-blue-800 me-1 focus:outline-none focus:ring-4 focus:ring-gray-200"
-                        wire:click="Increase(1)"
-                        :class="{ 'bg-gray-400 cursor-not-allowed': !$wire.swapTarget }"
-                        :disabled="$wire.swapTarget == ''">
-                        {{ $pages[$pageCnt] }}
-                    </button>
-                    @break
-                @case(5)
-                    <button type="button" class="p-2.5 group bg-blue-700 text-white hover:bg-blue-800 me-1 focus:outline-none focus:ring-4 focus:ring-gray-200"
-                        wire:click="Increase(1)"
-                        :class="{ 'bg-gray-400 cursor-not-allowed': !$wire.callForwarding }"
-                        :disabled="$wire.callForwarding == ''">
-                        {{ $pages[$pageCnt] }}
-                    </button>
-                    @break
-                @case(6)
-                    <button type="button" class="p-2.5 group bg-blue-700 text-white hover:bg-blue-800 me-1 focus:outline-none focus:ring-4 focus:ring-gray-200"
-                    wire:click="Increase(1)">
-                        {{ $pages[$pageCnt] }}
-                    </button>
-                    @break
-                @case(7)
-                    <button type="button" class="p-2.5 group bg-blue-700 text-white hover:bg-blue-800 me-1 focus:outline-none focus:ring-4 focus:ring-gray-200"
-                        wire:click="store()">
-                        {{ $pages[$pageCnt] }}
-                    </button>
-                    @break
-                {{-- @case(7)
-                    <button type="button" class="p-2.5 group bg-blue-700 text-white hover:bg-blue-800 me-1 focus:outline-none focus:ring-4 focus:ring-gray-200"
-                        wire:click="Increase(1)">
-                        {{ $pages[$pageCnt] }}
-                    </button>
-                    @break --}}
-                @default
-                    <button type="button" class="p-2.5 group bg-blue-700 text-white hover:bg-blue-800 me-1 focus:outline-none focus:ring-4 focus:ring-gray-200"
-                        wire:click="store()">
-                        {{ $pages[$pageCnt] }}
-                    </button>
-            @endswitch
+
+
+        @if($pageCnt==4)
+            <button type="button"
+                class="p-2.5 group bg-blue-700 text-white hover:bg-blue-800 me-1 focus:outline-none focus:ring-4 focus:ring-gray-200"
+                wire:click="Increase(1)"
+                :class="{ 'bg-gray-400 cursor-not-allowed': !$wire.swapTarget }"
+                :disabled="$wire.swapTarget == ''">
+                {{ $pages[$pageCnt] }}
+            </button>
+
+        @elseif($pageCnt==5)
+            <button type="button" class="p-2.5 group bg-blue-700 text-white hover:bg-blue-800 me-1 focus:outline-none focus:ring-4 focus:ring-gray-200"
+                wire:click="Increase(1)"
+                :class="{ 'bg-gray-400 cursor-not-allowed': !$wire.callForwarding }"
+                :disabled="$wire.callForwarding == ''">
+                {{ $pages[$pageCnt] }}
+            </button>
+
+        @elseif($pageCnt==6)
+            <button type="button" class="p-2.5 group bg-blue-700 text-white hover:bg-blue-800 me-1 focus:outline-none focus:ring-4 focus:ring-gray-200"
+                wire:click="store()">
+                {{ $pages[$pageCnt] }}
+            </button>
+        @else
+            <button type="button" class="p-2.5 group bg-blue-700 text-white hover:bg-blue-800 me-1 focus:outline-none focus:ring-4 focus:ring-gray-200"
+                wire:click="store()">
+                {{ $pages[$pageCnt] }}
+            </button>
+        @endif
+
         </div>
 
     </div>

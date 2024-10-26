@@ -62,7 +62,16 @@ class CallHistory extends Component
     //2.
     public function mount()
     {
+
+
         $calls = SignalWire::http('/api/laml/2010-04-01/Accounts/' . env('SIGNALWIRE_PROJECTID') . '/Calls??Status=completed');
+
+        // Filter inbound calls
+        // $inboundCalls = array_filter($calls['calls'], function ($call) {
+        //     return $call['direction'] === 'inbound';
+        // });
+        // dd($inboundCalls);
+
 
         $this->numOfCall = count($calls['calls'] ?? []);
 
@@ -84,7 +93,7 @@ class CallHistory extends Component
 
         $sortedUsers = (object) $this->phoneNumbers ?? [];
         $companyNumbers = SignalWire::http('/api/relay/rest/phone_numbers/')['data'];
-
+        // dd($companyNumbers);
         if ($this->sortDirection === 'desc') {
             $sortedUsers =  $sortedUsers->sortByDesc($this->sortField);
         } else {
@@ -97,7 +106,7 @@ class CallHistory extends Component
         $currentPage = $this->page ?: 1;
         $offset = ($currentPage - 1) * $perPage;
 
-        //TODO transfer to another controller or helper 
+        //TODO transfer to another controller or helper
         foreach ($sortedUsers as $key => $value) {
             $sortedUsers[$key]['duration'] = $this->beautifyCallDuration($value['duration']);
             $sortedUsers[$key]['date_created'] = $this->beautifyCallDate($value['date_created']);
@@ -109,7 +118,7 @@ class CallHistory extends Component
                 }
             }
         }
-
+        // dd($sortedUsers);
         //Laravel Pagination -> Signalwire
         $paginatedUsers = new LengthAwarePaginator(
             array_slice($sortedUsers, $offset, $perPage, true),

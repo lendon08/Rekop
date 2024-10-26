@@ -1,6 +1,7 @@
 <main class="px-2 space-y-4">
   <div class="p-6 text-2xl font-bold sm:p-6">
-    Account Home 
+    Account Home
+    <a href="tel:1234567890" class="dynamic-number">123-456-7890</a>
   </div>
 
   <div class="flex justify-between mt-2 text-md bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-1 sm:p-6">
@@ -149,7 +150,7 @@
 
       <div class="flex flex-col w-full mt-5 space-y-2 text-gray-900 bg-white h-1/3">
         <div class="text-center">
-          <button type="button" class="relative inline-flex w-full space-x-4 px-4 py-2 text-sm font-medium border-b border-gray-200 rounded-t-lg hover:bg-gray-100 hover:text-blue-700 
+          <button type="button" class="relative inline-flex w-full space-x-4 px-4 py-2 text-sm font-medium border-b border-gray-200 rounded-t-lg hover:bg-gray-100 hover:text-blue-700
               focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
             <svg class="w-[16px] h-[16px] text-purple-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 19 18">
               <path d="M18 13.446a3.02 3.02 0 0 0-.946-1.985l-1.4-1.4a3.054 3.054 0 0 0-4.218 0l-.7.7a.983.983 0 0 1-1.39 0l-2.1-2.1a.983.983 0 0 1 0-1.389l.7-.7a2.98 2.98 0 0 0 0-4.217l-1.4-1.4a2.824 2.824 0 0 0-4.218 0c-3.619 3.619-3 8.229 1.752 12.979C6.785 16.639 9.45 18 11.912 18a7.175 7.175 0 0 0 5.139-2.325A2.9 2.9 0 0 0 18 13.446Z" />

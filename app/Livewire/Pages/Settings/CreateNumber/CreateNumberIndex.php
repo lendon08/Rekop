@@ -28,7 +28,9 @@ class CreateNumberIndex extends Component
     public int $trakcingGoogleAds = 0; // extension - 0, somewhere else - 1
 
     // page 4
-    public int $trackingOption = 0; //all- 0,google- 1,ppc- 2, landing- 3, refer - 4
+    public int $trackingOption = 0; //all- 0,Search- 1,web referral- 2, landing page- 3, landing param-4, direct - 5
+    public string $tracking_search = "";
+    public string $tracking_traffic = "";
     public string $swapTarget = "";
 
     //page 5
@@ -106,24 +108,27 @@ class CreateNumberIndex extends Component
 
     public function store()
     {
-
-        $pnumber = Phonenumbers::latest()->first();
+        //Buy number from Signalwire
+        $phonenumber =  $this->purchaseNumber();
 
         Phonetracking::create([
-            'phonenumbers_id' => $pnumber->id,
+            'phonenumbers_id' => $phonenumber['id'],
             'display' => $this->trackingDisplay,
-            'use' => $this->trackingUse,
+            'useon' => $this->trackingUse,
             'googleads' => $this->trakcingGoogleAds,
-            'options' => $this->trackingOption,
+            'tracking_options' => $this->trackingOption,
+            'URL' => 'something', //
+            'traffic' => 'something',
+            'search_engine' => 'something',
             'swaptarget' => $this->swapTarget,
+
             'callforwarding' => $this->callForwarding,
             'numoftracking' => $this->numberOfTracking,
             'areacode' => $this->areaCode,
             'poolname' => $this->poolName
         ]);
 
-        //Buy number from Signalwire
-        // $this->purchaseNumber();
+
 
         //redirect
         return redirect()->route('dashboard');
@@ -132,7 +137,7 @@ class CreateNumberIndex extends Component
     public function purchaseNumber()
     {
         $this->selectedNumber = preg_replace('/[^\d+]/', '', $this->selectedNumber);
-        SignalWire::purchasePhoneNumber($this->selectedNumber);
+        return SignalWire::purchasePhoneNumber($this->selectedNumber);
     }
 
     public function Decrease($decBy)

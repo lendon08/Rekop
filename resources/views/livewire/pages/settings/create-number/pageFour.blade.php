@@ -12,34 +12,34 @@
     <div class="space-y-4 text-base">
         <div class="flex space-x-2">
             <div class="flex items-center h-5">
-                <input wire:model.live="trackingOption" aria-describedby="all-visitors" type="radio" value="0" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                <input wire:model.blur="trackingOption" aria-describedby="all-visitors" type="radio" value="0" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
             </div>
-            <div>
-                <label for="all-visitors" class=" text-gray-900 text-lg">  Always Visitors
+            <div class="text-gray-900 text-lg">
+                  Always Visitors
                     <p id="all-visitors" class="{{ $trackingOption==0 ? '' : 'hidden' }} text-gray-500">
                         Show the tracking number to all visitors, regardless of source.
                     </p>
 
-                </label>
+
             </div>
         </div>
 
 
         <div class="flex space-x-2">
             <div class="flex items-center h-5">
-                <input wire:model.live="trackingOption" aria-describedby="search" type="radio" value="1" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                <input wire:model.blur="trackingOption" aria-describedby="search" type="radio" value="1" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
             </div>
-            <div>
-                <label for="helper-radio" class=" text-gray-900 text-lg">Search</label>
+            <div class="text-gray-900 text-lg">
+                Search
                 <p id="search" class="{{ $trackingOption==1 ? '' : 'hidden' }} text-gray-500">
                     Visitors from
-                    <select name="searchoption" id="searchoption    ">
+                    <select >
                         @foreach (App\Enums\TrackingSearchEngine::cases() as $search)
-                            <option value="{{$search->value }}">{{ $search->value }}</option>
+                                <option value="{{$search->value }}">{{ $search->value }}</option>
                         @endforeach
                     </select>
                     for
-                    <select name="searchoption" id="searchoption    ">
+                    <select >
                         @foreach (App\Enums\TrackingTraffic::cases() as $traffic)
                             <option value="{{$traffic->value }}">{{ $traffic->value }}</option>
                         @endforeach
@@ -50,10 +50,10 @@
         </div>
         <div class="flex space-x-2">
             <div class="flex items-center h-5">
-                <input wire:model.live="trackingOption" aria-describedby="web-referrals" type="radio" value="2" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                <input wire:model.blur="trackingOption" aria-describedby="web-referrals" type="radio" value="2" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
             </div>
-            <div>
-                <label for="web-referrals" class=" text-gray-900 text-lg">Web referrals</label>
+            <div class="text-gray-900 text-lg">
+                Web referrals
                 <p id="landing-page" class="{{ $trackingOption==2 ? '' : 'hidden' }} text-gray-500">Visitors from
                     <input placeholder="yelp.com" type="text"></p>
             </div>
@@ -63,20 +63,20 @@
 
         <div class="flex space-x-2">
             <div class="flex items-center h-5">
-                <input wire:model.live="trackingOption" aria-describedby="landing-page" type="radio" value="3" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                <input wire:model.blur="trackingOption" aria-describedby="landing-page" type="radio" value="3" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
             </div>
-            <div>
-                <label for="helper-radio" class=" text-gray-900 text-lg">Landing Page</label>
+            <div class="text-gray-900 text-lg">
+                Landing Page
                 <p id="landing-page" class="{{ $trackingOption==3 ? '' : 'hidden' }} text-gray-500">Visitors who land on
                     <input placeholder="xyz.com" type="text"></p>
             </div>
         </div>
         <div class="flex space-x-2">
             <div class="flex items-center h-5">
-                <input wire:model.live="trackingOption" aria-describedby="landing-campaign" type="radio" value="4" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                <input wire:model.blur="trackingOption" aria-describedby="landing-campaign" type="radio" value="4" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
             </div>
-            <div>
-                <label for="helper-radio" class=" text-gray-900 text-lg">Landing Params</label>
+            <div class="text-gray-900 text-lg">
+                Landing Params
                 <p id="landing-campaign" class="{{ $trackingOption==4 ? '' : 'hidden' }} text-gray-500">Visitors to a landing page containing
                     <input placeholder="utm_campaign=xyz" type="text"></p>
             </div>
@@ -84,10 +84,10 @@
 
         <div class="flex space-x-2">
             <div class="flex items-center h-5">
-                <input wire:model.live="trackingOption" aria-describedby="direct" type="radio" value="5" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                <input wire:model.blur="trackingOption" aria-describedby="direct" type="radio" value="5" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
             </div>
-            <div>
-                <label for="helper-radio" class=" text-gray-900 text-lg">Direct</label>
+            <div class="text-gray-900 text-lg">
+                Direct
                 <p id="direct" class="{{ $trackingOption==5 ? '' : 'hidden' }} text-gray-500">Visitors without a referring website
             </div>
         </div>
@@ -99,7 +99,7 @@
         <p class="text-gray-500">
             This is the phone number we look for on your website to dynamically replace with a tracking number. <br>
             Typically, this is the primary business phone number or the destination number.</p>
-        <input x-mask="999-999-9999" placeholder="555-555-5555" type="tel" wire:model.live="swapTarget">
+        <input x-mask="999-999-9999" placeholder="555-555-5555" type="tel" wire:model.blur="swapTarget">
     </div>
 
 </div>
