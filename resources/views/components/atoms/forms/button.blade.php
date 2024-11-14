@@ -1,7 +1,7 @@
 @props([
-'variant' => 'default', 
-'href' => null,  
-'type' => 'button', 
+'variant' => 'default',
+'href' => null,
+'type' => 'button',
 ])
 
 @php

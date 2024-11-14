@@ -40,6 +40,6 @@
         @livewireScripts
 
         @stack('scripts')
-        <script type="text/javascript" src="https://rekop.test/storage/js/test4.js"></script>
+
     </body>
 </html>

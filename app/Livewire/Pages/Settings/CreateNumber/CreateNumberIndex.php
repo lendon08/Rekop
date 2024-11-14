@@ -5,7 +5,7 @@ namespace App\Livewire\Pages\Settings\CreateNumber;
 use Exception;
 use App\Integrations\SignalWire;
 
-use App\Models\Phonenumbers;
+
 use App\Models\Phonetracking;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
@@ -27,11 +27,7 @@ class CreateNumberIndex extends Component
     // page 3
     public int $trakcingGoogleAds = 0; // extension - 0, somewhere else - 1
 
-    // page 4
-    public int $trackingOption = 0; //all- 0,Search- 1,web referral- 2, landing page- 3, landing param-4, direct - 5
-    public string $tracking_search = "";
-    public string $tracking_traffic = "";
-    public string $swapTarget = "";
+
 
     //page 5
     public string $callForwarding = ""; //Number
@@ -101,7 +97,6 @@ class CreateNumberIndex extends Component
     #[Layout('layouts.wizard')]
     public function render()
     {
-
         return view('livewire.pages.settings.create-number.create-number');
     }
 
@@ -128,8 +123,6 @@ class CreateNumberIndex extends Component
             'poolname' => $this->poolName
         ]);
 
-
-
         //redirect
         return redirect()->route('dashboard');
     }
@@ -146,6 +139,8 @@ class CreateNumberIndex extends Component
         } else {
             $this->pageCnt -= $decBy;
         }
+        // $this->dispatch('toggleNumberOption', data: $this->numberOptions);
+        $this->dispatch('pageChange', pageCnt: $this->pageCnt);
     }
 
     public function Increase($incBy)
@@ -154,5 +149,6 @@ class CreateNumberIndex extends Component
         } else {
             $this->pageCnt += $incBy;
         }
+        $this->dispatch('pageChange', pageCnt: $this->pageCnt);
     }
 }

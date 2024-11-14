@@ -18,9 +18,9 @@ class PhonenumbersFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'number' => fake()->phoneNumber(),
-            'company_id' => Company::inRandomOrder()->first()->id ?? Company::factory(),
+            // 'name' => fake()->name(),
+            // 'number' => fake()->phoneNumber(),
+            // 'company_id' => Company::inRandomOrder()->first()->id ?? Company::factory(),
         ];
     }
 }

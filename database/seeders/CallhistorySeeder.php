@@ -13,6 +13,6 @@ class CallhistorySeeder extends Seeder
      */
     public function run(): void
     {
-        Callhistory::factory()->create();
+        // Callhistory::factory()->create();
     }
 }

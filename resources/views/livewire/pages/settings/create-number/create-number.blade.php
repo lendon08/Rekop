@@ -156,7 +156,8 @@
             </div>
 
             <!-- -----------------------------Tracking Options--------------------------------------------------------------- -->
-            @include('livewire.pages.settings.create-number.pagefour')
+
+            @livewire('pages.settings.create-number.tracking-source', ['pageCnt' => $pageCnt])
 
             <!----------------------------------------Call Forwarding------------------------------------------------------------------------------ -->
             @include('livewire.pages.settings.create-number.pageFive')

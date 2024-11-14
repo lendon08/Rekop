@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('phonetrackings', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Phonenumbers::class);
+            $table->foreignUuid('phonenumber_id')->constrained('phonenumbers')->onDelete('cascade');
             $table->tinyInteger('display');
             $table->tinyInteger('useon');
             $table->tinyInteger('googleads');
@@ -24,6 +24,9 @@ return new class extends Migration
             $table->string('traffic', 100)->nullable(); // paid, organic, all
             $table->string('swaptarget');
             $table->string('callforwarding');
+            $table->string('whispermsg');
+            $table->string('callgreeting');
+            $table->string('campaignname');
             $table->tinyInteger('numoftracking');
             $table->string('areacode');
             $table->string('poolname');

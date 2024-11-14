@@ -4,7 +4,9 @@ namespace App\Livewire\Pages\PhoneNumbers;
 
 use App\Livewire\Traits\WithToast;
 use App\Integrations\SignalWire;
+use App\Models\Callhistory as ModelsCallhistory;
 use App\Models\Company;
+use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -15,22 +17,17 @@ use Livewire\Attributes\Renderless;
 class CallHistory extends Component
 {
 
-
-
-    // TODO get all recording values to another controller
-
-
     use WithPagination, WithToast;
 
-    public $selectAll = false;
+    // public $selectAll = false;
 
-    public $selectedItems = [];
+    // public $selectedItems = [];
 
     public $phoneNumbers = []; // Your custom array of users
 
-    public $sortField = 'name'; // Default sorting field
+    public $sortColumn = 'call_date'; // Default sorting field
 
-    public $sortDirection = 'asc'; // Default sorting direction
+    public $sortDirection = 'desc'; // Default sorting direction
 
     public bool $readyToDisplayCalls = false;
 
@@ -52,123 +49,60 @@ class CallHistory extends Component
 
     public string $search = "";
 
+    public $targetDate;
+    public $startDate;
+
     protected $listeners = [
         'refreshComponent' => '$refresh',
         'playRecordingEnded' => 'playRecordingEnded'
     ];
 
-    //1. Make use of the Signalwire Natural Pagination or
-    // store it in database
-    //2.
+
     public function mount()
     {
-
-
-        $calls = SignalWire::http('/api/laml/2010-04-01/Accounts/' . env('SIGNALWIRE_PROJECTID') . '/Calls??Status=completed');
-
-        // Filter inbound calls
-        // $inboundCalls = array_filter($calls['calls'], function ($call) {
-        //     return $call['direction'] === 'inbound';
-        // });
-        // dd($inboundCalls);
-
-
-        $this->numOfCall = count($calls['calls'] ?? []);
-
-
-        $uniqueCalls = [];
-        foreach ($calls['calls'] as $call) {
-            if (isset($call['to'])) {
-                $uniqueCalls[] = $call['to'];
-            }
-        }
-
-        $this->numOfUniqueCall = count(array_unique($uniqueCalls) ?? []);
-
-        $this->phoneNumbers = collect($calls['calls'] ?? []);
+        // $calls = SignalWire::http('/api/laml/2010-04-01/Accounts/' . env('SIGNALWIRE_PROJECTID') . '/Calls');
+        // dd($calls);
+        $this->targetDate = today();
+        $this->startDate = today()->subDays(7);
+        $this->numOfCall = ModelsCallhistory::whereBetween('call_date', [$this->startDate, $this->targetDate])->count();
+        $this->numOfUniqueCall = ModelsCallhistory::whereBetween('call_date', [$this->startDate, $this->targetDate])
+            ->distinct('caller')->count('caller');
     }
 
     public function render()
     {
 
-        $sortedUsers = (object) $this->phoneNumbers ?? [];
-        $companyNumbers = SignalWire::http('/api/relay/rest/phone_numbers/')['data'];
-        // dd($companyNumbers);
-        if ($this->sortDirection === 'desc') {
-            $sortedUsers =  $sortedUsers->sortByDesc($this->sortField);
-        } else {
-            $sortedUsers =  $sortedUsers->sortBy($this->sortField);
-        }
-
-        $sortedUsers =  $sortedUsers->all();
-
-        $perPage = 10; // Display 10 users per page
-        $currentPage = $this->page ?: 1;
-        $offset = ($currentPage - 1) * $perPage;
-
-        //TODO transfer to another controller or helper
-        foreach ($sortedUsers as $key => $value) {
-            $sortedUsers[$key]['duration'] = $this->beautifyCallDuration($value['duration']);
-            $sortedUsers[$key]['date_created'] = $this->beautifyCallDate($value['date_created']);
-            $sortedUsers[$key]['direction'] = $this->beautifyCallDirection($value['direction']);
-
-            foreach ($companyNumbers as $key2 => $value2) {
-                if ($value2['id'] == $sortedUsers[$key2]['phone_number_sid']) {
-                    $sortedUsers[$key]['pname'] = $value2['name'];
-                }
-            }
-        }
-        // dd($sortedUsers);
-        //Laravel Pagination -> Signalwire
-        $paginatedUsers = new LengthAwarePaginator(
-            array_slice($sortedUsers, $offset, $perPage, true),
-            count($sortedUsers),
-            $perPage,
-            $currentPage,
-            ['path' => request()->url()]
-        );
 
 
         return view('livewire.pages.phone-numbers.call-history', [
-            'calls' => $paginatedUsers
+            'calls' => ModelsCallhistory::whereBetween('call_date', [$this->startDate, $this->targetDate])
+                ->orderBy($this->sortColumn, $this->sortDirection)
+                ->where('caller', 'like', "%{$this->search}%")
+                ->whereHas('phonenumber.company', function ($query) {
+                    $query->where('id', auth()->user()->company->id);  // Filter by the company's ID
+                })
+                ->paginate(50)
         ]);
     }
 
-    function beautifyCallDate($date)
-    {
-        $date = substr($date, 5, 20);
-        $newdate = substr($date, 3, 3) . ' ' . substr($date, 0, 2) . ' ' . date("g:i A", strtotime(substr($date, 12, 8)));
-        return $newdate;
-    }
-    function beautifyCallDuration($duration)
-    {
-        return gmdate("H:i:s", $duration);
-    }
-    function beautifyCallDirection($direction)
-    {
-        return ucfirst(str_replace("-dial", "", $direction));
-    }
+
 
     public function sortBy($field)
     {
-        if ($field === $this->sortField) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
+        $this->sortColumn = $field; // default sort column
+        $this->sortDirection = $this->sortDirection == 'asc' ? 'desc' : 'asc'; // default sort direction
 
-        $this->sortField = $field;
     }
 
-    #[Renderless]
-    public function updatedSelectAll($value)
-    {
-        if ($value) {
-            $this->selectedItems = collect($this->phoneNumbers)->pluck('sid')->all();
-        } else {
-            $this->selectedItems = [];
-        }
-    }
+    // #[Renderless]
+    // public function updatedSelectAll($value)
+    // {
+    //     if ($value) {
+    //         $this->selectedItems = collect($this->phoneNumbers)->pluck('id')->all();
+    //     } else {
+    //         $this->selectedItems = [];
+    //     }
+    // }
 
     #[Renderless]
     public function playRecordingEnded()

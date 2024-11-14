@@ -11,7 +11,12 @@ class Callhistory extends Model
     protected $guarded = [];
     use HasFactory, HasUuids;
 
-    // protected $casts = [
-    //     'published_at' => 'datetime',
-    // ];
+    public function phonenumber()
+    {
+        return $this->belongsTo(Phonenumbers::class, 'phonenumber_id');
+    }
+
+    protected $casts = [
+        'call_date' => 'datetime',
+    ];
 }

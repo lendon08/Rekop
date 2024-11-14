@@ -34,9 +34,10 @@
                     @foreach ($phoneNumbers['data'] as $key => $phoneNumber)
                     <tr>
                         <x-atoms.tables.td>
-                            <div class="text-base font-semibold text-gray-900">
+                            <x-atoms.forms.button wire:click="editPhoneTracking('{{ $phoneNumber['id'] }}')" class="text-blue-800">
                                 {{ Str::limit($phoneNumber['name'] ?? $phoneNumber['number'] , 50, ' ...') }}
-                            </div>
+                            </x-atoms.forms.button>
+
                             <div class="text-sm font-normal text-gray-500">{{ $phoneNumber['id'] }}</div>
                         </x-atoms.tables.td>
                         <x-atoms.tables.td>All</x-atoms.tables.td>
@@ -44,7 +45,7 @@
                         <x-atoms.tables.td>TODO Numbers</x-atoms.tables.td>
                         <x-atoms.tables.td>TODO Numbers</x-atoms.tables.td>
                         <x-atoms.tables.td>TODO Numbers</x-atoms.tables.td>
-                        
+
                         <x-atoms.tables.td class='text-center'>{{ $phoneNumber['sets'] }}</x-atoms.tables.td>
                         <x-atoms.tables.td class="pb-8">
                             <!-- TODO -->

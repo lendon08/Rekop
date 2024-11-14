@@ -24,7 +24,7 @@ class FileController extends Controller
 
 
         $data = [];
-
+        // TODO: edit this and copy app/js/test4.js
         $jsContent = "(function (numberPairs) {'use strict'; const phoneRegex = /(\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4})/g; const replaceDigits = (match, newDigits) => {let digitIndex = 0;return match.replace(/\d/g, () => newDigits[digitIndex++]);}; function traverseAndReplace(node) { if (node.nodeType === Node.TEXT_NODE) { node.textContent = node.textContent.replace(phoneRegex, (match) => { const matchDigits = match.replace(/\D/g, ''); for (let [original, newNumber] of numberPairs) { const originalDigits = original.replace(/\D/g, ''); const newDigits = newNumber.replace(/\D/g, ''); if (matchDigits === originalDigits) { return replaceDigits(match, newDigits); }} return match; });} else { for (let child of node.childNodes) { traverseAndReplace(child);}}} traverseAndReplace(document.body);})([";
         foreach ($phoneNumbers as $phoneNumber) {
             $data[] = Phonetracking::where('phonenumbers_id', $phoneNumber->id)->pluck('swaptarget')[0];

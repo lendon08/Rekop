@@ -27,6 +27,9 @@
                 class="hidden peer"
                 checked
                  />
+
+                 {{-- {{ $trackingoptions != "Landing Params" ? 'cursor-not-allowed' : '' }}"
+                    @disabled( $trackingoptions != "Landing Params") --}}
             <label
                 for="hosting-small"
                 class="inline-flex w-full p-5 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-500 min-h-60">
