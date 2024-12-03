@@ -1,15 +1,43 @@
-<main class="px-2 space-y-4">
-    <div class="p-6 w-full text-2xl font-bold sm:p-6">
-        Phone Setting
-    </div>
-    <div class="bg-white block sm:flex border-b border-gray-200 p-4">
-        <div class="w-full mb-1">
+<main class="px-2 space-y-4 overflow-x-hidden">
 
-            <div class="sm:flex" >
-                <div class="flex items-center ml-auto space-x-2 sm:space-x-3">
-                    <x-atoms.forms.button href="{{ route('wizard')}}" variant="primary">
-                        Create Number
-                    </x-atoms.forms.button>
+    <div class="mt-4 flex justify-center items-center ">
+        <x-atoms.forms.button variant="top_nav" wire:click.prevent='display'>
+            Tracking
+        </x-atoms.forms.button>
+
+        <x-atoms.forms.button variant="top_nav" wire:click.prevent='display'>
+            Integrations
+        </x-atoms.forms.button>
+
+    </div>
+    <div class="p-6 w-full text-2xl font-bold sm:p-6">
+        Phone Settings
+    </div>
+
+    <div class="bg-white block sm:flex border-b border-gray-200 p-4">
+
+        <div class="flex justify-between w-full">
+            <div>
+                <x-atoms.forms.button href="{{ route('wizard')}}" variant="primary">
+                    Create Number
+                </x-atoms.forms.button>
+            </div>
+            <div class="flex items-center space-x-4">
+
+                <x-atoms.forms.button wire:click.prevent="showPhoneNumber(true)">
+                    Active ({{ $phoneNumbersCount }})
+                </x-atoms.forms.button>
+                <x-atoms.forms.button wire:click.prevent="showPhoneNumber(false)">
+                    Deactivated ({{ $deactivatedCount }})
+                </x-atoms.forms.button>
+
+
+                <div class="flex-grow lg:w-64 xl:w-96">
+                    <label for="companies-phone-number" class="sr-only">Search</label>
+                    <input type="text"
+                           wire:model.live="search"
+                           class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 w-full p-2.5"
+                           placeholder="Search for Tracking Number or Number Name">
                 </div>
             </div>
         </div>
@@ -31,39 +59,92 @@
                 </x-molecules.tables.thead>
 
                 <x-molecules.tables.tbody>
-                    @foreach ($phoneNumbers['data'] as $key => $phoneNumber)
-                    <tr>
-                        <x-atoms.tables.td>
-                            <x-atoms.forms.button wire:click="editPhoneTracking('{{ $phoneNumber['id'] }}')" class="text-blue-800">
-                                {{ Str::limit($phoneNumber['name'] ?? $phoneNumber['number'] , 50, ' ...') }}
-                            </x-atoms.forms.button>
+                    @if($active)
+                        @foreach ($phoneNumbers as $key => $phoneNumber)
+                        <tr>
+                            <x-atoms.tables.td>
+                                <x-atoms.forms.button wire:click="editPhoneTracking('{{ $phoneNumber->id }}')" class="text-blue-800">
+                                    {{ Str::limit($phoneNumber->name ?? $phoneNumber->number , 50, ' ...') }}
+                                </x-atoms.forms.button>
 
-                            <div class="text-sm font-normal text-gray-500">{{ $phoneNumber['id'] }}</div>
-                        </x-atoms.tables.td>
-                        <x-atoms.tables.td>All</x-atoms.tables.td>
-                        <x-atoms.tables.td>{{ $phoneNumber['number'] }}</x-atoms.tables.td>
-                        <x-atoms.tables.td>TODO Numbers</x-atoms.tables.td>
-                        <x-atoms.tables.td>TODO Numbers</x-atoms.tables.td>
-                        <x-atoms.tables.td>TODO Numbers</x-atoms.tables.td>
+                                <div class="pl-2 text-sm font-normal text-gray-500">{{ $phoneNumber['id'] }}</div>
+                            </x-atoms.tables.td>
+                            @if( $phoneNumber->tracking->tracking_options->value == "Landing Page" )
+                                <x-atoms.tables.td>Landing: {{ $phoneNumber->tracking->URL }}</x-atoms.tables.td>
+                            @else
+                                <x-atoms.tables.td>{{ $phoneNumber->tracking->tracking_options }}</x-atoms.tables.td>
+                            @endif
+                            <x-atoms.tables.td>{{ $phoneNumber->number }}</x-atoms.tables.td>
 
-                        <x-atoms.tables.td class='text-center'>{{ $phoneNumber['sets'] }}</x-atoms.tables.td>
-                        <x-atoms.tables.td class="pb-8">
-                            <!-- TODO -->
-                            <div class="relative">
-                                <div class="absolute top-0 right-0">
-                                    <x-atoms.forms.button wire:click="addPhoneNum('{{$phoneNumber['id']}}')" data-popover-target="add-schedule-{{$key}}">
-                                        <x-atoms.icons.addschedule />
-                                    </x-atoms.forms.button>
-                                    <x-atoms.popover id="add-schedule-{{ $key }}">Add Schedule</x-atoms.popover>
-                                    <x-atoms.forms.button wire:click="editPhoneNum('{{$phoneNumber['id']}}')" data-popover-target="edit-schedule-{{$key}}">
-                                        <x-atoms.icons.edit />
-                                    </x-atoms.forms.button>
-                                    <x-atoms.popover id="edit-schedule-{{ $key }}">Edit Schedule</x-atoms.popover>
+                            <x-atoms.tables.td>{{$phoneNumber->tracking->swaptarget}}</x-atoms.tables.td>
+                            <x-atoms.tables.td>
+                                {{$phoneNumber->tracking->recordingflag? "On" : "Off"}}
+                            </x-atoms.tables.td>
+                            <x-atoms.tables.td>Active</x-atoms.tables.td>
+
+
+                            <x-atoms.tables.td class='text-center'></x-atoms.tables.td>
+                            <x-atoms.tables.td class="pb-8">
+                                <!-- TODO -->
+                                <div class="relative">
+                                    <div class="absolute top-0 right-0">
+                                        <x-atoms.forms.button wire:click="addPhoneNum('{{$phoneNumber['id']}}')" data-popover-target="add-schedule-{{$key}}">
+                                            <x-atoms.icons.addschedule />
+                                        </x-atoms.forms.button>
+                                        <x-atoms.popover id="add-schedule-{{ $key }}">Add Schedule</x-atoms.popover>
+                                        <x-atoms.forms.button wire:click="editPhoneNum('{{$phoneNumber['id']}}')" data-popover-target="edit-schedule-{{$key}}">
+                                            <x-atoms.icons.edit />
+                                        </x-atoms.forms.button>
+                                        <x-atoms.popover id="edit-schedule-{{ $key }}">Edit Schedule</x-atoms.popover>
+                                    </div>
                                 </div>
-                            </div>
-                        </x-atoms.tables.td>
-                    </tr>
-                    @endforeach
+                            </x-atoms.tables.td>
+                        </tr>
+                        @endforeach
+                    @else
+                        @foreach ($deactivated as $key => $phoneNumber)
+                        <tr>
+                            <x-atoms.tables.td>
+                                <x-atoms.forms.button wire:click="editPhoneTracking('{{ $phoneNumber->id }}')" class="text-blue-800">
+                                    {{ Str::limit($phoneNumber->name ?? $phoneNumber->number , 50, ' ...') }}
+                                </x-atoms.forms.button>
+
+                                <div class="pl-2 text-sm font-normal text-gray-500">{{ $phoneNumber['id'] }}</div>
+                            </x-atoms.tables.td>
+                            @if( $phoneNumber->tracking->tracking_options->value == "Landing Page" )
+                                <x-atoms.tables.td>Landing: {{ $phoneNumber->tracking->URL }}</x-atoms.tables.td>
+                            @else
+                                <x-atoms.tables.td>{{ $phoneNumber->tracking->tracking_options }}</x-atoms.tables.td>
+                            @endif
+                            <x-atoms.tables.td>{{ $phoneNumber->number }}</x-atoms.tables.td>
+
+                            <x-atoms.tables.td>{{$phoneNumber->tracking->swaptarget}}</x-atoms.tables.td>
+                            <x-atoms.tables.td>
+                                {{$phoneNumber->tracking->recordingflag? "On" : "Off"}}
+                            </x-atoms.tables.td>
+                            <x-atoms.tables.td>Active</x-atoms.tables.td>
+
+
+                            <x-atoms.tables.td class='text-center'></x-atoms.tables.td>
+                            <x-atoms.tables.td class="pb-8">
+                                <!-- TODO -->
+                                <div class="relative">
+                                    <div class="absolute top-0 right-0">
+                                        <x-atoms.forms.button wire:click="addPhoneNum('{{$phoneNumber['id']}}')" data-popover-target="add-schedule-{{$key}}">
+                                            <x-atoms.icons.addschedule />
+                                        </x-atoms.forms.button>
+                                        <x-atoms.popover id="add-schedule-{{ $key }}">Add Schedule</x-atoms.popover>
+                                        <x-atoms.forms.button wire:click="editPhoneNum('{{$phoneNumber['id']}}')" data-popover-target="edit-schedule-{{$key}}">
+                                            <x-atoms.icons.edit />
+                                        </x-atoms.forms.button>
+                                        <x-atoms.popover id="edit-schedule-{{ $key }}">Edit Schedule</x-atoms.popover>
+                                    </div>
+                                </div>
+                            </x-atoms.tables.td>
+                        </tr>
+                        @endforeach
+                    @endif
+
                 </x-molecules.tables.tbody>
             </x-organisms.table>
         </div>

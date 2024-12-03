@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CallController;
 use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -14,13 +15,15 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::redirect('/landing', '/dashboard');
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', App\Livewire\Pages\Dashboard::class)->name('dashboard');
     Route::get('companies', App\Livewire\Pages\Companies\CompanyIndex::class)->name('companies');
     Route::get('settings/create-number', App\Livewire\Pages\Settings\CreateNumber\CreateNumberIndex::class)->name('wizard');
-
+    Route::get('dialcall', [CallController::class, 'dialCall']);
 
 
     // Route::get('phone-trackings/{company}/reports', App\Livewire\Pages\PhoneTrackings\PhoneTrackingReport::class)->name('report-phone-trackings');

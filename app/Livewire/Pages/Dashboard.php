@@ -53,13 +53,12 @@ class Dashboard extends Component
                 return $item;
             });
 
-        // Total Call and Unique Percentage increase or decrease
-        $this->TotalCallsPercentage = $this->LWtotalCalls == 0 ? 100 : (($this->TWtotalCalls - $this->LWtotalCalls) / $this->LWtotalCalls) * 100;
-        $this->UniqueCallsPercentage = $this->LWuniqueCalls == 0 ? 100 : (($this->TWuniqueCalls - $this->LWuniqueCalls) / $this->LWuniqueCalls) * 100;
+
 
         //Setup for this Week
         $this->TWstart = today()->subMinute();
         $this->TWend = today()->subWeek();
+
         $this->week = $this->TWend->format('M d')  . " - " . $this->TWstart->format('M d');
         $this->TWtotalCalls = Callhistory::whereBetween('call_date', [$this->TWend, $this->TWstart])->count();
         $this->TWuniqueCalls = Callhistory::whereBetween('call_date', [$this->TWend, $this->TWstart])
@@ -70,8 +69,8 @@ class Dashboard extends Component
             ->get();
 
         // Setup for last Week
-        $this->LWstart = today()->subWeek(2);
-        $this->LWend = today()->subWeek()->subMinute();
+        $this->LWstart = today()->subWeek();
+        $this->LWend = today()->subWeek(2);
         $this->LWtotalCalls = Callhistory::whereBetween('call_date', [$this->LWend, $this->LWstart])->count();
         $this->LWuniqueCalls = Callhistory::whereBetween('call_date', [$this->LWend, $this->LWstart])
             ->distinct('caller')->count('caller');
@@ -135,10 +134,15 @@ class Dashboard extends Component
         $this->unansweredCall = collect($this->unansweredCall)->map(fn($item) => "$item")->join(', ');
         $this->answeredCall = collect($this->answeredCall)->map(fn($item) => "$item")->join(', ');
         $this->recievedCategory = collect($this->recievedCategory)->map(fn($item) => "'$item'")->join(', ');
+
+        // Total Call and Unique Percentage increase or decrease
+        $this->TotalCallsPercentage = $this->LWtotalCalls == 0 ? 100 : (($this->TWtotalCalls - $this->LWtotalCalls) / $this->LWtotalCalls) * 100;
+        $this->UniqueCallsPercentage = $this->LWuniqueCalls == 0 ? 100 : (($this->TWuniqueCalls - $this->LWuniqueCalls) / $this->LWuniqueCalls) * 100;
     }
 
     public function render()
     {
+
         return view('livewire.pages.dashboard');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Phonenumbers;
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,6 +18,9 @@ return new class extends Migration
             $table->tinyInteger('display');
             $table->tinyInteger('useon');
             $table->tinyInteger('googleads');
+            $table->string('utm_source', 100)->nullable();
+            $table->string('utm_medium', 100)->nullable();
+            $table->string('utm_campaign', 100)->nullable();
             $table->string('tracking_options', 50);
             $table->string('URL', 100)->nullable();
             $table->string('search_engine', 100)->nullable(); //Google, Yahoo, Bing, All
@@ -25,8 +28,11 @@ return new class extends Migration
             $table->string('swaptarget');
             $table->string('callforwarding');
             $table->string('whispermsg');
+            $table->boolean('recordingflag')->default(true);
+            $table->boolean('textmsg')->default(false);
             $table->string('callgreeting');
             $table->string('campaignname');
+            $table->boolean('autoreply')->default(false);
             $table->tinyInteger('numoftracking');
             $table->string('areacode');
             $table->string('poolname');

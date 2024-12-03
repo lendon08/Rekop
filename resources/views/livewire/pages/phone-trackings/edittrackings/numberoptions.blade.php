@@ -14,42 +14,45 @@
                     </tr>
                 </x-molecules.tables.thead>
                 <x-molecules.tables.tbody class="font-semibold">
-                    <x-atoms.tables.td>{{$phone->name}}</x-atoms.tables.td>
-                    <x-atoms.tables.td>{{ \App\Services\PhoneFormatService::formatNoCountryCode($phone->tracking->swaptarget)}}</x-atoms.tables.td>
-                    <x-atoms.tables.td>On</x-atoms.tables.td>
-                    <x-atoms.tables.td>On</x-atoms.tables.td>
-                    <x-atoms.tables.td>On</x-atoms.tables.td>
-                    <x-atoms.tables.td>On</x-atoms.tables.td>
+                    <x-atoms.tables.td>{{ $name }}</x-atoms.tables.td>
+                    <x-atoms.tables.td>{{  \App\Services\PhoneFormatService::formatNoCountryCode($number) }}</x-atoms.tables.td>
+                    <x-atoms.tables.td>{{ $recordingF ? "On" : "Off" }}</x-atoms.tables.td>
+                    <x-atoms.tables.td>{{ $callgreetingF? "On" : "Off" }}</x-atoms.tables.td>
+                    <x-atoms.tables.td>{{ $whisperF? "On" : "Off" }}</x-atoms.tables.td>
+                    <x-atoms.tables.td>{{ $autoreply? "On" : "Off" }}</x-atoms.tables.td>
                 </x-molecules.tables.tbody>
             </x-organisms.table>
         </div>
 
         <div class="flex {{ !$numberOptions ? '': 'hidden'}}">
-            <section class="w-3/5 flex flex-col h-96 bg-white px-4 py-4">
+            <section class="w-3/5 flex flex-col bg-white px-4 py-4 space-y-4" >
                 <div class="flex-grow mb-4">
                     <span class="font-semibold">Number Name</span>
                     <div class="text-justify">
-                      <input type="text" class="rounded" wire:model.live="name">
+                      <input type="text" class="rounded" wire:model="name">
 
                     </div>
                 </div>
                 <div class="flex-grow mb-4">
-                    <span class="font-semibold">Call Destination</span>
+                    <span class="font-semibold">Number</span>
                     <div class="text-justify">
-                      <input type="text" x-mask="(999)999-9999" class="rounded" wire:model.live="number" >
+                      <input type="text" x-mask="999-999-9999" class="rounded" wire:model="number" >
                     </div>
                 </div>
                 <div class="flex-grow mb-4">
                     <span class="font-semibold">Whisper Message</span>
                     <div class="text-justify">
                       <div>
-                        <input type="checkbox" wire:model.live="whisper" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 ">
+
+                        <input type="checkbox" wire:model.live="whisperF" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 ">
                         <span class="pl-2">
-                            <input type="text" class="rounded" {{ $whisper  ? 'cursor-not-allowed' : '' }}"
-                            @disabled($whisper)>
+                            <input type="text"
+                            wire:model = "whisper"
+                            class="rounded {{ $whisperF  ?  '' : 'cursor-not-allowed' }}"
+                            @disabled(!$whisperF)>
                         </span>
                     </div>
-                        <div class="flex items-center">
+                        <div class="flex items-center {{ $whisperF ? '' : 'hidden'}}" >
                             <button type="button" class="flex items-center">
                                 <x-atoms.icons.play class="w-5 h-5 mr-2 text-blue-500" /> Preview Message
                             </button>
@@ -60,7 +63,7 @@
                     <span class="font-semibold mb-2">Forward Calls To</span>
                     <div class="text-justify space-y-4">
                       <div class="text-gray-400">Enter the number that you want your calls forwarded to.</div>
-                      <div><input type="text" class="rounded" value="{{$phone->tracking->swaptarget}}"></div>
+                      <div><input type="text" x-mask="999-999-9999" class="rounded" wire:model="swaptarget"></div>
                     </div>
                 </div>
 
@@ -71,9 +74,9 @@
                             <input type="checkbox"  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" checked>
                             Enable call recording
                          </label>
-                        <span data-popover-target="popover-default" class="text-blue-700 hover:text-blue-800 text-sm cursor-pointer">Legal Note</span>
+                        <span data-popover-target="popover-legal-note" class="text-blue-700 hover:text-blue-800 text-sm cursor-pointer">Legal Note</span>
 
-                        <div data-popover id="popover-default" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                        <div data-popover id="popover-legal-note" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
 
                             <div class="px-3 py-2">
                                 <p>Some jurisdictions require both parties to consent to any recorded conversation. To assist in the compliance of these laws, you can enable a greeting to inform the caller that the call may be recorded. Your default greeting should disclose (1) that you are using CallRail to provide recording/transcription services and (2) disclose all purposes of the collection.</p>
@@ -85,42 +88,45 @@
                 </div>
                 <div class="flex-grow mb-4">
                     <span class="font-semibold">Call Greeting</span>
-                    <div class="text-justify">
+                    <div class="text-justify space-y-4">
                         <label class="cursor-pointer">
-                            <input type="checkbox" wire:model.live="callgreeting" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 ">
+                            <input type="checkbox" wire:model.live="callgreetingF" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 ">
                             Play a greeting to the caller.
                          </label>
-                         @if($callgreeting)
-                            <div class="text-gray-400">Read the following text to the caller with a robot-like voice:</div>
-                            <input type="text" class="rounded">
+
+                        <div class="space-y-4 {{ $callgreetingF ? '': 'hidden'}}">
+
+                            <span class="text-gray-400">Read the following text to the caller with a robot-like voice:</span>
+
+                            <div>
+                                <textarea class="min-h-[50px] rounded resize-y" cols="50" wire:model="callgreeting"></textarea>
+
+                            </div>
                             <div class="flex items-center">
                                 <button type="button" class="flex items-center">
                                     <x-atoms.icons.play class="w-5 h-5 mr-2 text-blue-500" /> Preview Message
                                 </button>
                             </div>
-                        @endif
+                        </div>
                     </div>
                 </div>
                 <div class="flex-grow mb-4">
                     <span class="font-semibold mb-2">Campaign Name</span>
                     <div class="text-justify space-y-4">
 
-                      <div><input type="text" class="rounded" placeholder="New Campaign"></div>
+                      <div><input type="text" class="rounded" wire:model="campaign" placeholder="New Campaign"></div>
                     </div>
                 </div>
                 <div class="flex-grow mb-4">
                     <span class="font-semibold">Auto reply to text messages</span>
                     <div class="text-justify">
                         <label class="cursor-pointer">
-                            <input type="checkbox"  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 ">
+                            <input type="checkbox" wire:model="autoreply" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 ">
                             Enable auto reply
                          </label>
                          <span data-popover-target="popover-auto-reply" class="text-blue-700 hover:text-blue-800 text-sm cursor-pointer">Info icon</span>
 
                         <div data-popover id="popover-auto-reply" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
-                            <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700 text-center">
-                                <h3 class="font-bold">Legal Right</h3>
-                            </div>
                             <div class="px-3 py-2">
                                 <p>In order to use auto reply, your business must be registered to send texts through the Campaign Registry.</p>
                             </div>
@@ -130,7 +136,7 @@
                 </div>
                 <div class="mt-auto flex ">
                     <div class="place-content-end">
-                        <x-atoms.forms.button variant="primary">Save</x-atoms.forms.button>
+                        <x-atoms.forms.button wire:click.prevent="NumberOptionSave" variant="primary">Save</x-atoms.forms.button>
                         <x-atoms.forms.button wire:click.prevent="closeNumber('numberOptions')">Cancel</x-atoms.forms.button>
                     </div>
                 </div>

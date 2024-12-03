@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Integrations\SignalWire;
 use Illuminate\Http\Request;
-use App\Models\Traffic;
+use App\Models\Traffics;
 
 
 class TrafficSourceController extends Controller
 {
     public function store(Request $request)
     {
+        // Log::info($request->all());
+
         // Validate the incoming request data
         $validatedData = $request->validate([
             'source' => 'required|string|max:255',
@@ -19,11 +21,12 @@ class TrafficSourceController extends Controller
             'campaign' => 'required',
             'term' => 'required',
             'content' => 'required',
-            'referrer' => 'nullable|url',
+            'referrer' => 'nullable',
         ]);
 
         // Store the data in the database
-        Traffic::create($validatedData);
+        Traffics::create($validatedData);
+
 
         // Return a JSON response
         return response()->json([

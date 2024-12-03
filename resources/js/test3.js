@@ -113,9 +113,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function createLocalData() {
-        const data = getLocalData("rekop");
+        const data = getLocalData("isoncall");
         if (!data) {
-            setLocalData("rekop", "done");
+            setLocalData("isoncall", "done");
         }
         return data;
     }

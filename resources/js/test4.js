@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
             const response = await fetch(
-                `https://koala-sincere-quail.ngrok-free.app/api/test-phone-number?phoneNumber=${phoneNumber}`
+                "https://koala-sincere-quail.ngrok-free.app/api/test-phone-number?phoneNumber=${phoneNumber}"
             );
 
             if (!response.ok) {
@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
     async function updateDynamicPhoneNumbers() {
         const dynamicPhoneNumber = await determinePhoneNumber();
         if (dynamicPhoneNumber !== null) {
-            // Find all elements with the class ".dynamic-number" and update them with the formatted phone number
+            // Find all elements with the class '.dynamic-number' and update them with the formatted phone number
             document.querySelectorAll(".dynamic-number").forEach((element) => {
                 const originalFormat = element.textContent;
                 const formattedNumber = formatPhoneNumber(
@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const urlParams = new URLSearchParams(window.location.search);
         const csrfToken =
-            document.querySelector('meta[name="csrf-token"]')?.content || null;
+            document.querySelector("meta[name='csrf-token']")?.content || null;
 
         const trafficData = {
             source: getTrafficSource(),

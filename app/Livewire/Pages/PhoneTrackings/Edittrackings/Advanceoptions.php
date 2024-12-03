@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Pages\PhoneTrackings\Edittrackings;
 
+use App\Http\Controllers\FileController;
 use App\Models\Phonenumbers;
+use App\Models\Phonetracking;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -26,8 +28,17 @@ class Advanceoptions extends Component
 
     public function save()
     {
-        // update database
-        dd($this->textmsg);
+        // dd($this->utm_source);
+        Phonetracking::where('phonenumber_id', $this->id)->update([
+            'textmsg' => $this->textmsg,
+            'utm_source' => $this->utm_source,
+            'utm_medium' => $this->utm_medium,
+            'utm_campaign' => $this->utm_campaign
+        ]);
+
+        $file = new FileController();
+        $file->createJavaScriptFile();
+        $this->closeAdvance('advanceoptions');
     }
     public function closeAdvance($toggle)
     {
@@ -39,8 +50,8 @@ class Advanceoptions extends Component
         $this->phone = $phone;
         $this->advanceoptions = $data;
 
-        //todo
-        $this->textmsg = true;
+
+        $this->textmsg = $this->phone->tracking->textmsg;
         $this->callerid = 'tracking';
         if ($this->analytics == "auto") {
             $this->initialize(1);
@@ -49,9 +60,9 @@ class Advanceoptions extends Component
     public function initialize($flag)
     {
         if ($flag) {
-            $this->utm_source = $this->phone->name;
-            $this->utm_medium = $this->phone->number;
-            $this->utm_campaign = $this->phone->tracking->poolname;
+            $this->utm_source = $this->phone->tracking->utm_source;
+            $this->utm_medium = $this->phone->tracking->utm_medium;
+            $this->utm_campaign = $this->phone->tracking->utm_campaign;
         } else {
             $this->utm_source = "";
             $this->utm_medium = "";
@@ -62,8 +73,7 @@ class Advanceoptions extends Component
     {
         if ($this->analytics == "auto") {
             $this->initialize(1);
-        }
-        if ($this->analytics == "no") {
+        } else {
             $this->initialize(0);
         }
     }

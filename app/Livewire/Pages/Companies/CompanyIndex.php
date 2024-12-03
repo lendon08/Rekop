@@ -5,6 +5,7 @@ namespace App\Livewire\Pages\Companies;
 use App\Livewire\Traits\WithForm;
 use App\Livewire\Traits\WithToast;
 use App\Models\Company;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
@@ -24,7 +25,11 @@ class CompanyIndex extends Component
 
     public function render()
     {
-        return view('livewire.pages.companies.company-index', ['companies' => Company::latest()->where('name', 'like', "%{$this->search}%")->paginate(30)]);
+
+        $user_company = User::latest()->where('id', auth()->user()->id)->paginate(30);
+
+        // return view('livewire.pages.companies.company-index', ['companies' => Company::latest()->where('name', 'like', "%{$this->search}%")->paginate(30)]);
+        return view('livewire.pages.companies.company-index', ['user_company' => $user_company]);
     }
 
     public function create()

@@ -29,7 +29,7 @@
         <button data-modal-target="large-modal" data-modal-toggle="large-modal" class="absolute top-5 end-5 text-gray-500 font-medium text-xl px-5 py-2.5 text-center type=" button">
             &times;
         </button>
-        <p class="mb-5 text-base text-gray-500 sm:text-lg ">Company Name</p>
+        <p class="mb-5 text-base text-gray-500 sm:text-lg">{{ auth()->user()->company->name}}</p>
 
         <div class="my-4 w-full">
             <progress id="file" value="{{ $percent[$pageCnt] }}" max="100" class="w-full progress-unfilled:bg-gray-300 progress-filled:bg-blue-700"> </progress>
@@ -44,22 +44,22 @@
             <div class="{{ $pageCnt == 0 ? '' : 'hidden' }}">
                 <p class="mb-5 text-xl text-left sm:text-xl font-semibold">Where will you display this tracking number?</p>
 
-                <div class="w-full mb-10 items-center justify-center space-y-10 sm:flex sm:space-y-0 sm:mt-10 space-x-10  rtl:space-x-reverse">
+                <div class="w-full flex items-stretch mb-10 justify-center space-y-10 sm:flex sm:space-y-0 sm:mt-10 space-x-10  rtl:space-x-reverse">
                     <div class="w-full">
-                        <button class="w-full bg-white hover:scale-105 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg inline-flex items-center justify-center px-4 py-2.5"
+                        <button class="w-full h-full bg-white hover:scale-105 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg inline-flex items-center justify-center px-4 py-2.5"
                             wire:click="Increase(1)">
                             <div class="text-center">
                                 <div class="-mt-1 font-sans text-xl font-bold">On my Website</div>
-                                <div class="mb-1 text-base text-gray-500">We'll provide the code to install call tracking.</div>
+                                <div class="mb-1 text-base text-gray-500">Track call from your website and get details on website sessions, landing page, and web referrals.</div>
                             </div>
                         </button>
                     </div>
                     <div class="w-full">
-                        <button class="w-full bg-white hover:scale-105 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg inline-flex items-center justify-center px-4 py-2.5"
+                        <button class="w-full h-full bg-white hover:scale-105 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg inline-flex items-center justify-center px-4 py-2.5"
                             wire:click="Increase(1)">
                             <div class="text-center">
                                 <div class="-mt-1 font-sans text-xl font-bold">Somewhere else</div>
-                                <div class="mb-1 text-base text-gray-500">Google Ads, email signatures, and more.</div>
+                                <div class="mb-1 text-base text-gray-500">Search ads, social media ads, directory sites, email signatures, print ads, and more.</div>
                             </div>
                         </button>
                     </div>
@@ -88,7 +88,7 @@
 
                             <div class="text-center">
                                 <div class="-mt-1 font-sans text-xl font-bold">Calls only</div>
-                                <div class="mb-1 text-base text-gray-500">Use one number to track all calls to a single campaign.</div>
+                                <div class="mb-1 text-base text-gray-500">Use one number to track all calls to a single campaign.   </div>
                             </div>
                         </button>
                     </div>
@@ -156,17 +156,20 @@
             </div>
 
             <!-- -----------------------------Tracking Options--------------------------------------------------------------- -->
+            {{-- @livewire('pages.settings.create-number.tracking-source', ['pageCnt' => $pageCnt]) --}}
+            @include('livewire.pages.settings.create-number.tracking-source')
 
-            @livewire('pages.settings.create-number.tracking-source', ['pageCnt' => $pageCnt])
 
             <!----------------------------------------Call Forwarding------------------------------------------------------------------------------ -->
             @include('livewire.pages.settings.create-number.pageFive')
 
             <!----------------------------------------Number Setup------------------------------------------------------------------------------ -->
-            @include('livewire.pages.settings.create-number.pageSix')
+            {{-- @livewire('pages.settings.create-number.number-setup', ['pageCnt' => $pageCnt]) --}}
+            @include('livewire.pages.settings.create-number.number-setup')
 
             <!----------------------------------------Activation of Number------------------------------------------------------------------------------ -->
-            @include('livewire.pages.settings.create-number.pageSeven')
+            {{-- @include('livewire.pages.settings.create-number.pageSeven') --}}
+
         </div>
     </div>
 
@@ -207,15 +210,15 @@
             </button>
 
         @elseif($pageCnt==6)
-            <button type="button" class="p-2.5 group bg-blue-700 text-white hover:bg-blue-800 me-1 focus:outline-none focus:ring-4 focus:ring-gray-200"
-                wire:click="store()">
-                {{ $pages[$pageCnt] }}
-            </button>
+        <x-atoms.forms.button variant="primary" wire:click="store()">
+            {{ $pages[$pageCnt] }}
+        </x-atoms.forms.button>
+
         @else
-            <button type="button" class="p-2.5 group bg-blue-700 text-white hover:bg-blue-800 me-1 focus:outline-none focus:ring-4 focus:ring-gray-200"
-                wire:click="store()">
-                {{ $pages[$pageCnt] }}
-            </button>
+        <x-atoms.forms.button variant="primary" wire:click="store()">
+            {{ $pages[$pageCnt] }}
+        </x-atoms.forms.button>
+
         @endif
 
         </div>

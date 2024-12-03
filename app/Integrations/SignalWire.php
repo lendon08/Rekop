@@ -31,9 +31,50 @@ class SignalWire
         }
     }
 
+    public static function updatePhonenumber($id, $name)
+    {
+        // TODO: a lot of update will happend in here.
+
+        $url = 'https://' . env('SIGNALWIRE_SPACE_URL') . '/api/relay/rest/phone_numbers/' . $id;
+        try {
+
+            $response = Http::withBasicAuth(env('SIGNALWIRE_PROJECTID'), env('SIGNALWIRE_TOKEN'))
+                ->withToken(env('SIGNALWIRE_AUTH_TOKEN'))
+                ->put($url, [
+                    'name' => $name
+                ]);
+
+            if ($response->failed()) {
+                throw new Exception('SIGNAL WIRE ERROR: ' . $response->body());
+            }
+            return $response->json();
+        } catch (\Exception $ex) {
+            throw new Exception('HTTP ERROR: ' . $ex->getMessage());
+        }
+    }
+
+    public static function getPhonenumber($id)
+    {
+        $url = 'https://' . env('SIGNALWIRE_SPACE_URL') . '/api/relay/rest/phone_numbers/' . $id;
+        try {
+
+            $response = Http::withBasicAuth(env('SIGNALWIRE_PROJECTID'), env('SIGNALWIRE_TOKEN'))
+                ->withToken(env('SIGNALWIRE_AUTH_TOKEN'))
+                ->get($url);
+
+            if ($response->failed()) {
+                throw new Exception('SIGNAL WIRE ERROR: ' . $response->body());
+            }
+            return $response->json();
+        } catch (\Exception $ex) {
+            throw new Exception('HTTP ERROR: ' . $ex->getMessage());
+        }
+        https: //YOUR_SPACE.signalwire.com/api/relay/rest/phone_numbers/:id
+    }
+
     public static function purchasePhoneNumber($number)
     {
-        $url = 'https://' . env('SIGNALWIRE_SPACE_URL') . '' . '/api/relay/rest/phone_numbers';
+        $url = 'https://' . env('SIGNALWIRE_SPACE_URL') . '/api/relay/rest/phone_numbers';
 
         try {
 

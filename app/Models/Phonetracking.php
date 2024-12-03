@@ -13,11 +13,13 @@ class Phonetracking extends Model
 
     protected $guarded = [];
 
+
     public function phonenumber()
     {
-        return $this->belongsTo(Phonenumbers::class);
+        return $this->belongsTo(Phonenumbers::class, 'phonenumber_id');
     }
     protected $casts = [
         'tracking_options' => TrackingOptions::class,
+        'swaptarget' => \App\Casts\FormatNumber::class
     ];
 }

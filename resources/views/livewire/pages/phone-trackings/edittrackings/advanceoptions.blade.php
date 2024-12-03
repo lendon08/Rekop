@@ -3,16 +3,25 @@
         <x-organisms.table>
             <x-molecules.tables.thead>
                 <tr class="bg-white">
-
                     <x-atoms.tables.th>Text Messaging</x-atoms.tables.th>
                     <x-atoms.tables.th>Google Analytics</x-atoms.tables.th>
                     <x-atoms.tables.th>Caller ID</x-atoms.tables.th>
                 </tr>
             </x-molecules.tables.thead>
             <x-molecules.tables.tbody class="font-semibold">
-                <x-atoms.tables.td>On</x-atoms.tables.td>
-                <x-atoms.tables.td>Automatically set the source, medium, and campaign.</x-atoms.tables.td>
-                <x-atoms.tables.td>Caller's Number</x-atoms.tables.td>
+                <x-atoms.tables.td>{{$textmsg? "On":"Off" }}</x-atoms.tables.td>
+                <x-atoms.tables.td>
+                    @if($analytics == 'auto')
+                    Automatically set the source, medium, and campaign.
+                    @elseif($analytics == 'custom')
+                    Let me set the source, medium, and campaign.
+                    @else
+                        Don't send these calls to Google Analytics.
+                    @endif
+
+
+                </x-atoms.tables.td>
+                <x-atoms.tables.td>{{$callerid}}</x-atoms.tables.td>
 
 
             </x-molecules.tables.tbody>
@@ -50,11 +59,11 @@
                         <div class="pt-4 {{ $analytics != "custom" ? 'hidden' : '' }}">
                             <div class="ml-4 mb-4">
                                 <label for="utm_source" class="block font-semibold">utm_source</label>
-                                <input type="text" class="rounded" wire.model=>
+                                <input type="text" class="rounded" wire:model='utm_source'>
                                 <span data-popover-target="popover-source" class="text-blue-700 hover:text-blue-800 text-sm cursor-pointer">What is source?</span>
 
                                 <div data-popover id="popover-source" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
-                                    <div class="px-3 py-2 font-semibold">
+                                    <div class="px-3 py-2">
                                         <p>The advertiser, site, or publication that is sending traffic to your website. </p>
                                         <p>Example. Google, bing, referrer, direct</p>
                                     </div>
@@ -63,11 +72,11 @@
                             </div>
                             <div class="ml-4 mb-4">
                                 <label for="utm_medium" class="block font-semibold">utm_medium</label>
-                                <input type="text" class="rounded" id="utm_medium">
+                                <input type="text" class="rounded" wire:model="utm_medium">
                                 <span data-popover-target="popover-medium" class="text-blue-700 hover:text-blue-800 text-sm cursor-pointer">What is medium?</span>
 
                                 <div data-popover id="popover-medium" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-smtransition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
-                                    <div class="px-3 py-2 font-semibold">
+                                    <div class="px-3 py-2">
                                         <p>The advertiser medium or marketing channel that drove the phone call.</p>
                                         <p>Example cpc, organic, banner, facebook, twitter, email, retarget</p>
                                     </div>
@@ -76,7 +85,7 @@
                             </div>
                             <div class="ml-4 mb-4">
                                 <label for="utm_campaign" class="block font-semibold">utm_campaign</label>
-                                <input type="text" class="rounded" id="utm_campaign">
+                                <input type="text" class="rounded" wire:model="utm_campaign">
                                 <span data-popover-target="popover-campaign" class="text-blue-700 hover:text-blue-800 text-sm cursor-pointer">What is campaign?</span>
 
                                 <div data-popover id="popover-campaign" role="tooltip" class="absolute z-10 invisible inline-block w-64 text-sm transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">

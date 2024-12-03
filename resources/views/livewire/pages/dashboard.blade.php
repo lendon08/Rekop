@@ -1,6 +1,11 @@
 <main class="px-2 space-y-4">
   <div class="p-6 text-2xl font-bold sm:p-6">
     Account Home
+
+    <div class="dynamic-number">620-785-3150
+
+
+    </div>
   </div>
 
   <div class="flex justify-between mt-2 text-md bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-1 sm:p-6">
@@ -34,7 +39,7 @@
             @endif
              ></path>
           </svg>
-          {{ abs($TotalCallsPercentage)}}%
+          {{ abs(number_format($TotalCallsPercentage, 2))}}%
 
           <h3 class="text-base font-light text-gray-500 ">|  {{ $week}}</h3>
         </div>
@@ -81,7 +86,7 @@
             @endif
              ></path>
           </svg>
-          {{ abs($UniqueCallsPercentage) }}%
+          {{ abs(number_format($UniqueCallsPercentage, 2)) }}%
           <!-- to be solve -->
           <h3 class="text-base font-light text-gray-500 ">| {{ $week }}</h3>
         </div>

@@ -14,8 +14,9 @@ class Index extends Component
 
     public $numberOptions = true;
     public $insertoptions = true;
-    public $advanceoptions = false;
-
+    public $advanceoptions = true;
+    public $showToast = false;
+    public $message = '';
 
     public function mount(Request $request)
     {
@@ -27,6 +28,24 @@ class Index extends Component
         $this->phone = Phonenumbers::find($this->id);
 
         return view('livewire.pages.phone-trackings.edittrackings.index');
+    }
+
+    public function deactivate()
+    {
+
+        $pn = Phonenumbers::find($this->id);
+        $pn->delete();
+        return redirect()->route('phone-settings');
+    }
+
+
+    #[On('showtoast')]
+    public function showToast($message)
+    {
+        $this->message = $message;
+        $this->showToast = true;
+
+        $this->dispatch('toast-hidden');
     }
 
     #[On('toggleParent')]

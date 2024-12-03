@@ -14,6 +14,6 @@ class PhoneTrackingSeeder extends Seeder
      */
     public function run(): void
     {
-        Phonetracking::factory(50)->create();
+        Phonetracking::factory(10)->create();
     }
 }

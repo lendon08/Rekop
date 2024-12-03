@@ -3,9 +3,32 @@
         {{ $phone->name }} | EZSEO
     </x-slot:title>
     {{-- header --}}
+    <div
+        x-data="{ open: @entangle('showToast') }"
+        x-show="open"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 translate-y-4"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity- 0 translate-y-4"
+        class="fixed top-5 right-5 bg-blue-500 text-white px-4 py-2 rounded shadow-lg"
+        style="display: none;"
+    >
+        <p x-text="$wire.message"></p>
+</div>
     <div class="flex px-12 mt-10 w-full text-2xl font-bold sm:px-12 justify-between">
-        {{ $phone->name }} ( {{ $phone->number }} )
-        <x-atoms.forms.button class="border-red-600 border-2 text-red-500">
+        <div>
+            <span class="block">
+                <x-atoms.forms.button href="{{route('phone-settings')}}">
+                    <x-atoms.icons.back ></x-atoms.icons.back>
+                </x-atoms.forms.button>
+
+                <span>{{ $phone->name }} ( {{ $phone->number }} )</span>
+            </span>
+
+        </div>
+        <x-atoms.forms.button wire:click.prevent="deactivate" class="border-red-600 border-2 text-red-500">
             Deactive Number
         </x-atoms.forms.button>
     </div>
@@ -22,7 +45,6 @@
         <hr class="h-px bg-gray-200 border-0 ">
         <div>
             @livewire('pages.phone-trackings.edittrackings.numberoptions', ['data' => $numberOptions, 'phone'=> $phone, 'id' => $id ])
-
         </div>
     </div>
 
@@ -53,3 +75,13 @@
         </div>
     </div>
 </main>
+
+@script
+    <script>
+        $wire.on('toast-hidden', () => {
+            setTimeout(() => {
+                $wire.showToast = false;
+            }, 3000);
+        });
+    </script>
+@endscript
