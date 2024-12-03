@@ -14,11 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('phonenumbers', function (Blueprint $table) {
-            $table->id();
-            $table->string('phonenumber_id');
-            $table->unsignedBigInteger('user_id');
+            $table->uuid('id')->primary();
             $table->string('name')->nullable();
             $table->string('number');
+            $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

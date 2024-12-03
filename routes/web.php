@@ -1,6 +1,7 @@
 <?php
 
-
+use App\Http\Controllers\CallController;
+use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 /*
@@ -15,11 +16,14 @@ use Illuminate\Http\Request;
 */
 
 
+
+
+
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', App\Livewire\Pages\Dashboard::class)->name('dashboard');
     Route::get('companies', App\Livewire\Pages\Companies\CompanyIndex::class)->name('companies');
     Route::get('settings/create-number', App\Livewire\Pages\Settings\CreateNumber\CreateNumberIndex::class)->name('wizard');
-
+    Route::get('dialcall', [CallController::class, 'dialCall']);
 
 
     // Route::get('phone-trackings/{company}/reports', App\Livewire\Pages\PhoneTrackings\PhoneTrackingReport::class)->name('report-phone-trackings');
@@ -28,10 +32,12 @@ Route::middleware('auth')->group(function () {
     Route::get('phone-settings', App\Livewire\Pages\PhoneTrackings\PhoneTrackingIndex::class)->name('phone-settings');
     Route::get('phone-settings/add-schedule/{id}', App\Livewire\Pages\PhoneTrackings\AddSchedule::class)->name('add-schedule');
     Route::get('phone-settings/edit-schedule/{id}', App\Livewire\Pages\PhoneTrackings\EditSchedule::class)->name('edit-schedule');
+    Route::get('phone-settings/edit/{id}', App\Livewire\Pages\PhoneTrackings\Edittrackings\Index::class)->name('edit-phonetracking');
 
+    // Route::get('settings/integration/{slug}', App\Livewire\Pages\PhoneTrackings\Integration\Index::class)->name('integration');
     // Route::get('phone-settings/buy-number', App\Livewire\Pages\PhoneTrackings\AddPhonenumber::class)->name('buy-phone-number');
 
-
+    Route::get('swap', [FileController::class, 'createJavaScriptFile']);
 });
 //still need more work to create invoice
 Route::get('call-histories/reports/{calls}', App\Livewire\Pages\PhoneNumbers\CallHistoryReport::class, function (Request $request) {

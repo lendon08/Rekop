@@ -49,4 +49,12 @@ class RouteServiceProvider extends ServiceProvider
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
     }
+
+    protected function mapApiRoutes()
+    {
+        Route::prefix('api')
+            ->middleware('api', 'throttle:60,1') // 60 requests per minute per IP
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api.php'));
+    }
 }

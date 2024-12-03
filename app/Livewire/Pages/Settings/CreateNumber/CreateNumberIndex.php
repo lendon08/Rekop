@@ -2,16 +2,17 @@
 
 namespace App\Livewire\Pages\Settings\CreateNumber;
 
+use App\Http\Controllers\FileController;
 use Exception;
 use App\Integrations\SignalWire;
-use App\Models\phone_tracking;
 use App\Models\Phonenumbers;
+use App\Models\Phonetracking;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
-use Illuminate\Support\Str;
 use Livewire\Attributes\Renderless;
 use Livewire\Attributes\Title;
-
+use Illuminate\Support\Str;
+use phpDocumentor\Reflection\PseudoTypes\False_;
 
 #[Title('Number Wizard - EZSEO')]
 class CreateNumberIndex extends Component
@@ -26,34 +27,18 @@ class CreateNumberIndex extends Component
     // page 3
     public int $trakcingGoogleAds = 0; // extension - 0, somewhere else - 1
 
-    // page 4
-    public int $trackingOption = 0; //all- 0,google- 1,ppc- 2, landing- 3, refer - 4
-    public string $swapTarget = "";
-
     //page 5
     public string $callForwarding = ""; //Number
 
-    //page 6
-    public int $numberOfTracking = 4; //
-    public string $areaCode = "941";
-    public string $selectedNumber;
     public string $poolName = "Website Pool";
 
+    public string $selectedNumber;
 
     public int $pageCnt = 0;
 
     //Misc
-    public array $availableNumbers = [];
-    public $percent = [
-        10,
-        30,
-        35,
-        40,
-        50,
-        60,
-        70,
-        100
-    ];
+
+    public $percent = [10, 30, 35, 40, 50, 60, 70, 100];
 
     public $pages = [
         "Tracking Number Display",
@@ -67,13 +52,23 @@ class CreateNumberIndex extends Component
         "Purchase Phone Number and Go back to Dashboard"
     ];
 
+    public $searchengine;
+    public $traffic;
+    public $url;
+    public $url1;
+    public $url2;
+    public $url3;
 
+    public string $areaCode = "539";
+    public array $availableNumbers = [];
+    public int $numberOfTracking = 4;
 
-    public function mount()
-    {
-        $this->searchNumber();
-    }
-
+    // page 4
+    public $trackingOption = "All Visitors";
+    public string $tracking_search = "";
+    public string $tracking_traffic = "";
+    public string $swapTarget = "";
+    public string $phonename  = "";
     #[Renderless]
     public function searchNumber(): void
     {
@@ -93,12 +88,17 @@ class CreateNumberIndex extends Component
             $this->availableNumbers = array_map(fn($number) => $number['friendly_name'], $slicedNumbers);
         }
     }
+    public function mount()
+    {
 
+        $this->traffic = \App\Enums\TrackingTraffic::cases()[0]->value;
+        $this->searchengine = \App\Enums\TrackingSearchEngine::cases()[0]->value;
+        $this->searchNumber();
+    }
 
     #[Layout('layouts.wizard')]
     public function render()
     {
-
         return view('livewire.pages.settings.create-number.create-number');
     }
 
@@ -106,32 +106,57 @@ class CreateNumberIndex extends Component
     public function store()
     {
 
-        $pnumber = Phonenumbers::latest()->first();
+        $this->arrange();
+        // Buy number from Signalwire
+        $phonenumber =  $this->purchaseNumber();
 
-        phone_tracking::create([
-            'phonenumbers_id' => $pnumber->id,
+        //Update all phone numbers information base data : (Current: Name)
+        $pn = SignalWire::updatePhonenumber($phonenumber['id'], $this->phonename);
+
+
+
+        //Save phonenumber to database
+        Phonenumbers::create([
+            'id' => $pn['id'],
+            'name' => $pn['name'],
+            'number' => $pn['number'],
+            'company_id' => auth()->user()->company_id
+        ]);
+
+        //Save to settings to phonetracking
+        Phonetracking::create([
+            'phonenumber_id' => $pn['id'],
             'display' => $this->trackingDisplay,
-            'use' => $this->trackingUse,
+            'useon' => $this->trackingUse,
             'googleads' => $this->trakcingGoogleAds,
-            'options' => $this->trackingOption,
+            'tracking_options' => $this->trackingOption,
+            'utm_source' => 'offline',
+            'utm_medium' => 'direct',
+            'utm_campaign' => $this->phonename,
+            'URL' => $this->url,
+            'traffic' => $this->traffic,
+            'search_engine' => $this->searchengine,
             'swaptarget' => $this->swapTarget,
+            'whispermsg' => '',
+            'recordingflag' => true,
+            'textmsg' => false,
+            'callgreeting' => 'This call will be recorded for quality assurance.',
+            'campaignname' => $this->phonename,
+            'autoreply' => false,
             'callforwarding' => $this->callForwarding,
             'numoftracking' => $this->numberOfTracking,
             'areacode' => $this->areaCode,
-            'poolname' => $this->poolName
+            'poolname' => $this->phonename
         ]);
-
-        //Buy number from Signalwire 
-        $this->purchaseNumber();
-
+        $file = new FileController();
+        $file->createJavaScriptFile();
         //redirect
-        return redirect()->route('dashboard');
+        return redirect()->route('phone-settings');
     }
-
     public function purchaseNumber()
     {
         $this->selectedNumber = preg_replace('/[^\d+]/', '', $this->selectedNumber);
-        SignalWire::purchasePhoneNumber($this->selectedNumber);
+        return SignalWire::purchasePhoneNumber($this->selectedNumber);
     }
 
     public function Decrease($decBy)
@@ -140,6 +165,8 @@ class CreateNumberIndex extends Component
         } else {
             $this->pageCnt -= $decBy;
         }
+        // $this->dispatch('toggleNumberOption', data: $this->numberOptions);
+        $this->dispatch('pageChange', pageCnt: $this->pageCnt);
     }
 
     public function Increase($incBy)
@@ -147,6 +174,37 @@ class CreateNumberIndex extends Component
         if ($this->pageCnt == 7) {
         } else {
             $this->pageCnt += $incBy;
+        }
+        $this->dispatch('pageChange', pageCnt: $this->pageCnt);
+    }
+    public function arrange()
+    {
+        $a = $this->trackingOption;
+
+        if ($a == 'Search') {
+            $this->url = "";
+            if ($this->searchengine == "" || $this->traffic == "") {
+                $this->searchengine = "Google";
+                $this->traffic = "Paid";
+            }
+        } elseif ($a == 'All Visitors' || $a == 'Direct' || $a == 'Other') {
+            $this->url = "";
+            $this->searchengine = "";
+            $this->traffic = "";
+        } else {
+
+            if ($a == 'Web Referrals') {
+                $this->url = $this->url1;
+            } elseif ($a == 'Landing Page') {
+                $this->url = $this->url2;
+            } else {
+                $this->url = $this->url3;
+            }
+            $this->url1 = "";
+            $this->url2 = "";
+            $this->url3 = "";
+            $this->searchengine = "";
+            $this->traffic = "";
         }
     }
 }
