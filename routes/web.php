@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('phone-settings/edit-schedule/{id}', App\Livewire\Pages\PhoneTrackings\EditSchedule::class)->name('edit-schedule');
     Route::get('phone-settings/edit/{id}', App\Livewire\Pages\PhoneTrackings\Edittrackings\Index::class)->name('edit-phonetracking');
 
+    // Route::get('settings/integration/{slug}', App\Livewire\Pages\PhoneTrackings\Integration\Index::class)->name('integration');
     // Route::get('phone-settings/buy-number', App\Livewire\Pages\PhoneTrackings\AddPhonenumber::class)->name('buy-phone-number');
 
     Route::get('swap', [FileController::class, 'createJavaScriptFile']);

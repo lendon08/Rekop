@@ -31,10 +31,10 @@ switch ($variant) {
 }
 @endphp
 @if($variant == 'top_nav')
-    <button {{ $attributes->merge(['class' => $class]) }}>
+    <a href="{{ $href }}" {{ $attributes->merge(['class' => $class]) }}>
         {{ $slot }}
         <span class="absolute bottom-0 left-1/2 w-0 h-[2px] bg-blue-600 transition-all duration-300 ease-in-out group-hover:w-1/2 group-hover:-translate-x-1/2 group-focus:w-1/2 group-focus:-translate-x-1/2"></span>
-    </button>
+    </a>
 @else
     @if ($href)
         <a href="{{ $href }}" {{ $attributes->merge(['class' => $class]) }}>

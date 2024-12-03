@@ -11,6 +11,8 @@ class Company extends Model
 {
     use HasFactory, SoftDeletes;
 
+
+
     public function users()
     {
         return $this->hasMany(User::class);

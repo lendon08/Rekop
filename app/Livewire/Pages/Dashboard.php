@@ -136,8 +136,8 @@ class Dashboard extends Component
         $this->recievedCategory = collect($this->recievedCategory)->map(fn($item) => "'$item'")->join(', ');
 
         // Total Call and Unique Percentage increase or decrease
-        $this->TotalCallsPercentage = $this->LWtotalCalls == 0 ? 100 : (($this->TWtotalCalls - $this->LWtotalCalls) / $this->LWtotalCalls) * 100;
-        $this->UniqueCallsPercentage = $this->LWuniqueCalls == 0 ? 100 : (($this->TWuniqueCalls - $this->LWuniqueCalls) / $this->LWuniqueCalls) * 100;
+        $this->TotalCallsPercentage = $this->LWtotalCalls == 0 ? 0 : (($this->TWtotalCalls - $this->LWtotalCalls) / $this->LWtotalCalls) * 100;
+        $this->UniqueCallsPercentage = $this->LWuniqueCalls == 0 ? 0 : (($this->TWuniqueCalls - $this->LWuniqueCalls) / $this->LWuniqueCalls) * 100;
     }
 
     public function render()

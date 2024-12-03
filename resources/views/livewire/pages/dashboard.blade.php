@@ -26,6 +26,7 @@
         </div>
         <div class='flex items-center justify-end flex-1 text-base font-medium
         @if($TotalCallsPercentage <0 ) text-red-500
+        @elseif($TotalCallsPercentage == 0)
         @else text-green-500
         @endif
         '
@@ -34,6 +35,8 @@
             <path fill-rule="evenodd" clip-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-width="2"
             @if($TotalCallsPercentage <0 )
                 d="M5 1v12m0 0 4-4m-4 4L1 9"
+            @elseif($TotalCallsPercentage ==0 )
+
             @else
                 d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z"
             @endif
@@ -73,6 +76,7 @@
         </div>
         <div class='flex items-center justify-end flex-1 text-base font-medium
         @if($UniqueCallsPercentage <0 ) text-red-500
+        @elseif($UniqueCallsPercentage == 0 )
         @else text-green-500
         @endif
         '
@@ -81,6 +85,7 @@
             <path fill-rule="evenodd" clip-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-width="2"
             @if($UniqueCallsPercentage <0 )
                 d="M5 1v12m0 0 4-4m-4 4L1 9"
+            @elseif($UniqueCallsPercentage == 0 )
             @else
                 d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z"
             @endif

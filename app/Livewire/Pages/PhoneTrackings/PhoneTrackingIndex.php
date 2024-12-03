@@ -26,11 +26,16 @@ class PhoneTrackingIndex extends Component
 
     public bool $active = true;
     public string $search = "";
+    public int $toDisplay = 2;
     protected $listeners = [
         'phoneTrackingIndexRefresh' => '$refresh',
     ];
 
 
+    public function showToDisplay(string $value)
+    {
+        $this->toDisplay = $value;
+    }
     public function showPhoneNumber(bool $value)
     {
         $this->search = "";
@@ -44,6 +49,12 @@ class PhoneTrackingIndex extends Component
 
         // $this->phoneNumbers = Phonenumbers::where('company_id', auth()->user()->company_id)->get();
 
+        $this->phoneNumbers = Phonenumbers::where('company_id', auth()->user()->company_id)
+            ->where(function ($query) {
+                $query->orWhere('number', 'like', "%{$this->search}%")
+                    ->orWhere('name', 'like', "%{$this->search}%");
+            })
+            ->get();
         $this->phoneNumbersCount = Phonenumbers::where('company_id', auth()->user()->company_id)->count();
         $this->deactivated = Phonenumbers::where('company_id', auth()->user()->company_id)->onlyTrashed()->get();
         $this->deactivatedCount = Phonenumbers::where('company_id', auth()->user()->company_id)->onlyTrashed()->count();
