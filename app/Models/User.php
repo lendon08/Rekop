@@ -35,6 +35,9 @@ class User extends Authenticatable
 
     public function company()
     {
-        return $this->hasMany(Company::class);
+        return $this->belongsTo(Company::class);
+
+        // uses for many to many
+        // return $this->belongsToMany(Company::class)->withPivot('role');
     }
 }

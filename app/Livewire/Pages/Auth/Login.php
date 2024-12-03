@@ -5,7 +5,6 @@ namespace App\Livewire\Pages\Auth;
 use App\Providers\RouteServiceProvider;
 use Livewire\Component;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Validate;

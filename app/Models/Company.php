@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Faker\Provider\bg_BG\PhoneNumber;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -11,14 +11,19 @@ class Company extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public function user()
+
+
+    public function users()
     {
         return $this->hasMany(User::class);
+
+        //uses for many to many
+        // return $this->belongsToMany(User::class)->withPivot('role');
     }
 
-    public function phonenumber()
+    public function phoneNumbers()
     {
-        return $this->hasMany(PhoneNumber::class);
+        return $this->hasMany(Phonenumbers::class, 'company_id');
     }
 
     // IMPORTANT TO DO LATER

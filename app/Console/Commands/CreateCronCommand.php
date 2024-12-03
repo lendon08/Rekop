@@ -34,7 +34,7 @@ class CreateCronCommand extends Command
             ->where('start_sched', date('H:i'))
             ->get());
 
-        // ->where('start_sched', '08:00') 
+        // ->where('start_sched', '08:00')
 
         if (count($scheds) > 0) {
             foreach ($scheds as $sched) {

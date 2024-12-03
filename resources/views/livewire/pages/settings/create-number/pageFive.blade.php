@@ -10,8 +10,8 @@
             {{-- <div class="flex items-center h-5">
                 <input wire:model="callForwarding" aria-describedby="existing-phone" type="radio" value="0" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
             </div> --}}
-            <div class="text-base">
-                <label for="helper-radio" class="font-medium text-gray-900">An existing phone number</label>
+            <div class="text-base>
+                <p class="font-medium text-gray-900"">An existing phone number</p>
                 <p id="existing-phone" class="text-xs font-normal text-gray-500 mb-2">Enter an existing phone number where we should forward your calls.</p>
                 <input x-mask="(999)999-9999" placeholder="(123)456-7890" type="text" wire:model.live="callForwarding">
             </div>

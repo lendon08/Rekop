@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Region;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+
 
 class RegionSeeder extends Seeder
 {
@@ -16,7 +16,7 @@ class RegionSeeder extends Seeder
     public function run()
     {
 
-        DB::table('region')->insert([
+        Region::factory()->createMany([
             ['country' => 'us', 'code' => 'AL', 'name' => 'Alabama'],
             ['country' => 'us', 'code' => 'AK', 'name' => 'Alaska'],
             ['country' => 'us', 'code' => 'AZ', 'name' => 'Arizona'],

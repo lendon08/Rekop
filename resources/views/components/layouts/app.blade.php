@@ -5,10 +5,11 @@
         <meta charset="utf-8">
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ $title ?? 'Page Title'}}</title>
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-        
+
         @vite(['resources/css/app.css','resources/js/app.js'])
 
         @livewireStyles
@@ -18,16 +19,16 @@
     </head>
 
     <body class="bg-gray-50">
-                
-     
+
+
         {{-- @include('partials.header') --}}
 
         <div class="flex overflow-hidden bg-gray-50">
 
             @include('partials.sidebar')
- 
+
             <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-16 lg:mx-2">
-           
+
                 {{ $slot }}
 
             </div>
@@ -37,8 +38,10 @@
         @include('partials.modules')
 
         @livewireScripts
-        
+
         @stack('scripts')
-        <script type="text/javascript" src="http://example.test/storage/js/generated-script.js"></script>
+        <footer>
+            <script src="{{ Storage::url('js/1/swap.js') }}"></script>
+        </footer>
     </body>
 </html>
