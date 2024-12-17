@@ -2,6 +2,7 @@
 'variant' => 'default',
 'href' => null,
 'type' => 'button',
+'active' => false
 ])
 
 @php
@@ -33,7 +34,9 @@ switch ($variant) {
 @if($variant == 'top_nav')
     <a href="{{ $href }}" {{ $attributes->merge(['class' => $class]) }}>
         {{ $slot }}
-        <span class="absolute bottom-0 left-1/2 w-0 h-[2px] bg-blue-600 transition-all duration-300 ease-in-out group-hover:w-1/2 group-hover:-translate-x-1/2 group-focus:w-1/2 group-focus:-translate-x-1/2"></span>
+        <span class="absolute bottom-0 left-1/2 w-0 h-[2px] bg-blue-600 transition-all duration-300 ease-in-out group-hover:w-1/2 group-hover:-translate-x-1/2 group-focus:w-1/2 group-focus:-translate-x-1/2
+        {{ $active ? 'w-1/2 -translate-x-1/2': '' }}
+        "></span>
     </a>
 @else
     @if ($href)

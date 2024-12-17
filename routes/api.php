@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CallController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TrafficSourceController;
@@ -19,6 +20,8 @@ use App\Http\Controllers\TrafficSourceController;
 
 Route::post('/traffic-source', [TrafficSourceController::class, 'store']);
 Route::get('/test-phone-number', [TrafficSourceController::class, 'checkPhoneNumber']);
+
+Route::get('dialcall', [CallController::class, 'dialCall']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

@@ -38,7 +38,7 @@ class UpdateCallHistoryCommand extends Command
                 // Loop through each call in the API response
                 foreach ($data['calls'] as $call) {
                     // Check if the call record already exists in the database
-                    $exists = Callhistory::where('id', $call['sid'])->exists();
+                    $exists = Callhistory::withoutGlobalScopes()->where('id', $call['sid'])->exists();
 
                     // Exit the loop if a record already exists
                     if ($exists) {
@@ -50,7 +50,7 @@ class UpdateCallHistoryCommand extends Command
                     if ($call['direction'] === 'inbound') {
 
 
-                        Callhistory::create([
+                        Callhistory::withoutGlobalScopes()->create([
                             'id' => $call['sid'],
                             'phonenumber_id' => $call['phone_number_sid'],
                             'caller' => $call['formatted_from'],

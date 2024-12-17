@@ -41,7 +41,7 @@
 
         @stack('scripts')
         <footer>
-            <script src="{{ Storage::url('js/1/swap.js') }}"></script>
+            <script src="{{ Storage::url("js/".auth()->user()->company_id."/swap.js") }}"></script>
         </footer>
     </body>
 </html>

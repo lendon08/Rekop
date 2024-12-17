@@ -1,11 +1,21 @@
 <main class="px-2 space-y-4">
+{{--
+    <div class="p-6 text-2xl sm:p-6">
+        <div><span class="font-bold">Direct: </span> 346-908-4550</div>
+        <div><span class="font-bold">Facebook: </span> 346-359-8737</div>
+        <div><span class="font-bold">Instagram </span> 425-654-8722</div>
+        <div><span class="font-bold">Google: </span> 872-514-7933</div>
+
+        <div><span class="font-bold">Bing: </span> 334-765-4891</div>
+        <div><span class="font-bold">Youtube: </span>812-569-7442</div>
+        <div><span class="font-bold">Pinterest: </span> 625-349-7865</div>
+
+    </div> --}}
   <div class="p-6 text-2xl font-bold sm:p-6">
     Account Home
 
-    <div class="dynamic-number">620-785-3150
+    {{-- <div>Swap Target: <span class="dynamic-number">620-785-3150</span></div> --}}
 
-
-    </div>
   </div>
 
   <div class="flex justify-between mt-2 text-md bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-1 sm:p-6">
@@ -42,8 +52,12 @@
             @endif
              ></path>
           </svg>
-          {{ abs(number_format($TotalCallsPercentage, 2))}}%
-
+          @if($TotalCallsPercentage == 0)
+            <div> - %</div>
+          @else
+          {{abs(number_format($TotalCallsPercentage, 2))}}
+          @endif
+          %
           <h3 class="text-base font-light text-gray-500 ">|  {{ $week}}</h3>
         </div>
 
@@ -91,7 +105,12 @@
             @endif
              ></path>
           </svg>
-          {{ abs(number_format($UniqueCallsPercentage, 2)) }}%
+          @if($UniqueCallsPercentage == 0)
+            <div> - </div>
+          @else
+            {{abs(number_format($UniqueCallsPercentage, 2))}}
+          @endif
+          %
           <!-- to be solve -->
           <h3 class="text-base font-light text-gray-500 ">| {{ $week }}</h3>
         </div>

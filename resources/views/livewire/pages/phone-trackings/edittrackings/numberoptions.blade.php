@@ -36,7 +36,7 @@
                 <div class="flex-grow mb-4">
                     <span class="font-semibold">Number</span>
                     <div class="text-justify">
-                      <input type="text" x-mask="999-999-9999" class="rounded" wire:model="number" >
+                      <input type="text" x-mask="999-999-9999" class="rounded" wire:model="number" disabled >
                     </div>
                 </div>
                 <div class="flex-grow mb-4">
