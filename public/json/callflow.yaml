@@ -1,0 +1,46 @@
+version: 1.0.0
+sections:
+  main:
+    - answer: {}
+    - play:
+        urls: >-
+          say: Welcome to the Vance Refrigerator Corporation. For quality assurance, this call may be recorded.
+    - record_call:
+        stereo: true
+        format: wav
+    - prompt:
+        play: >- say: Press 1 to talk to Sales, Press 2 to talk to Support, Press 3 to talk to a Customer Representative.
+        say_language: en-US
+        max_digits: 1
+        speech_hints:
+          - one
+          - two
+          - three
+    - switch:
+        variable: prompt_value
+        case:
+          '1':
+            - execute:
+                dest: sales
+          '2':
+            - execute:
+                dest: support
+          one:
+            - execute:
+                dest: sales
+          two:
+            - execute:
+                dest: support
+        default:
+          - execute:
+              dest: sales
+  sales:
+    - play:
+        url: 'say: You have reached Sales.'
+    - connect:
+        to: +19413243994
+  support:
+    - play:
+        url: 'say: You have reached Support.'
+    - connect:
+        to: +13464604501

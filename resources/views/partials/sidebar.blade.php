@@ -7,6 +7,7 @@
                 <x-nav-link
                     title='{{auth()->user()->company->name}}'
                     drawer='form'
+                    class="pl-2"
                     >
                     <x-atoms.icons.home></x-atoms.icons.home>
 
