@@ -34,7 +34,10 @@ Route::middleware('auth')->group(function () {
     Route::get('phone-settings/edit-schedule/{id}', App\Livewire\Pages\PhoneTrackings\EditSchedule::class)->name('edit-schedule');
     Route::get('phone-settings/edit/{id}', App\Livewire\Pages\PhoneTrackings\Edittrackings\Index::class)->name('edit-phonetracking');
 
-    Route::get('settings/call-flow-builder', App\Livewire\Pages\Settings\CallFlowBuilder\CallFlowIndex::class)->name('call-flow-builder');
+
+    Route::get('settings/call-flow-builder/', App\Livewire\Pages\Settings\CallFlowBuilder\CallFlowIndex::class)->name('call-flow-builder');
+    Route::get('settings/call-flow-builder/{slug}', App\Livewire\Pages\Settings\CallFlowBuilder\CallFlowEdit::class)->name('call-flow-builder-edit');
+
     Route::get('settings/integration', App\Livewire\Pages\Settings\Integration\IntegrationIndex::class)->name('settings-integration');
     Route::get('settings/integration/{slug}', App\Livewire\Pages\Settings\Integration\IntegrationJs::class)->name('settings-integration-edit');
     // Route::get('phone-settings/buy-number', App\Livewire\Pages\PhoneTrackings\AddPhonenumber::class)->name('buy-phone-number');

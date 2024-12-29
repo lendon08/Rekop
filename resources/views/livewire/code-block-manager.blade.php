@@ -22,9 +22,10 @@
                     <div class="grid grid-cols-5 gap-4 p-4">
                         <button
                             class="hover:border hover:border-blue-700 px-10 rounded transition duration-200 flex flex-col items-center text-sm"
-                            wire:click="addBlock({{ $block['id'] }}, 'GREETINGS')">
+                            wire:click="addBlock({{ $block['id'] }}, 'GREETINGS')"
+                            >
                             <div class="flex-1 flex items-center justify-center w-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="gray" class="size-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="size-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
                                   </svg>
                             </div>
@@ -33,6 +34,7 @@
                                 <span class="text-gray-700">Greetings</span>
                             </div>
                         </button>
+
                         <button
                             class="hover:border hover:border-blue-700 px-10 rounded transition duration-200 flex flex-col items-center text-sm"
                             wire:click="addBlock({{ $block['id'] }}, 'DIAL')">
@@ -48,13 +50,11 @@
                             </div>
                         </button>
                         <button
-                            class="hover:border hover:border-blue-700 px-10 rounded transition duration-200 flex flex-col items-center text-sm"
+                            class="hover:border hover:border-blue-700 hover:text-blue-700 px-10 rounded transition duration-200 flex flex-col items-center text-sm"
                             wire:click="addBlock({{ $block['id'] }}, 'SIMU')">
 
                             <div class="flex-1 flex items-center justify-center w-full">
-                                <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                    <path fill-rule="evenodd" d="M3 5.983C3 4.888 3.895 4 5 4h14c1.105 0 2 .888 2 1.983v8.923a1.992 1.992 0 0 1-2 1.983h-6.6l-2.867 2.7c-.955.899-2.533.228-2.533-1.08v-1.62H5c-1.105 0-2-.888-2-1.983V5.983Zm5.706 3.809a1 1 0 1 0-1.412 1.417 1 1 0 1 0 1.412-1.417Zm2.585.002a1 1 0 1 1 .003 1.414 1 1 0 0 1-.003-1.414Zm5.415-.002a1 1 0 1 0-1.412 1.417 1 1 0 1 0 1.412-1.417Z" clip-rule="evenodd"/>
-                                  </svg>
+                                <x-callflowicons.simucall></x-callflowicons.simucall>
                             </div>
 
                             <div class="flex-none">
@@ -95,9 +95,7 @@
                             wire:click="addBlock({{ $block['id'] }}, 'SCHEDULE')">
 
                             <div class="flex-1 flex items-center justify-center w-full" >
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
-                                    <path stroke-width="1" d="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z" clip-rule="evenodd"/>
-                                </svg>
+                                <x-callflowicons.schedule></x-callflowicons.schedule>
                             </div>
 
                             <div class="flex-none">
@@ -110,7 +108,7 @@
 
                             <div class="flex-1 flex items-center justify-center w-full">
 
-                                  <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="1"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-dialpad">
+                                  <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="black"  stroke-width="1"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-dialpad">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 3h2a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1z" /><path d="M18 3h2a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1z" /><path d="M11 3h2a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1z" /><path d="M4 10h2a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1z" /><path d="M18 10h2a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1z" /><path d="M11 10h2a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1z" /><path d="M11 17h2a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1z" /></svg>
                             </div>
 
@@ -224,24 +222,25 @@
                     <span class="flex items-center space-x-2">
                         <div class="text-sm">Forward Calls To</div>
                         <div class="relative">
-                            <input type="text" x-mask="999-999-9999" id="floating_outlined" class="block px-2.5 text-sm text-gray-900 bg-transparent rounded-lg border border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                            <label for="floating_outlined" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">
+                            <input type="text" x-mask="999-999-9999" class="block px-2.5 text-sm text-gray-900 bg-transparent rounded-lg border border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                            <label class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">
                                 Number
                             </label>
                         </div>
                     </span>
 
                     <div class="flex items-center">
-                        <input id="dial-checkbox" type="checkbox" value=""
+                        <label class="ms-2 text-sm font-medium">
+                        <input type="checkbox" value=""
                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="dial-checkbox" class="ms-2 text-sm font-medium">
+
                             Prevent <span data-popover-target="popover-voicemails"
                                 data-popover-placement="right"
                                 class="text-blue-700 hover:text-blue-800 text-sm cursor-pointer">
                                 voicemails and automated systems
                             </span> from answering a call.
                         </label>
-                        <div id="popover-voicemails" role="tooltip"
+                        <div role="tooltip"
                         class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 max-h-[300px] overflow-y-auto">
                             <div class="px-3 py-2">
                                 <p>Some jurisdictions require both parties to consent to any recorded conversation. To assist in the compliance of these laws, you can enable a greeting to inform the caller that the call may be recorded. Your default greeting should disclose (1) that you are using CallRail to provide recording/transcription services and (2) disclose all purposes of the collection.</p>
@@ -252,8 +251,8 @@
                     </div>
                     <div class="flex items-center space-x-2 bg-blue-200 -mx-4 px-4 pt-2 text-blue-700">
                         <span>If the destination does not answer within</span>
-                        <label for="seconds" class="block mb-2 text-sm text-gray-900 dark:text-white">
-                            <select id="seconds" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 ">
+                        <label class="block mb-2 text-sm text-gray-900 dark:text-white">
+                            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 ">
                                 <option value="5">5 Seconds</option>
                                 <option value="10">10 Seconds</option>
                                 <option value="20">20 Seconds</option>
@@ -264,11 +263,14 @@
                         <span> then go to the next step.</span>
                     </div>
                 </div>
-                    <button
-                        class="my-4 px-4 py-2 text-blue-500 rounded hover:text-white hover:bg-blue-600"
-                        wire:click="chooseMenu('OPMENU', {{ $block['id'] + 1}})">
-                        + Insert Step Here
-                    </button>
+                <div class="my-4 text-gray-500">
+                    If call is not answered
+                </div>
+                <button
+                    class="my-4 px-4 py-2 text-blue-500 rounded hover:text-white hover:bg-blue-600"
+                    wire:click="chooseMenu('OPMENU', {{ $block['id'] + 1}})">
+                    + Insert Step Here
+                </button>
             </div>
 
             @elseif($block['type'] == "SIMU")
@@ -278,27 +280,84 @@
                     id="block-{{ $block['id'] }}">
                     <div>
                         <div class="flex justify-between items-center">
-                            <h4 class="font-bold text-lg">Dial {{$block['type']}}</h4>
+                            <h4 class="font-bold text-lg">Simulcall</h4>
                             <button
                                 class="text-red-500 hover:underline"
                                 wire:click="removeBlock({{ $block['id'] }})">
                                 x
                             </button>
                         </div>
-                        <div class="text-gray-500 text-sm">This is where the phone will ring when customers dial your tracking number.</div>
+                        <div class="text-gray-500 text-sm">We'll dial all numbers in the Simulcall at the same time. The first person to answer will be connected to the caller.</div>
                     </div>
 
                     <hr class="h-px my-4 bg-gray-200 border-0">
+                    <span class="flex flex-col space-y-2">
+                        <div class="text-sm">Forward Calls To</div>
 
+                        <div class="relative">
+                            <input type="text" x-mask="999-999-9999" class="block px-2.5 text-sm text-gray-900 bg-transparent rounded-lg border border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                            <label class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">
+                                Number
+                            </label>
+                        </div>
+                        <div>
+                            <button class="text-blue-700 text-sm">+ Add Number</button>
+                        </div>
+                    </span>
+                    <div class="flex flex-col">
+                        <div>
+                            <label class="ms-2 text-sm font-medium">
+                            <input type="checkbox" value=""
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
 
+                                Prevent <span data-popover-target="popover-voicemails"
+                                    data-popover-placement="right"
+                                    class="text-blue-700 hover:text-blue-800 text-sm cursor-pointer">
+                                    voicemails and automated systems
+                                </span> from answering a call.
+                            </label>
+                            <div role="tooltip"
+                            class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 max-h-[300px] overflow-y-auto">
+                                <div class="px-3 py-2">
+                                    <p>Some jurisdictions require both parties to consent to any recorded conversation. To assist in the compliance of these laws, you can enable a greeting to inform the caller that the call may be recorded. Your default greeting should disclose (1) that you are using CallRail to provide recording/transcription services and (2) disclose all purposes of the collection.</p>
+                                </div>
+                                <div data-popper-arrow></div>
+                                <x-atoms.forms.button class="border">Close</x-atoms.forms.button>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="ms-2 text-sm font-medium">
+                            <input type="checkbox" value=""
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+
+                                Route previous callers to the number that answered last time they called.
+                            </label>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 bg-blue-200 -mx-4 px-4 pt-2 text-blue-700">
+                        <span>If the destination does not answer within</span>
+                        <label class="block mb-2 text-sm text-gray-900 dark:text-white">
+                            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 ">
+                                <option value="5">5 Seconds</option>
+                                <option value="10">10 Seconds</option>
+                                <option value="20">20 Seconds</option>
+                                <option value="30">30 Seconds</option>
+                                <option value="60" selected>60 Seconds</option>
+                            </select>
+                        </label>
+                        <span> then go to the next step.</span>
+                    </div>
 
 
                 </div>
-                    <button
-                        class="my-4 px-4 py-2 text-blue-500 rounded hover:text-white hover:bg-blue-600"
-                        wire:click="chooseMenu('OPMENU', {{ $block['id'] + 1}})">
-                        + Insert Step Here
-                    </button>
+                <div class="my-4 text-gray-500">
+                    If call is not answered
+                </div>
+                <button
+                    class="my-4 px-4 py-2 text-blue-500 rounded hover:text-white hover:bg-blue-600"
+                    wire:click="chooseMenu('OPMENU', {{ $block['id'] + 1}})">
+                    + Insert Step Here
+                </button>
             </div>
             @elseif($block['type'] == "ROUND")
             <div class="mb-"8>
@@ -307,50 +366,145 @@
                     id="block-{{ $block['id'] }}">
                     <div>
                         <div class="flex justify-between items-center">
-                            <h4 class="font-bold text-lg">Dial {{$block['type']}}</h4>
+                            <h4 class="font-bold text-lg">Round Robin</h4>
                             <button
                                 class="text-red-500 hover:underline"
                                 wire:click="removeBlock({{ $block['id'] }})">
                                 x
                             </button>
                         </div>
-                        <div class="text-gray-500 text-sm">This is where the phone will ring when customers dial your tracking number.</div>
+                        <div class="text-gray-500 text-sm">Rotate calls evenly among a group of people. Repeat callers can be routed to the destination number that took the same caller's initial call.</div>
                     </div>
 
                     <hr class="h-px my-4 bg-gray-200 border-0">
+                    <span class="flex flex-col space-y-2">
+                        <div class="text-sm">Forward Calls To</div>
 
+                        <div class="relative">
+                            <input type="text" x-mask="999-999-9999" class="block px-2.5 text-sm text-gray-900 bg-transparent rounded-lg border border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                            <label class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">
+                                Number
+                            </label>
+                        </div>
+                        <div>
+                            <button class="text-blue-700 text-sm">+ Add Number</button>
+                        </div>
+                    </span>
+                    <div class="flex flex-col">
+                        <div>
+                            <label class="ms-2 text-sm font-medium">
+                            <input type="checkbox" value=""
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
 
+                                Prevent <span data-popover-target="popover-voicemails"
+                                    data-popover-placement="right"
+                                    class="text-blue-700 hover:text-blue-800 text-sm cursor-pointer">
+                                    voicemails and automated systems
+                                </span> from answering a call.
+                            </label>
+                            <div role="tooltip"
+                            class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 max-h-[300px] overflow-y-auto">
+                                <div class="px-3 py-2">
+                                    <p>Some jurisdictions require both parties to consent to any recorded conversation. To assist in the compliance of these laws, you can enable a greeting to inform the caller that the call may be recorded. Your default greeting should disclose (1) that you are using CallRail to provide recording/transcription services and (2) disclose all purposes of the collection.</p>
+                                </div>
+                                <div data-popper-arrow></div>
+                                <x-atoms.forms.button class="border">Close</x-atoms.forms.button>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="ms-2 text-sm font-medium">
+                            <input type="checkbox" value=""
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                Route calls using a weighted distribution.
+                            </label>
+                        </div>
+                        <div>
+                            <label  class="ms-2 text-sm font-medium">
+                            <input type="checkbox" value=""
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+
+                                Route previous callers to the number that answered last time they called.
+                            </label>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 bg-blue-200 -mx-4 px-4 pt-2 text-blue-700">
+                        <span>If no one answers,</span>
+                        <label class="block mb-2 text-sm text-gray-900 dark:text-white">
+                            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 ">
+                                <option value="0">don't try any additional numbers</option>
+                                <option value="1">try the next number</option>
+                                <option value="2">try the next 2 numbers</option>
+                                <option value="3">try the next 3 numbers</option>
+                                <option value="4">try the next 4 numbers</option>
+                                <option value="5">try the next 5 numbers</option>
+                            </select>
+                        </label>
+                        <span>before continuing to the next step.</span>
+                    </div>
 
 
                 </div>
-                    <button
-                        class="my-4 px-4 py-2 text-blue-500 rounded hover:text-white hover:bg-blue-600"
-                        wire:click="chooseMenu('OPMENU', {{ $block['id'] + 1}})">
-                        + Insert Step Here
-                    </button>
+                <div class="my-4 text-gray-500">
+                    If call is not answered
+                </div>
+                <button
+                    class="my-4 px-4 py-2 text-blue-500 rounded hover:text-white hover:bg-blue-600"
+                    wire:click="chooseMenu('OPMENU', {{ $block['id'] + 1}})">
+                    + Insert Step Here
+                </button>
             </div>
             @elseif($block['type'] == "MENU")
-            <div class="mb-"8>
+            <div class="mb-8">
                 <div
-                    class="p-4 border rounded shadow-sm bg-white w-full text-left space-y-4"
+                    class="p-4 border rounded shadow-sm bg-white w-full text-gray-800 text-left"
                     id="block-{{ $block['id'] }}">
-                    <div>
-                        <div class="flex justify-between items-center">
-                            <h4 class="font-bold text-lg">Dial {{$block['type']}}</h4>
-                            <button
-                                class="text-red-500 hover:underline"
-                                wire:click="removeBlock({{ $block['id'] }})">
-                                x
-                            </button>
-                        </div>
-                        <div class="text-gray-500 text-sm">This is where the phone will ring when customers dial your tracking number.</div>
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-lg">Greetings</h4>
+                        <button
+                            class="text-red-500 hover:underline"
+                            wire:click="removeBlock({{ $block['id'] }})">
+                            x
+                        </button>
                     </div>
-
+                    <div class="text-gray-500 text-sm">Play a message to the caller. Frequently used to notify the caller about call recording.</div>
                     <hr class="h-px my-4 bg-gray-200 border-0">
-
-
-
-
+                    <div class="space-y-2 text-sm">
+                        <p>Read the following text to the caller with a robot-like voice:</p>
+                        <textarea class="w-full border border-gray-300 p-2 resize-none text-sm" placeholder="Type your message here...">Press 1 for Sales, press 2 for Support.</textarea>
+                        <button class="flex items-center text-blue-600">
+                            <x-atoms.icons.play class="mr-2"></x-atoms.icons.play>
+                            Preview Message
+                        </button>
+                    </div>
+                    <div>
+                        <div>If the caller</div>
+                        <div class="flex flex-col space-y-4">
+                            <div class="flex space-x-4">
+                                <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 ">
+                                    @foreach($caller_pressed as $pressed)
+                                    <option value="{{$pressed}}">Presses {{$pressed}}</option>
+                                    @endforeach
+                                    <option value="-1">Does nothing</option>
+                                </select>
+                                <input type="text" value="Forward to Sales">
+                            </div>
+                            <div class="flex space-x-4">
+                                <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 ">
+                                    @foreach($caller_pressed as $pressed)
+                                    <option value="{{$pressed}}">Presses {{$pressed}}</option>
+                                    @endforeach
+                                    <option value="-1">Does nothing</option>
+                                </select>
+                                <input type="text" value="Forward to Support">
+                            </div>
+                        </div>
+                        <div>
+                            <button class="text-blue-700 text-sm">+ Add Number</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="my-4 text-gray-500">
+                    The caller pressed ‘1’
                 </div>
                     <button
                         class="my-4 px-4 py-2 text-blue-500 rounded hover:text-white hover:bg-blue-600"
@@ -383,19 +537,19 @@
                     </div>
 
                     <div class="flex space-x-4">
-                        <select id="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 ">
+                        <select  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 ">
                             @foreach($days as $day)
                             <option value="{{$day}}">{{$day}}</option>
                             @endforeach
                         </select>
-                        <select id="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 ">
+                        <select  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 ">
                             @foreach($times as $time)
                             <option value="{{$time}}">{{$time}}</option>
                             @endforeach
                         </select>
                         <div>
                             <span>From: </span>
-                            <select id="time-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500">
+                            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500">
                                 @for ($hour = 0; $hour < 24; $hour++)
                                     @php
                                         // Determine if it's AM or PM
@@ -406,7 +560,7 @@
                                     <option value="{{ $hour }}">{{ $displayHour }} {{ $ampm }}</option>
                                 @endfor
                             </select>
-                            <select id="minute-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500">
+                            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500">
                                 @for ($minute = 0; $minute < 60; $minute += 5)
                                     <option value="{{ $minute }}">{{ str_pad($minute, 2, '0', STR_PAD_LEFT) }}</option>
                                 @endfor
@@ -417,7 +571,7 @@
                             <span>
                                 To:
                             </span>
-                            <select id="time-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500">
+                            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500">
                                 @for ($hour = 0; $hour < 24; $hour++)
                                     @php
                                         // Determine if it's AM or PM
@@ -433,7 +587,7 @@
 
                                 @endfor
                             </select>
-                            <select id="minute-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500">
+                            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500">
                                 @for ($minute = 0; $minute < 60; $minute += 5)
                                     <option value="{{ $minute }}">{{ str_pad($minute, 2, '0', STR_PAD_LEFT) }}</option>
                                 @endfor
@@ -442,6 +596,17 @@
 
                     </div>
 
+                    <div>
+                        <button class="text-blue-700 text-sm">+ Add Number</button>
+                    </div>
+                    <x-atoms.forms.button variant="primary">+ Add Schedule Branch</x-atoms.forms.button>
+
+                    <div>
+                        Any other time.
+                    </div>
+                </div>
+                <div class="my-4 text-gray-500">
+                    The call is received during Schedule Branch A
                 </div>
                     <button
                         class="my-4 px-4 py-2 text-blue-500 rounded hover:text-white hover:bg-blue-600"
@@ -478,9 +643,9 @@
                             Preview Message
                         </button>
                         <div>
-                            <input id="dial-checkbox" type="checkbox"
+                            <input type="checkbox"
                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="dial-checkbox" class="ms-2 text-sm font-medium">
+                            <label class="ms-2 text-sm font-medium">
                                 Allow caller to press # and skip entering a code.
                             </label>
                         </div>
