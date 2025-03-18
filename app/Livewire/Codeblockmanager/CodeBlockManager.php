@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Codeblockmanager;
 
 use Livewire\Component;
 
@@ -14,6 +14,7 @@ class CodeBlockManager extends Component
     public $seconds = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
 
     public $caller_pressed = [1, 2, 3, 4, 5, 6, 7, 8, 9, '#', '*', 0];
+
     public function chooseMenu($type, $id)
     {
 
@@ -37,11 +38,6 @@ class CodeBlockManager extends Component
         $this->codeBlocks[] = $newBlock;
     }
 
-    public function removeBlock($id)
-    {
-        $this->codeBlocks = array_filter($this->codeBlocks, fn($block) => $block['id'] !== $id);
-    }
-
     public function addBlock($id, $type)
     {
         // Remove any existing block with the same ID
@@ -51,34 +47,16 @@ class CodeBlockManager extends Component
                 break; // Exit the loop as we only need to delete the first matching ID
             }
         }
-
-        // Insert the new block
-        $newBlock = [
-            'id' => $id,
-            'type' => $type,
-
-        ];
-
-        // Insert the new block at the correct position and increment IDs
-        foreach ($this->codeBlocks as $index => $block) {
-            if ($block['id'] >= $id) {
-                array_splice($this->codeBlocks, $index, 0, [$newBlock]); // Insert new block
-                // Increment IDs of succeeding blocks
-                for ($i = $index + 1; $i < count($this->codeBlocks); $i++) {
-                    $this->codeBlocks[$i]['id']++;
-                }
-                return;
-            }
-        }
-
-        // If the ID is larger than all existing IDs, append the new block
-        $this->codeBlocks[] = $newBlock;
+        $this->chooseMenu($type, $id);
     }
 
-
+    public function removeBlock($id)
+    {
+        $this->codeBlocks = array_filter($this->codeBlocks, fn($block) => $block['id'] !== $id);
+    }
 
     public function render()
     {
-        return view('livewire.code-block-manager');
+        return view('livewire.codeblockmanager.code-block-manager');
     }
 }

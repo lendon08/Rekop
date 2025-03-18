@@ -7,6 +7,7 @@ use Livewire\Component;
 class CallFlowEdit extends Component
 {
     public $label;
+    public $recording = false;
     public function mount()
     {
         $this->label = "Greeting > Menu > Dial";

@@ -40,8 +40,6 @@
         @livewireScripts
 
         @stack('scripts')
-        <footer>
-            <script src="{{ Storage::url("js/".auth()->user()->company_id."/swap.js") }}"></script>
-        </footer>
+            {{-- <footer>J --}}
     </body>
 </html>

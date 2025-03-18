@@ -5,6 +5,7 @@ namespace App\Livewire\Pages;
 
 use App\Models\Callhistory;
 use App\Models\Phonenumbers;
+use Illuminate\Auth\Events\Failed;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\Attributes\Title;
@@ -41,19 +42,27 @@ class Dashboard extends Component
     public $callData;
     public function mount()
     {
-
-
         $totalCount = Callhistory::count();
+
+        /**----------------------------------REDO-----------------------------------------------------
+            1. Make the total to today's date. The currrent value gets all the call
+            2. Display other values even if they have no value
+                2.1 Answered
+                2.2 Failed
+                2.3 Missed
+                2.3 Abbandoned
+         **/
 
         $this->callData = Callhistory::select('status', DB::raw('count(*) as total'))
             ->groupBy('status')
+            // ->whereDate('call_date', today())
             ->get()
             ->map(function ($item) use ($totalCount) {
                 $item->percentage = $totalCount > 0 ? number_format(($item->total / $totalCount) * 100, 2) : 0;
                 return $item;
             });
 
-
+        //-------------------------------REDO END----------------------------------------------------
 
         //Setup for this Week
         $this->TWstart = today()->subMinute();
@@ -80,13 +89,13 @@ class Dashboard extends Component
             ->get();
 
         $unansweredCalls = Callhistory::where('status', 'no-answer')
-            ->whereDate('call_date', '2024-06-04') //Use only to show that there is no-answerword
-            // ->whereDate('call_date', today()) // NOTE: use this
+            // ->whereDate('call_date', '2024-06-04') //Use only to show that there is no-answerw
+            ->whereDate('call_date', today()) // NOTE: use this
             ->select(DB::raw('HOUR(call_date) as hour'), DB::raw('COUNT(*) as total'))
             ->groupBy('hour')
             ->orderBy('hour')
             ->get();
-        // dd($unansweredCalls);
+
         $answeredCalls = Callhistory::where('status', 'completed')
             ->whereDate('call_date', today())
             ->select(DB::raw('HOUR(call_date) as hour'), DB::raw('COUNT(*) as total'))
@@ -94,9 +103,8 @@ class Dashboard extends Component
             ->orderBy('hour')
             ->get();
 
-        $this->recentCalls = Callhistory::
-            // whereDate('call_date', today()) //NOTE: use this
-            whereBetween('call_date', [$this->TWend, $this->TWstart]) //Just to show it works. I'll get this week values
+        $this->recentCalls = Callhistory::whereDate('call_date', today()) //NOTE: use this
+            // whereBetween('call_date', [$this->TWend, $this->TWstart]) //Just to show it works. It will get this week values
             ->limit(5)
             ->get();
 

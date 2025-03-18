@@ -1,12 +1,13 @@
 <div class="p-4">
 
+    @if(empty($codeBlocks))
         <button
             class="my-4 px-4 py-2 text-blue-500 rounded hover:text-white hover:bg-blue-600"
             wire:click="chooseMenu('OPMENU', 1)">
             + Insert Step Here
         </button>
 
-
+    @endif
 
     <div class="space-y-4 max-w-full m-1/2">
         @foreach ($codeBlocks as $block)
@@ -40,7 +41,7 @@
                             wire:click="addBlock({{ $block['id'] }}, 'DIAL')">
 
                             <div class="flex-1 flex items-center justify-center w-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="gray" class="size-6" style="transform: rotate(45deg);">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="size-6" style="transform: rotate(45deg);">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 3.75v4.5m0-4.5h-4.5m4.5 0-6 6m3 12c-8.284 0-15-6.716-15-15V4.5A2.25 2.25 0 0 1 4.5 2.25h1.372c.516 0 .966.351 1.091.852l1.106 4.423c.11.44-.054.902-.417 1.173l-1.293.97a1.062 1.062 0 0 0-.38 1.21 12.035 12.035 0 0 0 7.143 7.143c.441.162.928-.004 1.21-.38l.97-1.293a1.125 1.125 0 0 1 1.173-.417l4.423 1.106c.5.125.852.575.852 1.091V19.5a2.25 2.25 0 0 1-2.25 2.25h-2.25Z" />
                                   </svg>
                             </div>
@@ -121,7 +122,7 @@
                             wire:click="addBlock({{ $block['id'] }}, 'TAG')">
 
                             <div class="flex-1 flex items-center justify-center w-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="gray" class="size-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="black" class="size-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
                                   </svg>
@@ -136,7 +137,7 @@
                             wire:click="addBlock({{ $block['id'] }}, 'VOICEMAIL')">
 
                             <div class="flex-1 flex items-center justify-center w-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="gray" class="size-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="black" class="size-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 3.75H6.912a2.25 2.25 0 0 0-2.15 1.588L2.35 13.177a2.25 2.25 0 0 0-.1.661V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 0 0-2.15-1.588H15M2.25 13.5h3.86a2.25 2.25 0 0 1 2.012 1.244l.256.512a2.25 2.25 0 0 0 2.013 1.244h3.218a2.25 2.25 0 0 0 2.013-1.244l.256-.512a2.25 2.25 0 0 1 2.013-1.244h3.859M12 3v8.25m0 0-3-3m3 3 3-3" />
                               </svg>
                             </div>
@@ -149,7 +150,7 @@
                             class="hover:border hover:border-blue-700 px-10 rounded transition duration-200 flex flex-col items-center text-sm"
                             wire:click="addBlock({{ $block['id'] }}, 'HANGUP')">
                             <div class="flex-1 flex items-center justify-center w-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="gray" class="size-6" style="transform: rotate(135deg);">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="size-6" style="transform: rotate(135deg);">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 3.75v4.5m0-4.5h-4.5m4.5 0-6 6m3 12c-8.284 0-15-6.716-15-15V4.5A2.25 2.25 0 0 1 4.5 2.25h1.372c.516 0 .966.351 1.091.852l1.106 4.423c.11.44-.054.902-.417 1.173l-1.293.97a1.062 1.062 0 0 0-.38 1.21 12.035 12.035 0 0 0 7.143 7.143c.441.162.928-.004 1.21-.38l.97-1.293a1.125 1.125 0 0 1 1.173-.417l4.423 1.106c.5.125.852.575.852 1.091V19.5a2.25 2.25 0 0 1-2.25 2.25h-2.25Z" />
                                 </svg>
                             </div>
@@ -172,33 +173,25 @@
             </div>
             @elseif($block['type'] == "GREETINGS")
             <div class="mb-8">
-                <div
-                    class="p-4 border rounded shadow-sm bg-white w-full text-gray-800 text-left"
-                    id="block-{{ $block['id'] }}">
+                <div class="p-4 border rounded shadow-sm bg-white w-full text-gray-800 text-left" id="block-{{ $block['id'] }}">
                     <div class="flex justify-between items-center">
                         <h4 class="font-bold text-lg">Greetings</h4>
-                        <button
-                            class="text-red-500 hover:underline"
-                            wire:click="removeBlock({{ $block['id'] }})">
-                            x
-                        </button>
+                        <button class="text-red-500 hover:underline" wire:click="removeBlock({{ $block['id'] }})">x</button>
                     </div>
                     <div class="text-gray-500 text-sm">Play a message to the caller. Frequently used to notify the caller about call recording.</div>
                     <hr class="h-px my-4 bg-gray-200 border-0">
                     <div class="space-y-2 text-sm">
                         <p>Read the following text to the caller with a robot-like voice:</p>
-                        <textarea class="w-full border border-gray-300 p-2 resize-none text-sm" placeholder="Type your message here...">This call may be recorded and shared with third-party providers.</textarea>
+                        <textarea class="w-full border border-gray-300 p-2 resize-none text-sm" placeholder="Type your message here..." wire:model="message">{{ $message }}</textarea>
                         <button class="flex items-center text-blue-600">
                             <x-atoms.icons.play class="mr-2"></x-atoms.icons.play>
                             Preview Message
                         </button>
                     </div>
                 </div>
-                    <button
-                        class="my-4 px-4 py-2 text-blue-500 rounded hover:text-white hover:bg-blue-600"
-                        wire:click="chooseMenu('OPMENU', {{ $block['id'] + 1}})">
-                        + Insert Step Here
-                    </button>
+                <button class="my-4 px-4 py-2 text-blue-500 rounded hover:text-white hover:bg-blue-600" wire:click="chooseMenu('OPMENU', {{ $block['id'] + 1 }})">
+                    + Insert Step Here
+                </button>
             </div>
             @elseif($block['type'] == "DIAL")
             <div class="mb-"8>
@@ -721,11 +714,6 @@
 
 
                 </div>
-                    <button
-                        class="my-4 px-4 py-2 text-blue-500 rounded hover:text-white hover:bg-blue-600"
-                        wire:click="chooseMenu('OPMENU', {{ $block['id'] + 1}})">
-                        + Insert Step Here
-                    </button>
             </div>
             @elseif($block['type'] == "HANGUP")
             <div class="mb-"8>
@@ -744,11 +732,7 @@
                         <div class="text-gray-500 text-sm">The call will be disconnected.</div>
                     </div>
                 </div>
-                    <button
-                        class="my-4 px-4 py-2 text-blue-500 rounded hover:text-white hover:bg-blue-600"
-                        wire:click="chooseMenu('OPMENU', {{ $block['id'] + 1}})">
-                        + Insert Step Here
-                    </button>
+
             </div>
             @endif
 
