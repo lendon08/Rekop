@@ -25,18 +25,3 @@ php artisan migrate:fresh --seed
 ```
 php artisan fetch:call-history
 ```
-## Run the code
-```
-php artisan serve
-```
-
-```
-npm run dev
-```
-
-## Before Production Deployment(Warning don't do it in Developement)
-```
-php artisan config:cache
-```
-
-
