@@ -21,7 +21,10 @@ php artisan key:generate
 ```
 php artisan migrate:fresh --seed
 ```
-
+### Update call history
+```
+php artisan fetch:call-history
+```
 ## Run the code
 ```
 php artisan serve
@@ -36,7 +39,4 @@ npm run dev
 php artisan config:cache
 ```
 
->If you execute the php artisan config:cache command during your deployment process, you should be sure that you are only calling the env function from within your configuration files. Once the configuration has been cached, the .env file will not be loaded; therefore, the env function will only return external, system level environment variables.
 
-
-After deployment install this [Laravel Backup](https://spatie.be/docs/laravel-backup/v8/introduction)
