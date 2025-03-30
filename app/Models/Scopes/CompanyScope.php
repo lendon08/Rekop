@@ -13,9 +13,10 @@ class CompanyScope implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
-        // $builder->where('company_id', auth()->user()->company_id);
-        $builder->whereHas('phoneNumber.company', function ($query) {
-            $query->where('id', auth()->user()->company_id);
-        })->with('phoneNumber.company');
+        if (auth()->check()) {
+            $builder->whereHas('phoneNumber.company', function ($query) {
+                $query->where('id', auth()->user()->company_id);
+            })->with('phoneNumber.company');
+        }
     }
 }
